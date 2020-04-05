@@ -1,0 +1,11 @@
+{
+  "_comment": "Item",
+  "item.kimnarutree.test_item": "Test Item",
+  
+  "_comment": "Block",
+  "block.kimnarutree.test_block": "Test Block",
+
+  "_comment": "CreativeTab",
+  "itemGroup.kimnarutree": "Kim Naru Tree"
+  
+}

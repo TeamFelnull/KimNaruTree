@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "kimnarutree:block/test_block" }
+    }
+}

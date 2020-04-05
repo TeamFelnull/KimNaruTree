@@ -1,0 +1,11 @@
+{
+  "_comment": "Item",
+  "item.kimnarutree.test_item": "テストアイテム",
+  
+  "_comment": "Block",
+  "block.kimnarutree.test_block": "テストブロック",
+
+  "_comment": "CreativeTab",
+  "itemGroup.kimnarutree": "金なる木"
+  
+}
