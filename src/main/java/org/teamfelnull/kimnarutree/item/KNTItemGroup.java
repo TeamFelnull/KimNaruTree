@@ -11,7 +11,7 @@ public class KNTItemGroup {
 	public static final ItemGroup MOD_TAB = new ItemGroup(KimNaruTree.MODID) {
 		@OnlyIn(Dist.CLIENT)
 		public ItemStack createIcon() {
-			return new ItemStack(KNTItems.TEST_ITEM);
+			return new ItemStack(KNTItems.PICKY);
 		}
 	};
 }

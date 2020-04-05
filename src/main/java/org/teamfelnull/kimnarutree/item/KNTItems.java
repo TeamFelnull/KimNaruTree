@@ -8,9 +8,11 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class KNTItems {
 	//名前
 	public static Item TEST_ITEM = newItem("test_item");
+	public static Item PICKY = newItem("picky");
 
 	public static void registerItem(IForgeRegistry<Item> r) {
 		registryItem(r, TEST_ITEM);
+		registryItem(r, PICKY);
 	}
 
 	private static Item newItem(String name) {
@@ -22,4 +24,5 @@ public class KNTItems {
 		KimNaruTree.LOGGER.info("Registering Item : " + i.getRegistryName());
 		r.register(i);
 	}
+
 }
