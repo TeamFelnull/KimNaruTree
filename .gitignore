@@ -65,3 +65,4 @@ gradle/wrapper/gradle-wrapper.properties
 gradlew.bat
 gradlew_setup.bat
 *.mcmeta
+*.toml
