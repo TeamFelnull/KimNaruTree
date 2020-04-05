@@ -28,7 +28,7 @@ public class KimNaruTree {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
-
+//イキスギ
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
