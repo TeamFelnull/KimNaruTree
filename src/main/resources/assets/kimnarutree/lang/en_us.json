@@ -1,6 +1,7 @@
 {
   "_comment": "Item",
   "item.kimnarutree.test_item": "Test Item",
+  "item.kimnarutree.picky": "Picky",
   
   "_comment": "Block",
   "block.kimnarutree.test_block": "Test Block",
