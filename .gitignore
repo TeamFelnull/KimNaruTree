@@ -64,3 +64,4 @@ build/natives/SAPIWrapper_x86.dll
 gradle/wrapper/gradle-wrapper.properties
 gradlew.bat
 gradlew_setup.bat
+*.mcmeta
