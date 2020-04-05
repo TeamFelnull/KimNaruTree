@@ -1,0 +1,15 @@
+modLoader="javafml"
+loaderVersion="[28,)" 
+issueTrackerURL="http://my.issue.tracker/"
+[[mods]]
+modId="kimnarutree"
+version="${file.jarVersion}" 
+displayName="Kim Naru Tree"
+updateJSONURL="http://myurl.me/" 
+displayURL="" 
+logoFile="n.png" 
+credits=""
+authors="TeamFelNull" 
+description='''
+Thank you for downloading!
+'''
