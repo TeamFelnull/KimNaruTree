@@ -6,6 +6,18 @@
   "_comment": "Block",
   "block.kimnarutree.test_block": "Test Block",
 
+  "_comment": "Command",
+  "commands.money.show.me": "Balance is %s",
+  "commands.money.show.player": "%s 's Balance is %s",
+  "commands.money.set": "%s 's Balance has Changed from %s to %s",
+  "commands.money.set.f": "Failed to set Balance",
+  "commands.money.read": "Reading Money",
+  "commands.money.write": "Writing Money",
+  "commands.money.load": "Loading Money",
+  
+  "_comment": "Money",
+  "money.currencyunit.g": "G",
+  
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "Kim Naru Tree"
   

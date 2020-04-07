@@ -83,7 +83,7 @@ repositories {
 dependencies {
 
     minecraft 'net.minecraftforge:forge:1.14.4-28.2.3'
-
+  compile fg.deobf(files("libs/ReAuth-1.14-3.8.0-dev.jar"))
   compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.27:api")
   runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.27")
 }

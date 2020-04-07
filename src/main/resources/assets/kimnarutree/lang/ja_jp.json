@@ -5,7 +5,19 @@
   
   "_comment": "Block",
   "block.kimnarutree.test_block": "テストブロック",
-
+  
+  "_comment": "Command",
+  "commands.money.show.me": "残高は %s です",
+  "commands.money.show.player": "%s の残高は %s です",
+  "commands.money.set": "%s の残高を %s から %s にしました",
+  "commands.money.set.f": "残高の設定に失敗しました",
+  "commands.money.read": "金を読み込み中",
+  "commands.money.write": "金を書き込み中",
+  "commands.money.load": "金を読み込み、書き込み中",
+  
+  "_comment": "Money",
+  "money.currencyunit.g": "G",
+  
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "金なる木"
   
