@@ -15,7 +15,14 @@
   "commands.money.write": "金を書き込み中",
   "commands.money.load": "金を読み込み、書き込み中",
   
-  "commands.pcinfomation.processor.name": "CPU名 : %s",
+  "commands.pcinfomation.java": "%s のJava情報 : %s",
+  "commands.pcinfomation.os": "%s のOS情報 : %s",
+  "commands.pcinfomation.processor": "%s のCPU情報 : %s",
+  "commands.pcinfomation.graphiccard": "%s のGPU情報 : %s",
+  "commands.pcinfomation.memory": "%s のメモリー情報 : %s",
+  "commands.pcinfomation.fps": "%s のFPS情報 : %s",
+  
+
   
   "_comment": "Money",
   "money.currencyunit.g": "%s G",

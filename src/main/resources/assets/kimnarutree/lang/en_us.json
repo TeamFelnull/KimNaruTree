@@ -15,9 +15,13 @@
   "commands.money.write": "Writing Money",
   "commands.money.load": "Loading Money",
   
-  "commands.pcinfomation.processor.name": "Processor Name : %s",
-  "commands.pcinfomation.processor.identifier": "Processor Identifier : %s",
-  
+  "commands.pcinfomation.java": "%s 's Java Infomation : %s",
+  "commands.pcinfomation.os": "%s 's Operating System Infomation : %s",
+  "commands.pcinfomation.processor": "%s 's Processor Infomation : %s",
+  "commands.pcinfomation.graphiccard": "%s 's Graphi Ccard Infomation : %s",
+  "commands.pcinfomation.memory": "%s 's Memory Infomation : %s",
+  "commands.pcinfomation.fps": "%s 's FPS Infomation : %s",
+ 
   "_comment": "Money",
   "money.currencyunit.g": "%s G",
   

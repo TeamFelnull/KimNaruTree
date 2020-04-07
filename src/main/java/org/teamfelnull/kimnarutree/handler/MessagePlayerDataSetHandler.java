@@ -3,7 +3,7 @@ package org.teamfelnull.kimnarutree.handler;
 import java.util.function.Supplier;
 
 import org.teamfelnull.kimnarutree.packet.MessagePlayerDataSet;
-import org.teamfelnull.kimnarutree.util.PlayerDataLoader;
+import org.teamfelnull.kimnarutree.util.player.PlayerDataLoader;
 
 import net.minecraftforge.fml.network.NetworkEvent;
 

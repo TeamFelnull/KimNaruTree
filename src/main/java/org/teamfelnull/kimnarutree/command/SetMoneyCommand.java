@@ -3,9 +3,8 @@ package org.teamfelnull.kimnarutree.command;
 import java.util.Collection;
 
 import org.teamfelnull.kimnarutree.util.MoneyUtil;
-import org.teamfelnull.kimnarutree.util.PlayerDataLoader;
-import org.teamfelnull.kimnarutree.util.PlayerHelper;
 import org.teamfelnull.kimnarutree.util.StringHelper;
+import org.teamfelnull.kimnarutree.util.player.PlayerHelper;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -43,7 +42,7 @@ public class SetMoneyCommand {
 					new TranslationTextComponent("commands.money.set", pl.getName(), MoneyUtil.getDisplayMony(pl),
 							MoneyUtil.getDisplayAmount(mo)),
 					true);
-			PlayerDataLoader.setPlayerMoney(PlayerHelper.getUUID(pl), mo);
+			MoneyUtil.setPlayerMoney(PlayerHelper.getUUID(pl), mo);
 
 		}
 		return ic;

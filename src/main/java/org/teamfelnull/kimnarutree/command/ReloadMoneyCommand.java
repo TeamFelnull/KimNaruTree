@@ -1,6 +1,6 @@
 package org.teamfelnull.kimnarutree.command;
 
-import org.teamfelnull.kimnarutree.util.PlayerDataLoader;
+import org.teamfelnull.kimnarutree.util.player.PlayerDataLoader;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
