@@ -1,18 +1,19 @@
 package org.teamfelnull.kimnarutree.util;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class MoneyUtil {
-	public static String getDisplayAmount(long money) {
-		return money + I18n.format("money.currencyunit.g");
+	public static TranslationTextComponent getDisplayAmount(long money) {
+
+		return new TranslationTextComponent("money.currencyunit.g",money);
 	}
 
-	public static String getDisplayMony(String uuid) {
+	public static TranslationTextComponent getDisplayMony(String uuid) {
 		return getDisplayAmount(PlayerDataLoader.getPlayerMoney(uuid));
 	}
 
-	public static String getDisplayMony(PlayerEntity pl) {
+	public static TranslationTextComponent getDisplayMony(PlayerEntity pl) {
 		return getDisplayAmount(PlayerDataLoader.getPlayerMoney(pl));
 	}
 }

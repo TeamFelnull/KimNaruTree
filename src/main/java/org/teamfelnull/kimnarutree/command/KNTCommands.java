@@ -9,5 +9,7 @@ public class KNTCommands {
 		MoneyCommand.register(d);
 		ReloadMoneyCommand.register(d);
 		SetMoneyCommand.register(d);
+		TestCommand.register(d);
+	//	PCInfomationCommand.register(d);
 	}
 }

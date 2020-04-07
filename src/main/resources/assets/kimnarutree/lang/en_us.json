@@ -15,8 +15,11 @@
   "commands.money.write": "Writing Money",
   "commands.money.load": "Loading Money",
   
+  "commands.pcinfomation.processor.name": "Processor Name : %s",
+  "commands.pcinfomation.processor.identifier": "Processor Identifier : %s",
+  
   "_comment": "Money",
-  "money.currencyunit.g": "G",
+  "money.currencyunit.g": "%s G",
   
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "Kim Naru Tree"

@@ -13,14 +13,11 @@ import java.util.Map;
 import org.teamfelnull.kimnarutree.KimNaruTree;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.storage.SaveFormat;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class FileLoadUtil {
 	public static Path getWorldSaveDataPath(MinecraftServer ms) {
-		Path pth = ObfuscationReflectionHelper.getPrivateValue(SaveFormat.class, ms.getActiveAnvilConverter(),
-				"savesDir");
-		return pth.resolve(ms.getFolderName());
+		Path pth = ms.getActiveAnvilConverter().getFile(ms.getFolderName(), "test").getParentFile().toPath();
+		return pth;
 	}
 
 	public static Path getKNTWorldSaveDataPath(MinecraftServer ms) {

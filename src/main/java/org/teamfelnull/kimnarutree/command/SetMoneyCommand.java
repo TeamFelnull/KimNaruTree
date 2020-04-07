@@ -9,7 +9,6 @@ import org.teamfelnull.kimnarutree.util.StringHelper;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -32,7 +31,6 @@ public class SetMoneyCommand {
 	private static int setMoney(CommandSource source, Collection<ServerPlayerEntity> collection, String i) {
 		int ic = 0;
 		long mo = StringHelper.convertLongFromString(i);
-
 		if (collection == null || mo == 0) {
 			source.sendFeedback(
 					new TranslationTextComponent("commands.money.set.f", MoneyUtil.getDisplayAmount(mo)),
@@ -40,15 +38,13 @@ public class SetMoneyCommand {
 			return 0;
 		}
 		for (ServerPlayerEntity pl : collection) {
-			try {
-				source.sendFeedback(
-						new TranslationTextComponent("commands.money.set", pl.getName(), MoneyUtil.getDisplayMony(pl),
-								MoneyUtil.getDisplayAmount(mo)),
-						true);
-				PlayerDataLoader.setPlayerMoney(PlayerHelper.getUUID(source.asPlayer()), mo);
-			} catch (CommandSyntaxException e) {
 
-			}
+			source.sendFeedback(
+					new TranslationTextComponent("commands.money.set", pl.getName(), MoneyUtil.getDisplayMony(pl),
+							MoneyUtil.getDisplayAmount(mo)),
+					true);
+			PlayerDataLoader.setPlayerMoney(PlayerHelper.getUUID(pl), mo);
+
 		}
 		return ic;
 	}

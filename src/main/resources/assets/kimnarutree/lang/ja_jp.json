@@ -15,8 +15,10 @@
   "commands.money.write": "金を書き込み中",
   "commands.money.load": "金を読み込み、書き込み中",
   
+  "commands.pcinfomation.processor.name": "CPU名 : %s",
+  
   "_comment": "Money",
-  "money.currencyunit.g": "G",
+  "money.currencyunit.g": "%s G",
   
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "金なる木"
