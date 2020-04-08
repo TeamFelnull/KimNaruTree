@@ -115,6 +115,7 @@ public class PCInfomationCommand {
 
 			}
 		}
+//胸にかけて胸に
 
 		return 1;
 	}
