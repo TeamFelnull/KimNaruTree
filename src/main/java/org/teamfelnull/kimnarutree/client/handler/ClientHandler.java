@@ -5,25 +5,26 @@ import org.teamfelnull.kimnarutree.packet.PacketHandler;
 
 import com.mojang.blaze3d.platform.GLX;
 
-import mezz.jei.events.PlayerJoinedWorldEvent;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import oshi.SystemInfo;
 import oshi.software.os.OperatingSystem;
 
 public class ClientHandler {
-	private static boolean frust;
+	private static boolean frist;
 	public static String gupname;
 	public static Minecraft mc = Minecraft.getInstance();
 
 	@SubscribeEvent
 	public static void onTick(TickEvent.ClientTickEvent e) {
 
-		if (!frust)
+		if (!frist)
 			gupname = GLX.getRenderer();
 
-		frust = true;
+		frist = true;
 
 		if (mc.player == null)
 			return;
@@ -46,8 +47,12 @@ public class ClientHandler {
 		return bytes / 1024L / 1024L;
 	}
 
+	@SuppressWarnings("resource")
 	@SubscribeEvent
-	public static void onPlayerLogin(PlayerJoinedWorldEvent e) {
+	public static void onPlayerJoin(EntityJoinWorldEvent e) {
+
+		if (!e.getWorld().isRemote || !(e.getEntity() instanceof ClientPlayerEntity))
+			return;
 
 		SystemInfo syminfo = new SystemInfo();
 		//	HardwareAbstractionLayer hardware = syminfo.getHardware();
@@ -60,7 +65,6 @@ public class ClientHandler {
 		String gpu = gupname;
 
 		PacketHandler.INSTANCE.sendToServer(new MessageSendSysmtemInfo(java, os, cpu, gpu, "", "", false));
-
 	}
 
 }

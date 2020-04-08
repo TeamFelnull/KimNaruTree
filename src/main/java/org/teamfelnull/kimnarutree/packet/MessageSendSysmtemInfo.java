@@ -1,7 +1,5 @@
 package org.teamfelnull.kimnarutree.packet;
 
-import java.util.List;
-
 import net.minecraft.network.PacketBuffer;
 
 public class MessageSendSysmtemInfo {
@@ -12,7 +10,6 @@ public class MessageSendSysmtemInfo {
 	public String memoryinfo;
 	public String fpsinfo;
 	public boolean tickupdate;
-	public List<Integer> cpuu;
 
 	public MessageSendSysmtemInfo(String javaInfo, String osInfo, String cpuInfo, String gupInfo, String memoryInfo,
 			String fpsInfo, boolean tickUpdate) {
@@ -37,7 +34,7 @@ public class MessageSendSysmtemInfo {
 
 	public static MessageSendSysmtemInfo decodeMessege(PacketBuffer buffer) {
 
-		return new MessageSendSysmtemInfo(buffer.readString(), buffer.readString(), buffer.readString(),
-				buffer.readString(), buffer.readString(), buffer.readString(), buffer.readBoolean());
+		return new MessageSendSysmtemInfo(buffer.readString(32767), buffer.readString(32767), buffer.readString(32767),
+				buffer.readString(32767), buffer.readString(32767), buffer.readString(32767), buffer.readBoolean());
 	}
 }

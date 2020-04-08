@@ -21,7 +21,6 @@ public class KNTBlocks {
 	public static void registerItem(IForgeRegistry<Item> r) {
 		registryBlockItem(r, TEST_BLOCK);
 	}
-
 	private static Block newBlock(String name, Material materialIn, SoundType sound, float hardness, float resistance) {
 
 		return new Block(Block.Properties.create(materialIn).sound(sound).hardnessAndResistance(hardness, resistance))

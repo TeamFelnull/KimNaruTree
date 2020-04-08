@@ -9,12 +9,12 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit() {
 		super.preInit();
-		MinecraftForge.EVENT_BUS.register(ClientHandler.class);
+
 	}
 
 	public static void clientInit() {
 		KimNaruTree.LOGGER.info("Client Initing...");
-
+		MinecraftForge.EVENT_BUS.register(ClientHandler.class);
 	}
 
 	@Override

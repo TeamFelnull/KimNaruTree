@@ -21,6 +21,7 @@ public class MessageSendSysmtemPlayerHandler {
 			setUnSavePlayerData(ctx.get().getSender(), "info.memory", message.memoryinfo);
 			setUnSavePlayerData(ctx.get().getSender(), "info.fps", message.fpsinfo);
 		}
+
 	}
 
 	private static void setUnSavePlayerData(PlayerEntity pl, String statename, String state) {
