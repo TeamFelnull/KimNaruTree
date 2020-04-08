@@ -2,7 +2,7 @@
   "_comment": "Item",
   "item.kimnarutree.test_item": "Test Item",
   "item.kimnarutree.picky": "Picky",
-  
+
   "_comment": "Block",
   "block.kimnarutree.test_block": "Test Block",
 
@@ -11,10 +11,12 @@
   "commands.money.show.player": "%s 's Balance is %s",
   "commands.money.set": "%s 's Balance has Changed from %s to %s",
   "commands.money.set.f": "Failed to set Balance",
+  "commands.money.add": "%s has been added to %s 's Balance'",
+  "commands.money.add.f": "Failed to add Balance",
   "commands.money.read": "Reading Money",
   "commands.money.write": "Writing Money",
   "commands.money.load": "Loading Money",
-  
+
   "commands.pcinfomation.java": "%s 's Java Infomation : %s",
   "commands.pcinfomation.os": "%s 's Operating System Infomation : %s",
   "commands.pcinfomation.processor": "%s 's Processor Infomation : %s",
@@ -22,11 +24,11 @@
   "commands.pcinfomation.memory": "%s 's Memory Infomation : %s",
   "commands.pcinfomation.fps": "%s 's FPS : %s",
   "commands.pcinfomation.fps.average": "Overall Average FPS : %s fps",
-  
+
   "_comment": "Money",
   "money.currencyunit.g": "%s G",
-  
+
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "Kim Naru Tree"
-  
+
 }

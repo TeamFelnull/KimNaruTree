@@ -2,19 +2,21 @@
   "_comment": "Item",
   "item.kimnarutree.test_item": "テストアイテム",
   "item.kimnarutree.picky": "ピッキー",
-  
+
   "_comment": "Block",
   "block.kimnarutree.test_block": "テストブロック",
-  
+
   "_comment": "Command",
   "commands.money.show.me": "残高は %s です",
   "commands.money.show.player": "%s の残高は %s です",
   "commands.money.set": "%s の残高を %s から %s にしました",
   "commands.money.set.f": "残高の設定に失敗しました",
+  "commands.money.add": "%s を %s の残高に追加しました",
+  "commands.money.add.f": "残高の追加に失敗しました",
   "commands.money.read": "金を読み込み中",
   "commands.money.write": "金を書き込み中",
   "commands.money.load": "金を読み込み、書き込み中",
-  
+
   "commands.pcinfomation.java": "%s のJava情報 : %s",
   "commands.pcinfomation.os": "%s のOS情報 : %s",
   "commands.pcinfomation.processor": "%s のCPU情報 : %s",
@@ -22,11 +24,11 @@
   "commands.pcinfomation.memory": "%s のメモリー情報 : %s",
   "commands.pcinfomation.fps": "%s のFPS : %s",
   "commands.pcinfomation.fps.average": "全体平均FPS : %s fps",
-  
+
   "_comment": "Money",
   "money.currencyunit.g": "%s G",
-  
+
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "金なる木"
-  
+
 }
