@@ -11,10 +11,10 @@ public class CommonProxy {
 
 	public void init() {
 		KimNaruTree.LOGGER.info("Initing...");
-		//PlayerDataLoader.setPlayerData("test", "money", "810");
 	}
 
 	public void posInit() {
 		KimNaruTree.LOGGER.info("Post Initing...");
+
 	}
 }
