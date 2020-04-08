@@ -20,9 +20,8 @@
   "commands.pcinfomation.processor": "%s のCPU情報 : %s",
   "commands.pcinfomation.graphiccard": "%s のGPU情報 : %s",
   "commands.pcinfomation.memory": "%s のメモリー情報 : %s",
-  "commands.pcinfomation.fps": "%s のFPS情報 : %s",
-  
-
+  "commands.pcinfomation.fps": "%s のFPS : %s",
+  "commands.pcinfomation.fps.average": "全体平均FPS : %s fps",
   
   "_comment": "Money",
   "money.currencyunit.g": "%s G",

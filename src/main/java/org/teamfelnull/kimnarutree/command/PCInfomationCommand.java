@@ -2,6 +2,7 @@ package org.teamfelnull.kimnarutree.command;
 
 import java.util.Collection;
 
+import org.teamfelnull.kimnarutree.util.StringHelper;
 import org.teamfelnull.kimnarutree.util.player.PlayerDatas;
 import org.teamfelnull.kimnarutree.util.player.PlayerHelper;
 
@@ -12,7 +13,6 @@ import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class PCInfomationCommand {
@@ -73,9 +73,47 @@ public class PCInfomationCommand {
 								getPlayerPCInfo(pl, "info.fps")),
 						true);
 			} else {
-				source.sendFeedback(new StringTextComponent(PlayerDatas.UNSAVED_PLAYER_DATA.toString()), true);
+				source.sendFeedback(
+						new TranslationTextComponent("commands.pcinfomation.java", pl.getName(),
+								getPlayerPCInfo(pl, "info.java")),
+						true);
+				source.sendFeedback(
+						new TranslationTextComponent("commands.pcinfomation.os", pl.getName(),
+								getPlayerPCInfo(pl, "info.os")),
+						true);
+				source.sendFeedback(
+						new TranslationTextComponent("commands.pcinfomation.processor", pl.getName(),
+								getPlayerPCInfo(pl, "info.cpu")),
+						true);
+				source.sendFeedback(
+						new TranslationTextComponent("commands.pcinfomation.graphiccard", pl.getName(),
+								getPlayerPCInfo(pl, "info.gpu")),
+						true);
+				source.sendFeedback(
+						new TranslationTextComponent("commands.pcinfomation.memory", pl.getName(),
+								getPlayerPCInfo(pl, "info.memory")),
+						true);
+				source.sendFeedback(
+						new TranslationTextComponent("commands.pcinfomation.fps", pl.getName(),
+								getPlayerPCInfo(pl, "info.fps")),
+						true);
 			}
+		}
+		if (collection.size() >= 2) {
+			if (num == 6) {
+				int fpsavrage = 0;
+				for (ServerPlayerEntity pls : collection) {
 
+					int fps = StringHelper
+							.convertIntFromString(getPlayerPCInfo(pls, "info.fps").split("/")[0].replace("fps", ""));
+					fpsavrage += fps;
+
+				}
+				fpsavrage /= collection.size();
+				source.sendFeedback(
+						new TranslationTextComponent("commands.pcinfomation.fps.average", fpsavrage), true);
+
+			}
 		}
 
 		return 1;

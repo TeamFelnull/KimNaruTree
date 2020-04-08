@@ -20,8 +20,9 @@
   "commands.pcinfomation.processor": "%s 's Processor Infomation : %s",
   "commands.pcinfomation.graphiccard": "%s 's Graphi Ccard Infomation : %s",
   "commands.pcinfomation.memory": "%s 's Memory Infomation : %s",
-  "commands.pcinfomation.fps": "%s 's FPS Infomation : %s",
- 
+  "commands.pcinfomation.fps": "%s 's FPS : %s",
+  "commands.pcinfomation.fps.average": "Overall Average FPS : %s fps",
+  
   "_comment": "Money",
   "money.currencyunit.g": "%s G",
   
