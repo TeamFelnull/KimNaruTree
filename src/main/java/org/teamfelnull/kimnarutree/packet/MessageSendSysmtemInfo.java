@@ -7,16 +7,19 @@ public class MessageSendSysmtemInfo {
 	public String osinfo;
 	public String cpuinfo;
 	public String gupinfo;
+	public String modinfo;
 	public String memoryinfo;
 	public String fpsinfo;
 	public boolean tickupdate;
 
-	public MessageSendSysmtemInfo(String javaInfo, String osInfo, String cpuInfo, String gupInfo, String memoryInfo,
+	public MessageSendSysmtemInfo(String javaInfo, String osInfo, String cpuInfo, String gupInfo, String modInfo,
+			String memoryInfo,
 			String fpsInfo, boolean tickUpdate) {
 		this.javainfo = javaInfo;
 		this.osinfo = osInfo;
 		this.cpuinfo = cpuInfo;
 		this.gupinfo = gupInfo;
+		this.modinfo = modInfo;
 		this.memoryinfo = memoryInfo;
 		this.fpsinfo = fpsInfo;
 		this.tickupdate = tickUpdate;
@@ -27,6 +30,7 @@ public class MessageSendSysmtemInfo {
 		buffer.writeString(messegeIn.osinfo);
 		buffer.writeString(messegeIn.cpuinfo);
 		buffer.writeString(messegeIn.gupinfo);
+		buffer.writeString(messegeIn.modinfo);
 		buffer.writeString(messegeIn.memoryinfo);
 		buffer.writeString(messegeIn.fpsinfo);
 		buffer.writeBoolean(messegeIn.tickupdate);
@@ -35,6 +39,7 @@ public class MessageSendSysmtemInfo {
 	public static MessageSendSysmtemInfo decodeMessege(PacketBuffer buffer) {
 
 		return new MessageSendSysmtemInfo(buffer.readString(32767), buffer.readString(32767), buffer.readString(32767),
-				buffer.readString(32767), buffer.readString(32767), buffer.readString(32767), buffer.readBoolean());
+				buffer.readString(32767), buffer.readString(32767), buffer.readString(32767), buffer.readString(32767),
+				buffer.readBoolean());
 	}
 }

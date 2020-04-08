@@ -3,6 +3,10 @@ package org.teamfelnull.kimnarutree.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
+
+
 public class StringHelper {
 	public static long convertLongFromString(String st) {
 		try {
@@ -31,17 +35,7 @@ public class StringHelper {
 
 	public static String convertStringFromIntList(List<Integer> list) {
 
-		String o = "";
-		int co = 0;
-		for (int n : list) {
-			o += convertStringFromInt(n);
-			co++;
-			if (co != list.size())
-				o += ",";
-
-		}
-
-		return o;
+		return StringUtils.join(list, ",");
 	}
 
 	public static int convertIntFromString(String st) {

@@ -17,6 +17,7 @@ public class MessageSendSysmtemPlayerHandler {
 			setUnSavePlayerData(ctx.get().getSender(), "info.os", message.osinfo);
 			setUnSavePlayerData(ctx.get().getSender(), "info.cpu", message.cpuinfo);
 			setUnSavePlayerData(ctx.get().getSender(), "info.gpu", message.gupinfo);
+			setUnSavePlayerData(ctx.get().getSender(), "info.mod", message.modinfo);
 		} else {
 			setUnSavePlayerData(ctx.get().getSender(), "info.memory", message.memoryinfo);
 			setUnSavePlayerData(ctx.get().getSender(), "info.fps", message.fpsinfo);

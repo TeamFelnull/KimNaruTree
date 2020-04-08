@@ -35,6 +35,8 @@ public class PCInfomationCommand {
 			return showPCInfo(source.getSource(), EntityArgument.getPlayers(source, "targets"), 5);
 		})).then(Commands.literal("fps").executes(source -> {
 			return showPCInfo(source.getSource(), EntityArgument.getPlayers(source, "targets"), 6);
+		})).then(Commands.literal("mod").executes(source -> {
+			return showPCInfo(source.getSource(), EntityArgument.getPlayers(source, "targets"), 7);
 		}))));
 	}
 
@@ -72,6 +74,11 @@ public class PCInfomationCommand {
 						new TranslationTextComponent("commands.pcinfomation.fps", pl.getName(),
 								getPlayerPCInfo(pl, "info.fps")),
 						true);
+			} else if (num == 7) {
+				source.sendFeedback(
+						new TranslationTextComponent("commands.pcinfomation.mod", pl.getName(),
+								getPlayerPCInfo(pl, "info.mod")),
+						true);
 			} else {
 				source.sendFeedback(
 						new TranslationTextComponent("commands.pcinfomation.java", pl.getName(),
@@ -97,6 +104,11 @@ public class PCInfomationCommand {
 						new TranslationTextComponent("commands.pcinfomation.fps", pl.getName(),
 								getPlayerPCInfo(pl, "info.fps")),
 						true);
+				source.sendFeedback(
+						new TranslationTextComponent("commands.pcinfomation.mod", pl.getName(),
+								getPlayerPCInfo(pl, "info.mod")),
+						true);
+
 			}
 		}
 		if (collection.size() >= 2) {
@@ -115,7 +127,6 @@ public class PCInfomationCommand {
 
 			}
 		}
-
 
 		return 1;
 	}

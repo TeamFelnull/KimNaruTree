@@ -2,6 +2,7 @@
   "_comment": "Item",
   "item.kimnarutree.test_item": "Test Item",
   "item.kimnarutree.picky": "Picky",
+  "item.kimnarutree.npc_spawn_egg": "NPC Spawn Egg",
 
   "_comment": "Block",
   "block.kimnarutree.test_block": "Test Block",
@@ -21,6 +22,7 @@
   "commands.pcinfomation.os": "%s 's Operating System Infomation : %s",
   "commands.pcinfomation.processor": "%s 's Processor Infomation : %s",
   "commands.pcinfomation.graphiccard": "%s 's Graphi Ccard Infomation : %s",
+  "commands.pcinfomation.mod": "%s 's Mod List : %s",
   "commands.pcinfomation.memory": "%s 's Memory Infomation : %s",
   "commands.pcinfomation.fps": "%s 's FPS : %s",
   "commands.pcinfomation.fps.average": "Overall Average FPS : %s fps",

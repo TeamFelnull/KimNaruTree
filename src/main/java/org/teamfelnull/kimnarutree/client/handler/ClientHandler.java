@@ -2,6 +2,7 @@ package org.teamfelnull.kimnarutree.client.handler;
 
 import org.teamfelnull.kimnarutree.packet.MessageSendSysmtemInfo;
 import org.teamfelnull.kimnarutree.packet.PacketHandler;
+import org.teamfelnull.kimnarutree.util.ModUtil;
 
 import com.mojang.blaze3d.platform.GLX;
 
@@ -10,6 +11,8 @@ import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import oshi.SystemInfo;
 import oshi.software.os.OperatingSystem;
 
@@ -39,7 +42,7 @@ public class ClientHandler {
 		@SuppressWarnings({ "resource", "static-access" })
 		String fps = Minecraft.getDebugFPS() + "fps / " + mc.getInstance().gameSettings.framerateLimit + "fps";
 
-		PacketHandler.INSTANCE.sendToServer(new MessageSendSysmtemInfo("", "", "", "", memory, fps, true));
+		PacketHandler.INSTANCE.sendToServer(new MessageSendSysmtemInfo("", "", "", "", "", memory, fps, true));
 
 	}
 
@@ -64,7 +67,13 @@ public class ClientHandler {
 		String cpu = GLX.getCpuInfo();
 		String gpu = gupname;
 
-		PacketHandler.INSTANCE.sendToServer(new MessageSendSysmtemInfo(java, os, cpu, gpu, "", "", false));
+		String mod = "";
+
+		for (ModInfo mods : ModList.get().getMods()) {
+			mod += "[" + ModUtil.getModName(mods.getModId()) + " " + ModUtil.getModVersion(mods.getModId()) + "]" + " ";
+		}
+
+		PacketHandler.INSTANCE.sendToServer(new MessageSendSysmtemInfo(java, os, cpu, gpu, mod, "", "", false));
 	}
 
 }
