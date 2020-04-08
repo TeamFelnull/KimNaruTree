@@ -39,7 +39,7 @@ public class SetMoneyCommand {
 		for (ServerPlayerEntity pl : collection) {
 
 			source.sendFeedback(
-					new TranslationTextComponent("commands.money.set", pl.getName(), MoneyUtil.getDisplayMony(pl),
+					new TranslationTextComponent("commands.money.set", pl.getName(), MoneyUtil.getDisplayMoney(pl),
 							MoneyUtil.getDisplayAmount(mo)),
 					true);
 			MoneyUtil.setPlayerMoney(PlayerHelper.getUUID(pl), mo);

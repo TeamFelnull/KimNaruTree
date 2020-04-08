@@ -31,7 +31,7 @@ public class MoneyCommand {
 			try {
 				source.sendFeedback(
 						new TranslationTextComponent("commands.money.show.me",
-								MoneyUtil.getDisplayMony(source.asPlayer())),
+								MoneyUtil.getDisplayMoney(source.asPlayer())),
 						true);
 			} catch (CommandSyntaxException e) {
 
@@ -41,7 +41,7 @@ public class MoneyCommand {
 			for (ServerPlayerEntity pl : targets) {
 				source.sendFeedback(
 						new TranslationTextComponent("commands.money.show.player", pl.getName(),
-								MoneyUtil.getDisplayMony(pl)),
+								MoneyUtil.getDisplayMoney(pl)),
 						true);
 
 			}

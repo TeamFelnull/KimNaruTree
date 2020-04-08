@@ -15,10 +15,10 @@ public class MoneyUtil {
 	public static TranslationTextComponent getDisplayAmount(long money) {
 		return new TranslationTextComponent("money.currencyunit.g",money);
 	}
-	public static TranslationTextComponent getDisplayMony(String uuid) {
+	public static TranslationTextComponent getDisplayMoney(String uuid) {
 		return getDisplayAmount(getPlayerMoney(uuid));
 	}
-	public static TranslationTextComponent getDisplayMony(PlayerEntity pl) {
+	public static TranslationTextComponent getDisplayMoney(PlayerEntity pl) {
 		return getDisplayAmount(getPlayerMoney(pl));
 	}
 
