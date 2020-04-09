@@ -4,7 +4,7 @@ import org.teamfelnull.kimnarutree.packet.MessageSendSysmtemInfo;
 import org.teamfelnull.kimnarutree.packet.PacketHandler;
 import org.teamfelnull.kimnarutree.util.ModUtil;
 
-import com.mojang.blaze3d.platform.GLX;
+import com.mojang.blaze3d.platform.PlatformDescriptors;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
@@ -26,7 +26,7 @@ public class ClientHandler {
 	public static void onTick(TickEvent.ClientTickEvent e) {
 
 		if (!frist) {
-			gupname = GLX.getRenderer();
+			gupname = PlatformDescriptors.func_227776_c_();
 		}
 		frist = true;
 
@@ -41,7 +41,7 @@ public class ClientHandler {
 
 		String memory = String.format("% 2d%% %03d/%03dMB", l * 100L / i, bytesToMb(l), bytesToMb(i));
 		@SuppressWarnings({ "resource", "static-access" })
-		String fps = Minecraft.getDebugFPS() + "fps / " + mc.getInstance().gameSettings.framerateLimit + "fps";
+		String fps = mc.getFrameTimer() + "fps / " + mc.getInstance().gameSettings.framerateLimit + "fps";
 		PacketHandler.INSTANCE.sendToServer(new MessageSendSysmtemInfo("", "", "", "", "", memory, fps, true));
 	}
 
@@ -63,7 +63,7 @@ public class ClientHandler {
 		String java = "Java " + System.getProperty("java.version") + " " + (mc.isJava64bit() ? "64bit" : "32bit");
 		String os = oss.getManufacturer() + " " + System.getProperty("os.name") + " " + System.getProperty("os.version")
 				+ " " + System.getProperty("os.arch");
-		String cpu = GLX.getCpuInfo();
+		String cpu = PlatformDescriptors.func_227775_b_();
 		String gpu = gupname;
 		String mod = "";
 

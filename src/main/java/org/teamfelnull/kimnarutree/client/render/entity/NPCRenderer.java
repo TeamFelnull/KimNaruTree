@@ -4,7 +4,7 @@ import org.teamfelnull.kimnarutree.KimNaruTree;
 import org.teamfelnull.kimnarutree.client.render.model.NPCModel;
 import org.teamfelnull.kimnarutree.entity.NPCEntity;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -22,11 +22,11 @@ public class NPCRenderer extends MobRenderer<NPCEntity, NPCModel<NPCEntity>> {
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(NPCEntity entity) {
+	public ResourceLocation getEntityTexture(NPCEntity entity) {
 		return textuer;
 	}
 
-	protected void preRenderCallback(NPCEntity entitylivingbaseIn, float partialTickTime) {
+	protected void preRenderCallback(NPCEntity entitylivingbaseIn, MatrixStack p_225620_2_, float partialTickTime) {
 
 		float f = 0.9375F;
 
@@ -37,6 +37,6 @@ public class NPCRenderer extends MobRenderer<NPCEntity, NPCModel<NPCEntity>> {
 			this.shadowSize = 0.5F;
 		}
 
-		GlStateManager.scalef(f, f, f);
+		p_225620_2_.func_227862_a_(f, f, f);
 	}
 }
