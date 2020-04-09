@@ -13,7 +13,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class NPCRenderer extends MobRenderer<NPCEntity, NPCModel<NPCEntity>> {
 
-	private static final ResourceLocation textuer = new ResourceLocation(KimNaruTree.MODID,"textures/entity/npc/npc.png");
+	private static final ResourceLocation textuer = new ResourceLocation(KimNaruTree.MODID,
+			"textures/entity/npc/npc.png");
 
 	public NPCRenderer(EntityRendererManager p_i50961_1_) {
 		super(p_i50961_1_, new NPCModel<>(), 0.5f);
