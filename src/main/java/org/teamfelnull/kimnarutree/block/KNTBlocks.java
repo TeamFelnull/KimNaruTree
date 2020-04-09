@@ -11,7 +11,8 @@ import net.minecraft.item.Item;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class KNTBlocks {
-	//名前(小文字),マテリアル,音,硬さ,爆破耐性
+
+	//名前, マテリアル, 音, 硬さ, 爆破耐性
 	public static Block TEST_BLOCK = newBlock("test_block", Material.ROCK, SoundType.WOOD, 1.0f, 2.0f);
 
 	public static void registerBlock(IForgeRegistry<Block> r) {
@@ -21,8 +22,8 @@ public class KNTBlocks {
 	public static void registerItem(IForgeRegistry<Item> r) {
 		registryBlockItem(r, TEST_BLOCK);
 	}
-	private static Block newBlock(String name, Material materialIn, SoundType sound, float hardness, float resistance) {
 
+	private static Block newBlock(String name, Material materialIn, SoundType sound, float hardness, float resistance) {
 		return new Block(Block.Properties.create(materialIn).sound(sound).hardnessAndResistance(hardness, resistance))
 				.setRegistryName(KimNaruTree.MODID, name);
 	}

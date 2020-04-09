@@ -3,6 +3,7 @@ package org.teamfelnull.kimnarutree.packet;
 import net.minecraft.network.PacketBuffer;
 
 public class MessagePlayerDataSet {
+
 	public String playername;
 	public String statename;
 	public String state;
@@ -17,11 +18,9 @@ public class MessagePlayerDataSet {
 		buffer.writeString(messegeIn.playername);
 		buffer.writeString(messegeIn.statename);
 		buffer.writeString(messegeIn.state);
-
 	}
 
 	public static MessagePlayerDataSet decodeMessege(PacketBuffer buffer) {
-
 		return new MessagePlayerDataSet(buffer.readString(), buffer.readString(), buffer.readString());
 	}
 

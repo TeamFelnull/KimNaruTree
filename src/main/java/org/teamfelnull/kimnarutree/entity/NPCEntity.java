@@ -17,7 +17,6 @@ public class NPCEntity extends CreatureEntity {
 
 	protected NPCEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
 		super(type, worldIn);
-
 	}
 
 	@Override
@@ -27,7 +26,6 @@ public class NPCEntity extends CreatureEntity {
 		this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
-
 	}
 
 	protected SoundEvent getAmbientSound() {

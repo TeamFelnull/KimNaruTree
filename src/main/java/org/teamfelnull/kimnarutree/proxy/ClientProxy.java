@@ -9,17 +9,16 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy {
+
 	@Override
 	public void preInit() {
 		super.preInit();
-
 	}
 
 	public static void clientInit() {
 		KimNaruTree.LOGGER.info("Client Initing...");
 		MinecraftForge.EVENT_BUS.register(ClientHandler.class);
 		RenderingRegistry.registerEntityRenderingHandler(NPCEntity.class, NPCRenderer::new);
-
 	}
 
 	@Override

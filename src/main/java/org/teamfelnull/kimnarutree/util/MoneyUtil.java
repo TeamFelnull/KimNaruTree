@@ -15,9 +15,11 @@ public class MoneyUtil {
 	public static TranslationTextComponent getDisplayAmount(long money) {
 		return new TranslationTextComponent("money.currencyunit.g",money);
 	}
+
 	public static TranslationTextComponent getDisplayMoney(String uuid) {
 		return getDisplayAmount(getPlayerMoney(uuid));
 	}
+
 	public static TranslationTextComponent getDisplayMoney(PlayerEntity pl) {
 		return getDisplayAmount(getPlayerMoney(pl));
 	}
@@ -26,13 +28,10 @@ public class MoneyUtil {
 	public static long getPlayerMoney(PlayerEntity pl) {
 		return getPlayerMoney(PlayerHelper.getUUID(pl));
 	}
+
 	public static long getPlayerMoney(String uuid) {
-
-		if (!PlayerDatas.SAVED_PLAYER_DATA.containsKey(uuid))
-			return 0;
-
+		if (!PlayerDatas.SAVED_PLAYER_DATA.containsKey(uuid)) return 0;
 		Map<String, String> map = PlayerDatas.SAVED_PLAYER_DATA.get(uuid);
-
 		return StringHelper.convertLongFromString(map.get("money"));
 	}
 
@@ -40,11 +39,11 @@ public class MoneyUtil {
 	public static void setPlayerMoney(PlayerEntity pl, long money) {
 		setPlayerMoney(PlayerHelper.getUUID(pl).toString(), money);
 	}
+
 	public static void setPlayerMoney(String uuid, long money) {
-
-		if (!PlayerDatas.SAVED_PLAYER_DATA.containsKey(uuid))
+		if (!PlayerDatas.SAVED_PLAYER_DATA.containsKey(uuid)) {
 			PlayerDatas.SAVED_PLAYER_DATA.put(uuid, new HashMap<String, String>());
-
+		}
 		PlayerDatas.SAVED_PLAYER_DATA.get(uuid).put("money", StringHelper.convertStringFromLong(money));
 	}
 
@@ -52,12 +51,11 @@ public class MoneyUtil {
 	public static void addPlayerMoney(PlayerEntity pl, long money) {
 		setPlayerMoney(PlayerHelper.getUUID(pl).toString(), money);
 	}
+
 	public static void addPlayerMoney(String uuid, long money) {
-
-		if (!PlayerDatas.SAVED_PLAYER_DATA.containsKey(uuid))
+		if (!PlayerDatas.SAVED_PLAYER_DATA.containsKey(uuid)) {
 			PlayerDatas.SAVED_PLAYER_DATA.put(uuid, new HashMap<String, String>());
-
+		}
 		PlayerDatas.SAVED_PLAYER_DATA.get(uuid).put("money", StringHelper.convertStringFromLong(getPlayerMoney(uuid) + money));
 	}
-
 }

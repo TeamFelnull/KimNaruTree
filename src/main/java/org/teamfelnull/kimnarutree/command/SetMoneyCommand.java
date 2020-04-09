@@ -16,35 +16,32 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class SetMoneyCommand {
+
 	public static void register(CommandDispatcher<CommandSource> d) {
-		d.register(Commands.literal("setmoney").requires((p_198359_0_) -> {
-			return p_198359_0_.hasPermissionLevel(2);
-		}).then(Commands.argument("targets", EntityArgument.players()).executes(source -> {
-			return setMoney(source.getSource(), EntityArgument.getPlayers(source, "targets"), "");
-		}).then(Commands.argument("balance", StringArgumentType.string()).executes(source -> {
-			return setMoney(source.getSource(), EntityArgument.getPlayers(source, "targets"),
-					StringArgumentType.getString(source, "balance"));
-		}))));
+		d.register(Commands.literal("setmoney")
+			.requires((p_198359_0_) -> {return p_198359_0_.hasPermissionLevel(2);})
+		.then(Commands.argument("targets", EntityArgument.players())
+			.executes(source -> {return setMoney(source.getSource(), EntityArgument.getPlayers(source, "targets"), "");})
+		.then(Commands.argument("balance", StringArgumentType.string())
+			.executes(source -> {return setMoney(source.getSource(), EntityArgument.getPlayers(source, "targets"),StringArgumentType.getString(source, "balance"));})
+		)));
 	}
 
 	private static int setMoney(CommandSource source, Collection<ServerPlayerEntity> collection, String i) {
+
 		int ic = 0;
 		long mo = StringHelper.convertLongFromString(i);
+
 		if (collection == null || mo == 0) {
-			source.sendFeedback(
-					new TranslationTextComponent("commands.money.set.f", MoneyUtil.getDisplayAmount(mo)),
-					true);
+			source.sendFeedback(new TranslationTextComponent("commands.money.set.f"), true);
 			return 0;
 		}
+
 		for (ServerPlayerEntity pl : collection) {
-
-			source.sendFeedback(
-					new TranslationTextComponent("commands.money.set", pl.getName(), MoneyUtil.getDisplayMoney(pl),
-							MoneyUtil.getDisplayAmount(mo)),
-					true);
+			source.sendFeedback(new TranslationTextComponent("commands.money.set", pl.getName(), MoneyUtil.getDisplayMoney(pl),MoneyUtil.getDisplayAmount(mo)),true);
 			MoneyUtil.setPlayerMoney(PlayerHelper.getUUID(pl), mo);
-
 		}
+
 		return ic;
 	}
 }

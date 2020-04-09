@@ -18,21 +18,17 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod("kimnarutree")
 public class KimNaruTree {
+
 	public static String MODID = "kimnarutree";
 	public static final Logger LOGGER = LogManager.getLogger();
-	public static final CommonProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(),
-			() -> () -> new ServerProxy());
+	public static final CommonProxy proxy = DistExecutor
+			.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
 	public KimNaruTree() {
-
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-
 		MinecraftForge.EVENT_BUS.register(ServerHandler.class);
 	}
 
@@ -46,12 +42,9 @@ public class KimNaruTree {
 
 	private void enqueueIMC(final InterModEnqueueEvent event) {
 		proxy.init();
-
 	}
 
 	private void processIMC(final InterModProcessEvent event) {
 		proxy.posInit();
-
 	}
-
 }

@@ -11,11 +11,10 @@ import net.minecraft.server.MinecraftServer;
 public class PlayerDataLoader {
 
 	public static void setPlayerData(String plname, String statename, String state) {
-		if (!PlayerDatas.SAVED_PLAYER_DATA.containsKey(plname))
+		if (!PlayerDatas.SAVED_PLAYER_DATA.containsKey(plname)) {
 			PlayerDatas.SAVED_PLAYER_DATA.put(plname, new HashMap<String, String>());
-
+		}
 		PlayerDatas.SAVED_PLAYER_DATA.get(plname).put(statename, state);
-
 	}
 
 	public static void readOnlyPlayer(PlayerEntity pl) {
@@ -26,12 +25,11 @@ public class PlayerDataLoader {
 
 		String uuid = PlayerHelper.getUUID(ms, name).toString();
 
-		if (!PlayerDatas.SAVED_PLAYER_DATA.containsKey(uuid))
+		if (!PlayerDatas.SAVED_PLAYER_DATA.containsKey(uuid)) {
 			PlayerDatas.SAVED_PLAYER_DATA.put(uuid, new HashMap<String, String>());
+		}
 
-		FileLoadUtil.txtMapReader(FileLoadUtil.getKNTPlayerDataPath(ms), uuid,
-				PlayerDatas.SAVED_PLAYER_DATA.get(uuid));
-
+		FileLoadUtil.txtMapReader(FileLoadUtil.getKNTPlayerDataPath(ms), uuid,PlayerDatas.SAVED_PLAYER_DATA.get(uuid));
 	}
 
 	public static void read(MinecraftServer ms) {
@@ -41,16 +39,14 @@ public class PlayerDataLoader {
 	}
 
 	public static void write(MinecraftServer ms) {
-
-		if (PlayerDatas.SAVED_PLAYER_DATA.isEmpty())
+		if (PlayerDatas.SAVED_PLAYER_DATA.isEmpty()) {
 			return;
-
+		}
 		for (String uuid : PlayerDatas.SAVED_PLAYER_DATA.keySet()) {
 			FileLoadUtil.txtMapWriter(FileLoadUtil.getKNTPlayerDataPath(ms), uuid,
-					PlayerDatas.SAVED_PLAYER_DATA.get(uuid),
-					ms.getPlayerList().getPlayerByUUID(UUID.fromString(uuid)).getDisplayName().getString(), true);
+				PlayerDatas.SAVED_PLAYER_DATA.get(uuid),
+				ms.getPlayerList().getPlayerByUUID(UUID.fromString(uuid)).getDisplayName().getString(), true);
 		}
-
 	}
 
 	public static void load(MinecraftServer ms) {
@@ -74,6 +70,7 @@ public class PlayerDataLoader {
 	}
 
 	static class WriteThread extends Thread {
+
 		private MinecraftServer MCS;
 
 		WriteThread(MinecraftServer ms) {
@@ -86,6 +83,7 @@ public class PlayerDataLoader {
 	}
 
 	static class ReadThread extends Thread {
+
 		private MinecraftServer MCS;
 
 		ReadThread(MinecraftServer ms) {
@@ -98,6 +96,7 @@ public class PlayerDataLoader {
 	}
 
 	static class LoadThread extends Thread {
+
 		private MinecraftServer MCS;
 
 		LoadThread(MinecraftServer ms) {

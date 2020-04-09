@@ -14,6 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
 public class ServerHandler {
+
 	@SubscribeEvent
 	public static void onServerStarting(FMLServerStartingEvent ev) {
 		KNTCommands.registerCommand(ev.getCommandDispatcher());
@@ -33,7 +34,6 @@ public class ServerHandler {
 
 		if (PlayerDatas.UNSAVED_PLAYER_DATA.containsKey(PlayerHelper.getUUID(e.getPlayer())))
 			PlayerDatas.UNSAVED_PLAYER_DATA.get(PlayerHelper.getUUID(e.getPlayer())).clear();
-
 	}
 
 	@SubscribeEvent
@@ -50,7 +50,6 @@ public class ServerHandler {
 	public static void onWorldUnload(WorldEvent.Unload e) {
 		PlayerDatas.SAVED_PLAYER_DATA.clear();
 		PlayerDatas.UNSAVED_PLAYER_DATA.clear();
-
 	}
 
 	@SubscribeEvent

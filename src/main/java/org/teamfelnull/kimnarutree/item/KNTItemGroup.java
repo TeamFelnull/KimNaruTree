@@ -8,6 +8,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class KNTItemGroup {
+
 	public static final ItemGroup MOD_TAB = new ItemGroup(KimNaruTree.MODID) {
 		@OnlyIn(Dist.CLIENT)
 		public ItemStack createIcon() {

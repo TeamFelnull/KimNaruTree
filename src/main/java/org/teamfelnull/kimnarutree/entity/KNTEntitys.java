@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class KNTEntitys {
+
 	public static final EntityType<NPCEntity> NPC = EntityType.Builder
 			.<NPCEntity> create(NPCEntity::new, EntityClassification.MISC).size(0.6F, 1.95F)
 			.build(KimNaruTree.MODID + ":npc");

@@ -4,6 +4,7 @@ import org.teamfelnull.kimnarutree.KimNaruTree;
 import org.teamfelnull.kimnarutree.packet.PacketHandler;
 
 public class CommonProxy {
+
 	public void preInit() {
 		KimNaruTree.LOGGER.info("Pre Initing...");
 		PacketHandler.init();
@@ -15,6 +16,5 @@ public class CommonProxy {
 
 	public void posInit() {
 		KimNaruTree.LOGGER.info("Post Initing...");
-
 	}
 }

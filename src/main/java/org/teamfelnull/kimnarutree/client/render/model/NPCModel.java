@@ -48,12 +48,12 @@ public class NPCModel<T extends Entity> extends EntityModel<T> implements IHasHe
 		this.leftLeg.mirror = true;
 		this.leftLeg.setRotationPoint(2.0F, 12.0F, 0.0F);
 		this.leftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, scale);
-
 	}
 
 	@Override
-	public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
-			float headPitch, float scale) {
+	public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
+			float netHeadYaw,float headPitch, float scale) {
+
 		this.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		this.head.render(scale);
 		this.body.render(scale);
@@ -64,6 +64,7 @@ public class NPCModel<T extends Entity> extends EntityModel<T> implements IHasHe
 
 	public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
 			float netHeadYaw, float headPitch, float scaleFactor) {
+
 		this.head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
 		this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
 
@@ -74,10 +75,8 @@ public class NPCModel<T extends Entity> extends EntityModel<T> implements IHasHe
 		this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
 		this.rightLeg.rotateAngleY = 0.0F;
 
-		this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount
-				* 0.5F;
+		this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount* 0.5F;
 		this.leftLeg.rotateAngleY = 0.0F;
-
 	}
 
 	public RendererModel func_205072_a() {
@@ -87,7 +86,5 @@ public class NPCModel<T extends Entity> extends EntityModel<T> implements IHasHe
 	@Override
 	public void func_217146_a(boolean p_217146_1_) {
 		this.head.showModel = p_217146_1_;
-
 	}
-
 }

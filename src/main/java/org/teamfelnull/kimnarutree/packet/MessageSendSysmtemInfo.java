@@ -3,6 +3,7 @@ package org.teamfelnull.kimnarutree.packet;
 import net.minecraft.network.PacketBuffer;
 
 public class MessageSendSysmtemInfo {
+
 	public String javainfo;
 	public String osinfo;
 	public String cpuinfo;
@@ -12,9 +13,15 @@ public class MessageSendSysmtemInfo {
 	public String fpsinfo;
 	public boolean tickupdate;
 
-	public MessageSendSysmtemInfo(String javaInfo, String osInfo, String cpuInfo, String gupInfo, String modInfo,
-			String memoryInfo,
-			String fpsInfo, boolean tickUpdate) {
+	public static MessageSendSysmtemInfo decodeMessege(PacketBuffer buffer) {
+		return new MessageSendSysmtemInfo(buffer.readString(32767), buffer.readString(32767),
+				buffer.readString(32767),buffer.readString(32767), buffer.readString(32767),
+				buffer.readString(32767), buffer.readString(32767),buffer.readBoolean());
+	}
+
+	public MessageSendSysmtemInfo(String javaInfo, String osInfo, String cpuInfo, String gupInfo,
+			String modInfo,String memoryInfo,String fpsInfo, boolean tickUpdate) {
+
 		this.javainfo = javaInfo;
 		this.osinfo = osInfo;
 		this.cpuinfo = cpuInfo;
@@ -34,12 +41,5 @@ public class MessageSendSysmtemInfo {
 		buffer.writeString(messegeIn.memoryinfo);
 		buffer.writeString(messegeIn.fpsinfo);
 		buffer.writeBoolean(messegeIn.tickupdate);
-	}
-
-	public static MessageSendSysmtemInfo decodeMessege(PacketBuffer buffer) {
-
-		return new MessageSendSysmtemInfo(buffer.readString(32767), buffer.readString(32767), buffer.readString(32767),
-				buffer.readString(32767), buffer.readString(32767), buffer.readString(32767), buffer.readString(32767),
-				buffer.readBoolean());
 	}
 }

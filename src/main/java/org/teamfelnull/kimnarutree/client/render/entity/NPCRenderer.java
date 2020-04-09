@@ -11,8 +11,8 @@ import net.minecraft.client.renderer.entity.layers.HeadLayer;
 import net.minecraft.util.ResourceLocation;
 
 public class NPCRenderer extends MobRenderer<NPCEntity, NPCModel<NPCEntity>> {
-	private static final ResourceLocation field_217779_a = new ResourceLocation(
-			"textures/entity/villager/villager.png");
+
+	private static final ResourceLocation field_217779_a = new ResourceLocation("textures/entity/villager/villager.png");
 
 	public NPCRenderer(EntityRendererManager p_i50961_1_) {
 		super(p_i50961_1_, new NPCModel<>(), 0.5f);
@@ -25,7 +25,9 @@ public class NPCRenderer extends MobRenderer<NPCEntity, NPCModel<NPCEntity>> {
 	}
 
 	protected void preRenderCallback(NPCEntity entitylivingbaseIn, float partialTickTime) {
+
 		float f = 0.9375F;
+
 		if (entitylivingbaseIn.isChild()) {
 			f = (float) ((double) f * 0.5D);
 			this.shadowSize = 0.25F;

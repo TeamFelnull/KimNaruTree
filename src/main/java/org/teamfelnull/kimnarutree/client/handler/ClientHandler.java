@@ -17,6 +17,7 @@ import oshi.SystemInfo;
 import oshi.software.os.OperatingSystem;
 
 public class ClientHandler {
+
 	private static boolean frist;
 	public static String gupname;
 	public static Minecraft mc = Minecraft.getInstance();
@@ -24,13 +25,14 @@ public class ClientHandler {
 	@SubscribeEvent
 	public static void onTick(TickEvent.ClientTickEvent e) {
 
-		if (!frist)
+		if (!frist) {
 			gupname = GLX.getRenderer();
-
+		}
 		frist = true;
 
-		if (mc.player == null)
+		if (mc.player == null) {
 			return;
+		}
 
 		long i = Runtime.getRuntime().maxMemory();
 		long j = Runtime.getRuntime().totalMemory();
@@ -38,35 +40,31 @@ public class ClientHandler {
 		long l = j - k;
 
 		String memory = String.format("% 2d%% %03d/%03dMB", l * 100L / i, bytesToMb(l), bytesToMb(i));
-
 		@SuppressWarnings({ "resource", "static-access" })
 		String fps = Minecraft.getDebugFPS() + "fps / " + mc.getInstance().gameSettings.framerateLimit + "fps";
-
 		PacketHandler.INSTANCE.sendToServer(new MessageSendSysmtemInfo("", "", "", "", "", memory, fps, true));
-
 	}
 
 	private static long bytesToMb(long bytes) {
 		return bytes / 1024L / 1024L;
 	}
 
-	@SuppressWarnings("resource")
 	@SubscribeEvent
+	@SuppressWarnings("resource")
 	public static void onPlayerJoin(EntityJoinWorldEvent e) {
 
-		if (!e.getWorld().isRemote || !(e.getEntity() instanceof ClientPlayerEntity))
+		if (!e.getWorld().isRemote || !(e.getEntity() instanceof ClientPlayerEntity)) {
 			return;
+		}
 
 		SystemInfo syminfo = new SystemInfo();
 		//	HardwareAbstractionLayer hardware = syminfo.getHardware();
 		OperatingSystem oss = syminfo.getOperatingSystem();
-
 		String java = "Java " + System.getProperty("java.version") + " " + (mc.isJava64bit() ? "64bit" : "32bit");
-		String os = oss.getManufacturer() + " " + System.getProperty("os.name") + " "
-				+ System.getProperty("os.version") + " " + System.getProperty("os.arch");
+		String os = oss.getManufacturer() + " " + System.getProperty("os.name") + " " + System.getProperty("os.version")
+				+ " " + System.getProperty("os.arch");
 		String cpu = GLX.getCpuInfo();
 		String gpu = gupname;
-
 		String mod = "";
 
 		for (ModInfo mods : ModList.get().getMods()) {
@@ -75,5 +73,4 @@ public class ClientHandler {
 
 		PacketHandler.INSTANCE.sendToServer(new MessageSendSysmtemInfo(java, os, cpu, gpu, mod, "", "", false));
 	}
-
 }
