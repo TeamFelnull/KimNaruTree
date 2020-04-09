@@ -1,12 +1,18 @@
 package org.teamfelnull.kimnarutree.handler;
 
 import org.teamfelnull.kimnarutree.command.KNTCommands;
+import org.teamfelnull.kimnarutree.money.MoneyConsumptions;
+import org.teamfelnull.kimnarutree.util.MoneyUtil;
 import org.teamfelnull.kimnarutree.util.player.PlayerDataLoader;
 import org.teamfelnull.kimnarutree.util.player.PlayerDataRegister;
 import org.teamfelnull.kimnarutree.util.player.PlayerDatas;
 import org.teamfelnull.kimnarutree.util.player.PlayerHelper;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -55,5 +61,26 @@ public class ServerHandler {
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent e) {
 		PlayerDataRegister.updatePlayerData(e.player);
+	}
+
+	@SubscribeEvent
+	public static void onDeath(LivingDeathEvent e) {
+
+		if (!(e.getEntityLiving() instanceof PlayerEntity))
+			return;
+
+		PlayerEntity pl = (PlayerEntity) e.getEntityLiving();
+		long mae = MoneyUtil.getPlayerMoney(pl);
+		MoneyUtil.setPlayerMoney(pl, MoneyConsumptions.consumptionFuneral(MoneyUtil.getPlayerMoney(pl), pl));
+
+		for (String name : pl.getServer().getOnlinePlayerNames()) {
+
+			ServerPlayerEntity spl = pl.getServer().getPlayerList().getPlayerByUsername(name);
+
+			spl.sendMessage(new TranslationTextComponent("message.rip", e.getSource().getDeathMessage(pl),
+					MoneyUtil.getDisplayAmount(mae - MoneyUtil.getPlayerMoney(pl))));
+
+		}
+
 	}
 }

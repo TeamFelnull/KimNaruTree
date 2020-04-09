@@ -9,6 +9,9 @@ import com.mojang.blaze3d.platform.PlatformDescriptors;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.util.text.ChatType;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -59,7 +62,6 @@ public class ClientHandler {
 		}
 
 		SystemInfo syminfo = new SystemInfo();
-		//	HardwareAbstractionLayer hardware = syminfo.getHardware();
 		OperatingSystem oss = syminfo.getOperatingSystem();
 		String java = "Java " + System.getProperty("java.version") + " " + (mc.isJava64bit() ? "64bit" : "32bit");
 		String os = oss.getManufacturer() + " " + System.getProperty("os.name") + " " + System.getProperty("os.version")
@@ -73,5 +75,18 @@ public class ClientHandler {
 		}
 
 		PacketHandler.INSTANCE.sendToServer(new MessageSendSysmtemInfo(java, os, cpu, gpu, mod, "", "", false));
+	}
+
+	@SubscribeEvent
+	public static void onChatReceived(ClientChatReceivedEvent e) {
+
+		if (e.getType() == ChatType.SYSTEM) {
+			if (e.getMessage() instanceof TranslationTextComponent) {
+				TranslationTextComponent me = (TranslationTextComponent) e.getMessage();
+				if (me.getKey().contains("death") && !me.getKey().contains("rip")) {
+					e.setCanceled(true);
+				}
+			}
+		}
 	}
 }

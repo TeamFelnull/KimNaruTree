@@ -30,6 +30,9 @@
   "_comment": "Money",
   "money.currencyunit.g": "%s G",
 
+  "_comment": "Message",
+  "message.rip": "%s; R.I.P. %s",
+
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "Kim Naru Tree"
 

@@ -84,9 +84,11 @@ public class NPCEntity extends CreatureEntity implements INPC {
 			return true;
 		} else {
 
-			if (this.addItem(itemstack.copy()))
-				itemstack.shrink(itemstack.getCount());
-
+			if (!itemstack.isEmpty()) {
+				if (this.addItem(itemstack.copy()))
+					itemstack.shrink(itemstack.getCount());
+				return true;
+			}
 		}
 
 		return super.processInteract(player, hand);
