@@ -12,6 +12,7 @@ public class NPCModel<T extends Entity> extends EntityModel<T> implements IHasHe
 	protected RendererModel head;
 	protected RendererModel nose;
 	protected RendererModel body;
+	protected RendererModel bodyClothes;
 	protected RendererModel arms;
 	protected RendererModel rightLeg;
 	protected RendererModel leftLeg;
@@ -34,6 +35,11 @@ public class NPCModel<T extends Entity> extends EntityModel<T> implements IHasHe
 		this.body.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.body.setTextureOffset(16, 20).addBox(-4.0F, 0.0F, -3.0F, 8, 12, 6, scale);
 
+		this.bodyClothes = (new RendererModel(this)).setTextureSize(64, 64);
+		this.bodyClothes.setRotationPoint(0.0F, 0.0F, 0.0F);
+		this.bodyClothes.setTextureOffset(0, 38).addBox(-4.0F, 0.0F, -3.0F, 8, 18, 6, scale + 0.5F);
+		this.body.addChild(this.bodyClothes);
+
 		this.arms = (new RendererModel(this)).setTextureSize(64, 64);
 		this.arms.setRotationPoint(0.0F, 2.0F, 0.0F);
 		this.arms.setTextureOffset(44, 22).addBox(-8.0F, -2.0F, -2.0F, 4, 8, 4, scale);
@@ -52,7 +58,7 @@ public class NPCModel<T extends Entity> extends EntityModel<T> implements IHasHe
 
 	@Override
 	public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-			float netHeadYaw,float headPitch, float scale) {
+			float netHeadYaw, float headPitch, float scale) {
 
 		this.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		this.head.render(scale);
@@ -75,7 +81,8 @@ public class NPCModel<T extends Entity> extends EntityModel<T> implements IHasHe
 		this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
 		this.rightLeg.rotateAngleY = 0.0F;
 
-		this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount* 0.5F;
+		this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount
+				* 0.5F;
 		this.leftLeg.rotateAngleY = 0.0F;
 	}
 

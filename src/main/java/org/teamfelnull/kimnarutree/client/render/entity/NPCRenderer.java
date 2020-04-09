@@ -1,5 +1,6 @@
 package org.teamfelnull.kimnarutree.client.render.entity;
 
+import org.teamfelnull.kimnarutree.KimNaruTree;
 import org.teamfelnull.kimnarutree.client.render.model.NPCModel;
 import org.teamfelnull.kimnarutree.entity.NPCEntity;
 
@@ -12,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class NPCRenderer extends MobRenderer<NPCEntity, NPCModel<NPCEntity>> {
 
-	private static final ResourceLocation field_217779_a = new ResourceLocation("textures/entity/villager/villager.png");
+	private static final ResourceLocation textuer = new ResourceLocation(KimNaruTree.MODID,"textures/entity/npc/npc.png");
 
 	public NPCRenderer(EntityRendererManager p_i50961_1_) {
 		super(p_i50961_1_, new NPCModel<>(), 0.5f);
@@ -21,7 +22,7 @@ public class NPCRenderer extends MobRenderer<NPCEntity, NPCModel<NPCEntity>> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(NPCEntity entity) {
-		return field_217779_a;
+		return textuer;
 	}
 
 	protected void preRenderCallback(NPCEntity entitylivingbaseIn, float partialTickTime) {
