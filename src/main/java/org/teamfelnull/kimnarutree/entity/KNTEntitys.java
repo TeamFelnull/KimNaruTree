@@ -13,6 +13,7 @@ public class KNTEntitys {
 			.build(KimNaruTree.MODID + ":npc");
 
 	public static void registerEntity(IForgeRegistry<EntityType<?>> r) {
+
 		r.register(NPC.setRegistryName(KimNaruTree.MODID, "npc"));
 	}
 }
