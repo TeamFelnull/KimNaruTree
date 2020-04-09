@@ -2,6 +2,7 @@ package org.teamfelnull.kimnarutree.client.handler;
 
 import org.teamfelnull.kimnarutree.packet.MessageSendSysmtemInfo;
 import org.teamfelnull.kimnarutree.packet.PacketHandler;
+import org.teamfelnull.kimnarutree.util.MCHelper;
 import org.teamfelnull.kimnarutree.util.ModUtil;
 
 import com.mojang.blaze3d.platform.PlatformDescriptors;
@@ -41,7 +42,7 @@ public class ClientHandler {
 
 		String memory = String.format("% 2d%% %03d/%03dMB", l * 100L / i, bytesToMb(l), bytesToMb(i));
 		@SuppressWarnings({ "resource", "static-access" })
-		String fps = mc.getFrameTimer() + "fps / " + mc.getInstance().gameSettings.framerateLimit + "fps";
+		String fps = MCHelper.getFPS() + "fps / " + mc.getInstance().gameSettings.framerateLimit + "fps";
 		PacketHandler.INSTANCE.sendToServer(new MessageSendSysmtemInfo("", "", "", "", "", memory, fps, true));
 	}
 
