@@ -102,8 +102,6 @@ public class NPCEntity extends CreatureEntity implements INPC {
 
 			if (!player.world.isRemote) {
 
-				player.sendMessage(new StringTextComponent("items=" + this.getArmorInventoryList()));
-
 				player.sendMessage(new StringTextComponent("items=" + this.inventoryItems));
 
 
