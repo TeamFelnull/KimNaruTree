@@ -11,6 +11,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class NPCModel<T extends Entity> extends SegmentedModel<T> implements IHasHead, IHeadToggle {
 
+
 	protected ModelRenderer head;
 	protected ModelRenderer nose;
 	protected ModelRenderer body;
@@ -25,6 +26,8 @@ public class NPCModel<T extends Entity> extends SegmentedModel<T> implements IHa
 	}
 
 	public NPCModel(float scale) {
+
+
 		this.head = (new ModelRenderer(this)).setTextureSize(64, 64);
 		this.head.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.head.setTextureOffset(0, 0).func_228301_a_(-4.0F, -10.0F, -4.0F, 8, 10, 8, scale);
@@ -91,6 +94,8 @@ public class NPCModel<T extends Entity> extends SegmentedModel<T> implements IHa
 		this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount
 				* 0.5F;
 		this.leftLeg.rotateAngleY = 0.0F;
+
+
 	}
 
 }

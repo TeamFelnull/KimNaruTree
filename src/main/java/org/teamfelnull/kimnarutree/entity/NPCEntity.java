@@ -2,6 +2,10 @@ package org.teamfelnull.kimnarutree.entity;
 
 import org.teamfelnull.kimnarutree.advancements.TestTrigger;
 import org.teamfelnull.kimnarutree.item.KNTItems;
+<<<<<<< Updated upstream
+=======
+import org.teamfelnull.kimnarutree.util.ItemUtil;
+>>>>>>> Stashed changes
 
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -12,8 +16,8 @@ import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
@@ -35,7 +39,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 	//0~8が自分用のスロット//9~26が材料用//27~35が商品棚
 	protected NPCEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
 		super(type, worldIn);
-
+		this.setCanPickUpLoot(true);
 	}
 
 	@Override
@@ -57,6 +61,9 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		for (ItemStack item : this.getArmorInventoryList()) {
 			this.entityDropItem(item);
 		}
+
+		this.entityDropItem(this.getHeldItemMainhand());
+
 	}
 
 	@Override
@@ -66,6 +73,8 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		this.setDropChance(EquipmentSlotType.CHEST, 0);
 		this.setDropChance(EquipmentSlotType.LEGS, 0);
 		this.setDropChance(EquipmentSlotType.FEET, 0);
+		this.setDropChance(EquipmentSlotType.MAINHAND, 0);
+
 	}
 
 	@Override
@@ -86,6 +95,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 	@Override
 	public boolean canDespawn(double distanceToClosestPlayer) {
 		return false;
+
 	}
 
 	@Override
@@ -95,8 +105,13 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		if (itemstack.getItem() == KNTItems.PICKY) {
 
 			if (!player.world.isRemote) {
+<<<<<<< Updated upstream
 				player.sendMessage(new StringTextComponent("items=" + this.getArmorInventoryList()));
 				TestTrigger.INSTANCE.trigger((ServerPlayerEntity) player);
+=======
+				player.sendMessage(new StringTextComponent("items=" + this.inventoryItems));
+
+>>>>>>> Stashed changes
 			}
 			return true;
 		} else {
@@ -105,6 +120,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 			this.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
 			this.setItemStackToSlot(EquipmentSlotType.LEGS, new ItemStack(Items.DIAMOND_LEGGINGS));
 			this.setItemStackToSlot(EquipmentSlotType.FEET, new ItemStack(Items.DIAMOND_BOOTS));
+			this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(KNTItems.PICKY));
 
 		}
 		this.tick();
@@ -115,7 +131,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
 		this.money = compound.getLong("Money");
-
+		this.setCanPickUpLoot(true);
 		this.inventoryItems = NonNullList.withSize(36, ItemStack.EMPTY);
 		ItemStackHelper.loadAllItems(compound, this.inventoryItems);
 
@@ -135,6 +151,20 @@ public class NPCEntity extends CreatureEntity implements INPC {
 
 	protected void setItems(NonNullList<ItemStack> itemsIn) {
 		this.inventoryItems = itemsIn;
+	}
+
+	@Override
+	protected void updateEquipmentIfNeeded(ItemEntity itemEntity) {
+		ItemStack itemstack = itemEntity.getItem();
+		NonNullList<ItemStack> mainlist = getMineItems();
+
+		itemEntity.setItem(ItemUtil.addNonNullItem(mainlist, itemstack));
+
+		setMineItems(mainlist);
+
+		if (itemEntity.getItem().isEmpty() || itemEntity.getItem().getCount() == 0) {
+			itemEntity.remove();
+		}
 	}
 
 	protected NonNullList<ItemStack> getMineItems() {

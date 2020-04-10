@@ -8,6 +8,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.CrossedArmsItemLayer;
 import net.minecraft.client.renderer.entity.layers.HeadLayer;
 import net.minecraft.util.ResourceLocation;
 
@@ -19,7 +20,12 @@ public class NPCRenderer extends MobRenderer<NPCEntity, NPCModel<NPCEntity>> {
 	public NPCRenderer(EntityRendererManager p_i50961_1_) {
 		super(p_i50961_1_, new NPCModel<>(), 0.5f);
 		this.addLayer(new HeadLayer<>(this));
-		//   this.addLayer(new BipedArmorLayer<>(this, p_i50974_3_, p_i50974_4_));
+		//  this.addLayer(new BipedArmorLayer<>(this, new NPCModel(0.5F), new NPCModel(1.0F)));
+		this.addLayer(new CrossedArmsItemLayer<>(this));
+	//	this.addLayer(new NPCLayer<>(this));
+
+
+
 	}
 
 	@Override
