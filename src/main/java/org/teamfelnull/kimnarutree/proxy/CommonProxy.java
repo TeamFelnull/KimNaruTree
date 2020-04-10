@@ -2,7 +2,6 @@ package org.teamfelnull.kimnarutree.proxy;
 
 import org.teamfelnull.kimnarutree.KimNaruTree;
 import org.teamfelnull.kimnarutree.advancements.KNTTriggers;
-import org.teamfelnull.kimnarutree.advancements.TestTrigger;
 import org.teamfelnull.kimnarutree.packet.PacketHandler;
 
 import net.minecraft.advancements.CriteriaTriggers;
@@ -14,7 +13,6 @@ public class CommonProxy {
 		KimNaruTree.LOGGER.info("Pre Initing...");
 		PacketHandler.init();
 		KNTTriggers.registerTriggers();
-		CriteriaTriggers.register(TestTrigger.INSTANCE);
 	}
 
 	public void init() {

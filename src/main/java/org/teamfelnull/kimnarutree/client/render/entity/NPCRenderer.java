@@ -19,11 +19,13 @@ public class NPCRenderer extends MobRenderer<NPCEntity, NPCModel<NPCEntity>> {
 	public NPCRenderer(EntityRendererManager p_i50961_1_) {
 		super(p_i50961_1_, new NPCModel<>(), 0.5f);
 		this.addLayer(new HeadLayer<>(this));
+		//   this.addLayer(new BipedArmorLayer<>(this, p_i50974_3_, p_i50974_4_));
 	}
 
 	@Override
 	public ResourceLocation getEntityTexture(NPCEntity entity) {
 		return textuer;
+
 	}
 
 	protected void preRenderCallback(NPCEntity entitylivingbaseIn, MatrixStack p_225620_2_, float partialTickTime) {

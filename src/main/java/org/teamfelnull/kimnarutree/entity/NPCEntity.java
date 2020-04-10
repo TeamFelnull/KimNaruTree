@@ -1,7 +1,7 @@
 package org.teamfelnull.kimnarutree.entity;
 
-import org.teamfelnull.kimnarutree.advancements.TestTrigger;
 import org.teamfelnull.kimnarutree.item.KNTItems;
+import org.teamfelnull.kimnarutree.util.player.PlayerHelper;
 
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -14,6 +14,7 @@ import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -21,6 +22,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.StringTextComponent;
@@ -53,7 +55,18 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		for (ItemStack item : inventoryItems) {
 			this.entityDropItem(item);
 		}
+		for (ItemStack item : this.getArmorInventoryList()) {
+			this.entityDropItem(item);
+		}
+	}
 
+	@Override
+	public void tick() {
+		super.tick();
+		this.setDropChance(EquipmentSlotType.HEAD, 0);
+		this.setDropChance(EquipmentSlotType.CHEST, 0);
+		this.setDropChance(EquipmentSlotType.LEGS, 0);
+		this.setDropChance(EquipmentSlotType.FEET, 0);
 	}
 
 	@Override
@@ -82,16 +95,24 @@ public class NPCEntity extends CreatureEntity implements INPC {
 
 		if (itemstack.getItem() == KNTItems.PICKY) {
 
-			if (!player.world.isRemote)
-				player.sendMessage(new StringTextComponent("items=" + this.inventoryItems));
-				TestTrigger.INSTANCE.trigger( (ServerPlayerEntity) player);
+			if (!player.world.isRemote) {
+				player.sendMessage(new StringTextComponent("items=" + this.getArmorInventoryList()));
+				//TestTrigger.INSTANCE.trigger((ServerPlayerEntity) player);
+
+				PlayerHelper.grantAdvancement(
+						new ResourceLocation("minecraft:story/mine_diamond"), (ServerPlayerEntity) player);
+
+			}
 			return true;
 		} else {
-			NonNullList<ItemStack> mainlist = NonNullList.withSize(18, ItemStack.EMPTY);
-			mainlist.set(5, new ItemStack(Items.ACACIA_BOAT));
-			setMaterialItems(mainlist);
-		}
 
+			this.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.DIAMOND_HELMET));
+			this.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
+			this.setItemStackToSlot(EquipmentSlotType.LEGS, new ItemStack(Items.DIAMOND_LEGGINGS));
+			this.setItemStackToSlot(EquipmentSlotType.FEET, new ItemStack(Items.DIAMOND_BOOTS));
+
+		}
+		this.tick();
 		return super.processInteract(player, hand);
 	}
 
@@ -154,4 +175,22 @@ public class NPCEntity extends CreatureEntity implements INPC {
 			inventoryItems.set(i + 9, itemsIn.get(i));
 		}
 	}
+
+	protected NonNullList<ItemStack> getProductItems() {
+
+		NonNullList<ItemStack> Productlist = NonNullList.withSize(9, ItemStack.EMPTY);
+
+		for (int i = 0; i < Productlist.size(); i++) {
+			Productlist.set(i, inventoryItems.get(i + 9 + 18));
+		}
+
+		return Productlist;
+	}
+
+	protected void setProductItems(NonNullList<ItemStack> itemsIn) {
+		for (int i = 0; i < itemsIn.size(); i++) {
+			inventoryItems.set(i + 9 + 18, itemsIn.get(i));
+		}
+	}
+
 }
