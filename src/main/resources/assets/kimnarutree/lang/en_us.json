@@ -34,6 +34,36 @@
   "message.rip": "%s; R.I.P. %s",
 
   "_comment": "CreativeTab",
-  "itemGroup.kimnarutree": "Kim Naru Tree"
+  "itemGroup.kimnarutree": "Kim Naru Tree",
 
+  "_comment": "Advancement",
+  "advancements.root.title": "Welcome to Underground",
+  "advancements.root.desc": "Possess 1000 G",
+  "advancements.wallet_10000.title": "Just Money",
+  "advancements.wallet_10000.desc": "Possess 10000 G",
+  "advancements.wallet_1000000.title": "Ways to Make Big Money",
+  "advancements.wallet_1000000.desc": "Prossess 1000000 G",
+  "advancements.wallet_10000000.title": "Capitalist Society",
+  "advancements.wallet_10000000.desc": "Prossess 10000000 G",
+  "advancements.wallet_50000000.title": "The Elite Class",
+  "advancements.wallet_50000000.desc": "Prossess 50000000 G",
+  "advancements.wallet_100000000.title": "Millionaire",
+  "advancements.wallet_100000000.desc": "Prossess 100000000 G",
+  "advancements.wallet_500000000.title": "Marry me",
+  "advancements.wallet_500000000.desc": "Prossess 500000000 G",
+  "advancements.wallet_1000000000.title": "The Revenue Source",
+  "advancements.wallet_1000000000.desc": "Prossess 1000000000 G",
+  "advancements.wallet_10000000000.title": "How Did You Get Ko↑Ko↓?",
+  "advancements.wallet_10000000000.desc": "Prossess 10000000000 G",
+  "advancements.funeral_0.title": "R.I.P.",
+  "advancements.funeral_0.desc": "Rest In Peace",
+  "advancements.funeral_500.title": "Cremation",
+  "advancements.funeral_500.desc": "Burn the Human Body at a Cost of 500 G",
+  "advancements.funeral_1000000.title": "General Funeral",
+  "advancements.funeral_1000000.desc": "1000000 G for hose who have Survived 100 Years",
+  "advancements.funeral_30000000.title": "Determination",
+  "advancements.funeral_30000000.desc": "Hold a 30000000 G Funeral",
+  "advancements.funeral_1000000000.title": "The Whole Country Cried",
+  "advancements.funeral_1000000000.desc": "Mourn for 1000000000 G"
+  
 }

@@ -3,12 +3,9 @@ package org.teamfelnull.kimnarutree.util.player;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ResourceLocation;
 
 public class PlayerHelper {
 
@@ -38,19 +35,5 @@ public class PlayerHelper {
 	public static ServerPlayerEntity getServerPlayer(MinecraftServer ms, PlayerEntity pl) {
 
 		return ms.getPlayerList().getPlayerByUsername(pl.getDisplayName().getString());
-	}
-
-	public static void grantAdvancement( ResourceLocation rl,ServerPlayerEntity spl) {
-
-		Advancement advancement = spl.getServer().getAdvancementManager().getAdvancement(rl);
-		AdvancementProgress advancementprogress = spl.getAdvancements().getProgress(advancement);
-
-		if (advancementprogress.isDone())
-			return;
-
-		for (String s : advancementprogress.getRemaningCriteria()) {
-			spl.getAdvancements().grantCriterion(advancement, s);
-		}
-
 	}
 }

@@ -2,6 +2,7 @@ package org.teamfelnull.kimnarutree.handler;
 
 import org.teamfelnull.kimnarutree.command.KNTCommands;
 import org.teamfelnull.kimnarutree.money.MoneyConsumptions;
+import org.teamfelnull.kimnarutree.util.AdvancementUtil;
 import org.teamfelnull.kimnarutree.util.MoneyUtil;
 import org.teamfelnull.kimnarutree.util.player.PlayerDataLoader;
 import org.teamfelnull.kimnarutree.util.player.PlayerDataRegister;
@@ -71,7 +72,8 @@ public class ServerHandler {
 
 		PlayerEntity pl = (PlayerEntity) e.getEntityLiving();
 		long mae = MoneyUtil.getPlayerMoney(pl);
-		MoneyUtil.setPlayerMoney(pl, MoneyConsumptions.consumptionFuneral(MoneyUtil.getPlayerMoney(pl), pl));
+		long ato = MoneyConsumptions.consumptionFuneral(MoneyUtil.getPlayerMoney(pl), pl);
+		MoneyUtil.setPlayerMoney(pl, ato);
 
 		for (String name : pl.getServer().getOnlinePlayerNames()) {
 
@@ -82,5 +84,6 @@ public class ServerHandler {
 
 		}
 
+		AdvancementUtil.checkFuneralCost( (ServerPlayerEntity) pl, mae - ato);
 	}
 }

@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import org.teamfelnull.kimnarutree.util.MoneyUtil;
 import org.teamfelnull.kimnarutree.util.StringHelper;
-import org.teamfelnull.kimnarutree.util.player.PlayerHelper;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -39,7 +38,7 @@ public class AddMoneyCommand {
 
 		for (ServerPlayerEntity pl : collection) {
 			source.sendFeedback(new TranslationTextComponent("commands.money.add", MoneyUtil.getDisplayAmount(mo), pl.getName()),true);
-			MoneyUtil.addPlayerMoney(PlayerHelper.getUUID(pl), mo);
+			MoneyUtil.addPlayerMoney(pl, mo);
 		}
 
 		return ic;

@@ -13,13 +13,14 @@ public class KNTItems {
 	//名前
 	public static Item TEST_ITEM = newItem("test_item");
 	public static Item PICKY = newItem("picky");
+	public static Item PICKYDED = newItem("pickyded");
 
 	//Entity, 名前, 色1, 色2
 	public static Item NPC_SPAWN_EGG = newSpawnEgg(KNTEntitys.NPC, "npc_spawn_egg", 10905133, 4203016);
 
 	private static Item newItem(String name) {
 		return new Item(new Item.Properties().group(KNTItemGroup.MOD_TAB))
-			.setRegistryName(KimNaruTree.MODID, name);
+				.setRegistryName(KimNaruTree.MODID, name);
 	}
 
 	private static Item newSpawnEgg(EntityType<?> type, String name,int color1, int color2) {
@@ -30,6 +31,7 @@ public class KNTItems {
 	public static void registerItem(IForgeRegistry<Item> r) {
 		registryItem(r, TEST_ITEM);
 		registryItem(r, PICKY);
+		registryItem(r, PICKYDED);
 		registryItem(r, NPC_SPAWN_EGG);
 	}
 

@@ -1,0 +1,27 @@
+{
+  "parent": "kimnarutree:wallet_10000",
+  "display": {
+    "icon": {
+      "item": "kimnarutree:picky"
+    },
+    "title": {
+      "translate": "advancements.wallet_1000000.title"
+    },
+    "description": {
+      "translate": "advancements.wallet_1000000.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "test": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "test"
+    ]
+  ]
+}

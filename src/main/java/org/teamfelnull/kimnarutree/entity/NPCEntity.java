@@ -1,7 +1,7 @@
 package org.teamfelnull.kimnarutree.entity;
 
+import org.teamfelnull.kimnarutree.advancements.TestTrigger;
 import org.teamfelnull.kimnarutree.item.KNTItems;
-import org.teamfelnull.kimnarutree.util.player.PlayerHelper;
 
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -22,7 +22,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.StringTextComponent;
@@ -97,11 +96,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 
 			if (!player.world.isRemote) {
 				player.sendMessage(new StringTextComponent("items=" + this.getArmorInventoryList()));
-				//TestTrigger.INSTANCE.trigger((ServerPlayerEntity) player);
-
-				PlayerHelper.grantAdvancement(
-						new ResourceLocation("minecraft:story/mine_diamond"), (ServerPlayerEntity) player);
-
+				TestTrigger.INSTANCE.trigger((ServerPlayerEntity) player);
 			}
 			return true;
 		} else {

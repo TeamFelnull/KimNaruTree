@@ -34,6 +34,36 @@
   "message.rip": "%s; R.I.P. %s",
 
   "_comment": "CreativeTab",
-  "itemGroup.kimnarutree": "金なる木"
+  "itemGroup.kimnarutree": "金なる木",
 
+  "_comment": "Advancement",
+  "advancements.root.title": "ようこそ",
+  "advancements.root.desc": "1000Gから始めるMod生活",
+  "advancements.wallet_10000.title": "金",
+  "advancements.wallet_10000.desc": "1万Gを所持し、見つめる",
+  "advancements.wallet_1000000.title": "稼ぎ方",
+  "advancements.wallet_1000000.desc": "100万Gの喜びをもう一度",
+  "advancements.wallet_10000000.title": "資本主義社会",
+  "advancements.wallet_10000000.desc": "奪えば得られる1000万Gが基本単位",
+  "advancements.wallet_50000000.title": "上級国民",
+  "advancements.wallet_50000000.desc": "5000万G欲しい！",
+  "advancements.wallet_100000000.title": "大富豪",
+  "advancements.wallet_100000000.desc": "1億Gを持つ者、持たざる者",
+  "advancements.wallet_500000000.title": "養え",
+  "advancements.wallet_500000000.desc": "5億Gで何人のアフリカの子供を救えるでしょう",
+  "advancements.wallet_1000000000.title": "世界の財源",
+  "advancements.wallet_1000000000.desc": "10億Gは開発初期段階に予定していたの銀行の全財産",
+  "advancements.wallet_10000000000.title": "どうやって \"こ↑こ↓\" まで？",
+  "advancements.wallet_10000000000.desc": "100億Gは世界の全て",
+  "advancements.funeral_0.title": "R.I.P.",
+  "advancements.funeral_0.desc": "0Gのお葬式をする",
+  "advancements.funeral_500.title": "直火焼き",
+  "advancements.funeral_500.desc": "500Gのお葬式をする",
+  "advancements.funeral_1000000.title": "一般葬",
+  "advancements.funeral_1000000.desc": "100万Gのお葬式をする",
+  "advancements.funeral_30000000.title": "葬儀の決意",
+  "advancements.funeral_30000000.desc": "3000万Gのお葬式をする",
+  "advancements.funeral_1000000000.title": "全世界が泣いた",
+  "advancements.funeral_1000000000.desc": "10億Gのお葬式をする"
+  
 }

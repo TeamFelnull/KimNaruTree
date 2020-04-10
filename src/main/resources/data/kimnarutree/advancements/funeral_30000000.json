@@ -1,0 +1,27 @@
+{
+  "parent": "kimnarutree:funeral_1000000",
+  "display": {
+    "icon": {
+      "item": "kimnarutree:pickyded"
+    },
+    "title": {
+      "translate": "advancements.funeral_30000000.title"
+    },
+    "description": {
+      "translate": "advancements.funeral_30000000.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "test": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "test"
+    ]
+  ]
+}
