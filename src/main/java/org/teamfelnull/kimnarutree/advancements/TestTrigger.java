@@ -1,37 +1,71 @@
 package org.teamfelnull.kimnarutree.advancements;
 
-public class TestTrigger {
-	/*	private static ResourceLocation id = new ResourceLocation(KimNaruTree.MODID, "test");
+import org.teamfelnull.kimnarutree.KimNaruTree;
 
-		public static final TestTrigger INSTANCE = new TestTrigger();
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
 
-		@Override
-		public org.teamfelnull.kimnarutree.advancements.Instance deserializeInstance(JsonObject p_192166_1_, JsonDeserializationContext p_192166_2_) {
-			return null;
-		}
+import net.minecraft.advancements.ICriterionInstance;
+import net.minecraft.advancements.ICriterionTrigger;
+import net.minecraft.advancements.PlayerAdvancements;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
-		public void trigger(ServerPlayerEntity player, Entity entity, DamageSource dameg) {
-			this.func_227070_a_(player.getAdvancements(), (p_226846_3_) -> {
-				return p_226846_3_.test(player, entity, dameg);
-			});
-		}
+public class TestTrigger implements ICriterionTrigger<Instance> {
 
-		@Override
-		public ResourceLocation getId() {
+	public static final ResourceLocation id = new ResourceLocation(KimNaruTree.MODID, "test");
 
-			return this.id;
-		}
+	public static final TestTrigger INSTANCE = new TestTrigger();
 
-		static class Instance implements ICriterionInstance {
+	public TestTrigger() {
 
-			@Override
-			public ResourceLocation getId() {
+	}
 
-				return id;
-			}
+	@Override
+	public Instance deserializeInstance(JsonObject var1, JsonDeserializationContext var2) {
 
-			boolean test(ItemStack stack, ServerPlayerEntity entity) {
-				return true;
-			}
-		}*/
+		return null;
+	}
+
+	@Override
+	public ResourceLocation getId() {
+
+		return id;
+	}
+
+	@Override
+	public void addListener(PlayerAdvancements var1, Listener<Instance> var2) {
+
+	}
+
+	@Override
+	public void removeListener(PlayerAdvancements var1, Listener<Instance> var2) {
+
+	}
+
+	@Override
+	public void removeAllListeners(PlayerAdvancements var1) {
+
+	}
+
+}
+
+class Instance implements ICriterionInstance {
+
+	Instance(ItemPredicate count, EntityPredicate user, Boolean desu) {
+
+	}
+
+	@Override
+	public ResourceLocation getId() {
+
+		return TestTrigger.id;
+	}
+
+	boolean test(ItemStack stack, ServerPlayerEntity entity) {
+		return true;
+	}
 }

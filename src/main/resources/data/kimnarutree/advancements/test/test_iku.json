@@ -1,34 +1,19 @@
 {
-  "parent": "kimnarutree:test/root",
   "display": {
     "icon": {
-      "item": "minecraft:iron_pickaxe",
-      "nbt": "{Damage:0}"
+      "item": "minecraft:aplle"
     },
     "title": {
-      "translate": "advancements.test.test_iku.title"
+      "translate": "advancement.botania:manaBlasterShoot"
     },
     "description": {
-      "translate": "advancements.est.test_iku.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "killed_dragon": {
-      "trigger": "minecraft:player_killed_entity",
-      "conditions": {
-        "entity": {
-          "type": "minecraft:pig"
-        }
-      }
+      "translate": "advancement.botania:manaBlasterShoot.desc"
     }
   },
-  "requirements": [
-    [
-      "killed_dragon"
-    ]
-  ]
+  "parent": "botania:main/rune_pickup",
+  "criteria": {
+    "shoot": {
+      "trigger": "botania:fire_mana_blaster"
+    }
+  }
 }

@@ -14,6 +14,7 @@ import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -26,8 +27,9 @@ import net.minecraft.world.World;
 public class NPCEntity extends CreatureEntity implements INPC {
 
 	public long money;
-	public NonNullList<ItemStack> inventoryItems = NonNullList.withSize(9, ItemStack.EMPTY);
+	public NonNullList<ItemStack> inventoryItems = NonNullList.withSize(36, ItemStack.EMPTY);
 
+	//0~8が自分用のスロット//9~26が材料用//27~35が商品棚
 	protected NPCEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
 		super(type, worldIn);
 
@@ -83,12 +85,9 @@ public class NPCEntity extends CreatureEntity implements INPC {
 
 			return true;
 		} else {
-
-			if (!itemstack.isEmpty()) {
-				if (this.addItem(itemstack.copy()))
-					itemstack.shrink(itemstack.getCount());
-				return true;
-			}
+			NonNullList<ItemStack> mainlist = NonNullList.withSize(18, ItemStack.EMPTY);
+			mainlist.set(5, new ItemStack(Items.ACACIA_BOAT));
+			setMaterialItems(mainlist);
 		}
 
 		return super.processInteract(player, hand);
@@ -99,20 +98,9 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		super.readAdditional(compound);
 		this.money = compound.getLong("Money");
 
-		this.inventoryItems = NonNullList.withSize(9, ItemStack.EMPTY);
+		this.inventoryItems = NonNullList.withSize(36, ItemStack.EMPTY);
 		ItemStackHelper.loadAllItems(compound, this.inventoryItems);
 
-	}
-
-	public boolean addItem(ItemStack stack) {
-		for (int i = 0; i < inventoryItems.size(); i++) {
-
-			if (inventoryItems.get(i).isEmpty()) {
-				inventoryItems.set(i, stack);
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@Override
@@ -123,4 +111,45 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		ItemStackHelper.saveAllItems(compound, this.inventoryItems);
 	}
 
+	protected NonNullList<ItemStack> getItems() {
+		return this.inventoryItems;
+	}
+
+	protected void setItems(NonNullList<ItemStack> itemsIn) {
+		this.inventoryItems = itemsIn;
+	}
+
+	protected NonNullList<ItemStack> getMineItems() {
+
+		NonNullList<ItemStack> mainlist = NonNullList.withSize(9, ItemStack.EMPTY);
+
+		for (int i = 0; i < mainlist.size(); i++) {
+			mainlist.set(i, inventoryItems.get(i));
+		}
+
+		return mainlist;
+	}
+
+	protected void setMineItems(NonNullList<ItemStack> itemsIn) {
+		for (int i = 0; i < itemsIn.size(); i++) {
+			inventoryItems.set(i, itemsIn.get(i));
+		}
+	}
+
+	protected NonNullList<ItemStack> getMaterialItems() {
+
+		NonNullList<ItemStack> materiallist = NonNullList.withSize(18, ItemStack.EMPTY);
+
+		for (int i = 0; i < materiallist.size(); i++) {
+			materiallist.set(i, inventoryItems.get(i + 9));
+		}
+
+		return materiallist;
+	}
+
+	protected void setMaterialItems(NonNullList<ItemStack> itemsIn) {
+		for (int i = 0; i < itemsIn.size(); i++) {
+			inventoryItems.set(i + 9, itemsIn.get(i));
+		}
+	}
 }
