@@ -22,6 +22,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.StringTextComponent;
@@ -59,6 +60,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		}
 
 		this.entityDropItem(this.getHeldItemMainhand());
+		this.entityDropItem(this.getHeldItemOffhand());
 
 	}
 
@@ -70,6 +72,14 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		this.setDropChance(EquipmentSlotType.LEGS, 0);
 		this.setDropChance(EquipmentSlotType.FEET, 0);
 		this.setDropChance(EquipmentSlotType.MAINHAND, 0);
+		this.setDropChance(EquipmentSlotType.OFFHAND, 0);
+
+		NonNullList<ItemStack> mainlist = getMineItems();
+		ItemStack besthelmet = ItemUtil.getBestArmor(mainlist, EquipmentSlotType.HEAD);
+		if (!besthelmet.isEmpty()) {
+			setMineItems(mainlist);
+			this.setItemStackToSlot(EquipmentSlotType.HEAD, besthelmet);
+		}
 
 	}
 
@@ -101,9 +111,10 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		if (itemstack.getItem() == KNTItems.PICKY) {
 
 			if (!player.world.isRemote) {
-
-				player.sendMessage(new StringTextComponent("items=" + this.inventoryItems));
-
+				if (!player.isCrouching())
+					player.sendMessage(new StringTextComponent("items=" + this.getMineItems()));
+				else
+					player.sendMessage(new StringTextComponent("aritems=" + this.getArmorInventoryList()));
 
 			}
 			return true;
@@ -113,10 +124,9 @@ public class NPCEntity extends CreatureEntity implements INPC {
 			this.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
 			this.setItemStackToSlot(EquipmentSlotType.LEGS, new ItemStack(Items.DIAMOND_LEGGINGS));
 			this.setItemStackToSlot(EquipmentSlotType.FEET, new ItemStack(Items.DIAMOND_BOOTS));
-			this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(KNTItems.PICKY));
+			this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(KNTItems.PICKYDED));
 
 		}
-		this.tick();
 		return super.processInteract(player, hand);
 	}
 
@@ -151,7 +161,14 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		ItemStack itemstack = itemEntity.getItem();
 		NonNullList<ItemStack> mainlist = getMineItems();
 
-		itemEntity.setItem(ItemUtil.addNonNullItem(mainlist, itemstack));
+		ItemStack pickitem = ItemUtil.addNonNullItem(mainlist, itemstack);
+
+		if (itemstack.getCount() != pickitem.getCount()) {
+			this.world.playSound((PlayerEntity) null, this.func_226277_ct_(), this.func_226278_cu_(),
+					this.func_226281_cx_(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.NEUTRAL, 0.5F, 2);
+		}
+
+		itemEntity.setItem(pickitem);
 
 		setMineItems(mainlist);
 
@@ -160,7 +177,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		}
 	}
 
-	protected NonNullList<ItemStack> getMineItems() {
+	public NonNullList<ItemStack> getMineItems() {
 
 		NonNullList<ItemStack> mainlist = NonNullList.withSize(9, ItemStack.EMPTY);
 
@@ -171,13 +188,13 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		return mainlist;
 	}
 
-	protected void setMineItems(NonNullList<ItemStack> itemsIn) {
+	public void setMineItems(NonNullList<ItemStack> itemsIn) {
 		for (int i = 0; i < itemsIn.size(); i++) {
 			inventoryItems.set(i, itemsIn.get(i));
 		}
 	}
 
-	protected NonNullList<ItemStack> getMaterialItems() {
+	public NonNullList<ItemStack> getMaterialItems() {
 
 		NonNullList<ItemStack> materiallist = NonNullList.withSize(18, ItemStack.EMPTY);
 
@@ -188,13 +205,13 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		return materiallist;
 	}
 
-	protected void setMaterialItems(NonNullList<ItemStack> itemsIn) {
+	public void setMaterialItems(NonNullList<ItemStack> itemsIn) {
 		for (int i = 0; i < itemsIn.size(); i++) {
 			inventoryItems.set(i + 9, itemsIn.get(i));
 		}
 	}
 
-	protected NonNullList<ItemStack> getProductItems() {
+	public NonNullList<ItemStack> getProductItems() {
 
 		NonNullList<ItemStack> Productlist = NonNullList.withSize(9, ItemStack.EMPTY);
 
@@ -205,7 +222,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		return Productlist;
 	}
 
-	protected void setProductItems(NonNullList<ItemStack> itemsIn) {
+	public void setProductItems(NonNullList<ItemStack> itemsIn) {
 		for (int i = 0; i < itemsIn.size(); i++) {
 			inventoryItems.set(i + 9 + 18, itemsIn.get(i));
 		}
