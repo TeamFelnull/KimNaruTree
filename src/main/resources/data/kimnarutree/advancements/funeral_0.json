@@ -2,12 +2,8 @@
   "parent": "kimnarutree:root",
   "display": {
     "icon": {
-<<<<<<< Updated upstream:src/main/resources/data/kimnarutree/advancements/funeral_0.json
       "item": "kimnarutree:pickyded"
-=======
-      "item": "kimnarutree:picky"
->>>>>>> Stashed changes:src/main/resources/data/kimnarutree/advancements/test/root.json
-    },
+	},
     "title": {
       "translate": "advancements.funeral_0.title"
     },

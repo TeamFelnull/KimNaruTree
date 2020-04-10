@@ -2,6 +2,7 @@
   "_comment": "Item",
   "item.kimnarutree.test_item": "Test Item",
   "item.kimnarutree.picky": "Picky",
+  "item.kimnarutree.pickyded": "Pickyded",
   "item.kimnarutree.npc_spawn_egg": "NPC Spawn Egg",
 
   "_comment": "Block",
@@ -60,7 +61,7 @@
   "advancements.funeral_500.title": "Cremation",
   "advancements.funeral_500.desc": "Burn the Human Body at a Cost of 500 G",
   "advancements.funeral_1000000.title": "General Funeral",
-  "advancements.funeral_1000000.desc": "1000000 G for hose who have Survived 100 Years",
+  "advancements.funeral_1000000.desc": "1000000 G for those who have Survived 100 Years",
   "advancements.funeral_30000000.title": "Determination",
   "advancements.funeral_30000000.desc": "Hold a 30000000 G Funeral",
   "advancements.funeral_1000000000.title": "The Whole Country Cried",

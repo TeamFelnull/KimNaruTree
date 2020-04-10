@@ -1,11 +1,7 @@
 package org.teamfelnull.kimnarutree.entity;
 
-import org.teamfelnull.kimnarutree.advancements.TestTrigger;
 import org.teamfelnull.kimnarutree.item.KNTItems;
-<<<<<<< Updated upstream
-=======
 import org.teamfelnull.kimnarutree.util.ItemUtil;
->>>>>>> Stashed changes
 
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -105,13 +101,12 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		if (itemstack.getItem() == KNTItems.PICKY) {
 
 			if (!player.world.isRemote) {
-<<<<<<< Updated upstream
+
 				player.sendMessage(new StringTextComponent("items=" + this.getArmorInventoryList()));
-				TestTrigger.INSTANCE.trigger((ServerPlayerEntity) player);
-=======
+
 				player.sendMessage(new StringTextComponent("items=" + this.inventoryItems));
 
->>>>>>> Stashed changes
+
 			}
 			return true;
 		} else {
