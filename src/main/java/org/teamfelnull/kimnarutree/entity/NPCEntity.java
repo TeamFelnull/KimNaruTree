@@ -1,5 +1,6 @@
 package org.teamfelnull.kimnarutree.entity;
 
+import org.teamfelnull.kimnarutree.advancements.TestTrigger;
 import org.teamfelnull.kimnarutree.item.KNTItems;
 
 import net.minecraft.entity.CreatureEntity;
@@ -12,6 +13,7 @@ import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -82,7 +84,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 
 			if (!player.world.isRemote)
 				player.sendMessage(new StringTextComponent("items=" + this.inventoryItems));
-
+				TestTrigger.INSTANCE.trigger( (ServerPlayerEntity) player);
 			return true;
 		} else {
 			NonNullList<ItemStack> mainlist = NonNullList.withSize(18, ItemStack.EMPTY);
