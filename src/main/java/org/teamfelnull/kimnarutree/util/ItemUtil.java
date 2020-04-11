@@ -1,5 +1,7 @@
 package org.teamfelnull.kimnarutree.util;
 
+import org.teamfelnull.kimnarutree.item.Evaluations;
+
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
@@ -46,47 +48,29 @@ public class ItemUtil {
 		return false;
 	}
 
-	//防具評価値
-	public static int getArmorEvaluation(ItemStack stack) {
-		if (stack.isEmpty() || !(stack.getItem() instanceof ArmorItem))
-			return 0;
+	public static ItemStack getBestArmor(ItemStack eq, NonNullList<ItemStack> itemlist, EquipmentSlotType slot) {
 
-		ArmorItem arm = (ArmorItem) stack.getItem();
+		if (itemlist.isEmpty())
+			return eq;
 
-		return arm.getDamageReduceAmount() + (stack.isEnchanted() ? 3 : 0);
-	}
+		ItemStack most = eq;
+		int changeslot = -1;
+		for (int i = 0; i < itemlist.size(); i++) {
+			ItemStack stack = itemlist.get(i);
+			if (stack.getItem() instanceof ArmorItem && ((ArmorItem) stack.getItem()).getEquipmentSlot() == slot) {
 
-	public static ItemStack getBestArmor(NonNullList<ItemStack> stacks, EquipmentSlotType slot) {
+				int stackAE = Evaluations.getArmorEvaluation(stack);
+				int mostAE = Evaluations.getArmorEvaluation(most);
 
-		if (stacks.isEmpty())
-			return ItemStack.EMPTY;
-
-		ItemStack most = ItemStack.EMPTY;
-		int num = -1;
-
-		for (int i = 0; i < stacks.size(); i++) {
-			ItemStack item = stacks.get(i);
-
-			if (item.getItem() instanceof ArmorItem && ((ArmorItem) item.getItem()).getEquipmentSlot() == slot) {
-
-				if (most.isEmpty()) {
-					most = item;
-				} else {
-					ArmorItem arm = (ArmorItem) item.getItem();
-					ArmorItem marm = (ArmorItem) most.getItem();
-
-					int ah = arm.getDamageReduceAmount();
-					int mah = marm.getDamageReduceAmount();
-
-					if (ah != mah && ah >= mah) {
-						most = item;
-						num = i;
-					}
+				if (stackAE != mostAE && stackAE >= mostAE) {
+					most = stack;
+					changeslot = i;
 				}
 			}
 		}
-		if (num >= 0)
-			stacks.set(num, ItemStack.EMPTY);
+		if (changeslot != -1) {
+			itemlist.set(changeslot, eq);
+		}
 
 		return most;
 	}

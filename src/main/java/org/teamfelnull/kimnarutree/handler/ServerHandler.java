@@ -84,6 +84,7 @@ public class ServerHandler {
 
 		}
 
-		AdvancementUtil.checkFuneralCost( (ServerPlayerEntity) pl, mae - ato);
+		AdvancementUtil.checkFuneralCost((ServerPlayerEntity) pl, mae - ato);
 	}
+
 }
