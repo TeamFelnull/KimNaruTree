@@ -13,5 +13,6 @@ public class KNTCommands {
 		AddMoneyCommand.register(d);
 		TestCommand.register(d);
 		PCInfomationCommand.register(d);
+		BankCommand.register(d);
 	}
 }
