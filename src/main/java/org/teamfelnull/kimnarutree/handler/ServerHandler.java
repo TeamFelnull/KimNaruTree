@@ -1,6 +1,7 @@
 package org.teamfelnull.kimnarutree.handler;
 
 import org.teamfelnull.kimnarutree.command.KNTCommands;
+import org.teamfelnull.kimnarutree.money.BankData;
 import org.teamfelnull.kimnarutree.money.MoneyConsumptions;
 import org.teamfelnull.kimnarutree.util.AdvancementUtil;
 import org.teamfelnull.kimnarutree.util.MoneyUtil;
@@ -25,6 +26,8 @@ public class ServerHandler {
 	@SubscribeEvent
 	public static void onServerStarting(FMLServerStartingEvent ev) {
 		KNTCommands.registerCommand(ev.getCommandDispatcher());
+		BankData.read(ev.getServer());
+		PlayerDataLoader.readerStart(ev.getServer());
 	}
 
 	@SubscribeEvent
@@ -44,13 +47,9 @@ public class ServerHandler {
 	}
 
 	@SubscribeEvent
-	public static void onWorldLoad(WorldEvent.Load e) {
-		PlayerDataLoader.readerStart(e.getWorld().getWorld().getServer());
-	}
-
-	@SubscribeEvent
 	public static void onWorldSave(WorldEvent.Save e) {
 		PlayerDataLoader.writerStart(e.getWorld().getWorld().getServer());
+		BankData.write(e.getWorld().getWorld().getServer());
 	}
 
 	@SubscribeEvent
@@ -84,6 +83,7 @@ public class ServerHandler {
 
 		}
 
-		AdvancementUtil.checkFuneralCost( (ServerPlayerEntity) pl, mae - ato);
+		AdvancementUtil.checkFuneralCost((ServerPlayerEntity) pl, mae - ato);
 	}
+
 }

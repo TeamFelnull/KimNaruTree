@@ -14,13 +14,23 @@ public class KNTBlocks {
 
 	//名前, マテリアル, 音, 硬さ, 爆破耐性
 	public static Block TEST_BLOCK = newBlock("test_block", Material.ROCK, SoundType.WOOD, 1.0f, 2.0f);
+	public static Block DENNIS_POSED = newOrnamentBlock("dennis_posed", Material.ROCK, SoundType.STONE, 1.0f, 2.0f);
 
 	public static void registerBlock(IForgeRegistry<Block> r) {
 		registryBlock(r, TEST_BLOCK);
+		registryBlock(r, DENNIS_POSED);
 	}
 
 	public static void registerItem(IForgeRegistry<Item> r) {
 		registryBlockItem(r, TEST_BLOCK);
+		registryBlockItem(r, DENNIS_POSED);
+	}
+
+	private static Block newOrnamentBlock(String name, Material materialIn, SoundType sound, float hardness,
+			float resistance) {
+		return new OrnamentBlock(
+				Block.Properties.create(materialIn).sound(sound).hardnessAndResistance(hardness, resistance))
+						.setRegistryName(KimNaruTree.MODID, name);
 	}
 
 	private static Block newBlock(String name, Material materialIn, SoundType sound, float hardness, float resistance) {
