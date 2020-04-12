@@ -2,6 +2,8 @@
   "_comment": "Item",
   "item.kimnarutree.test_item": "テストアイテム",
   "item.kimnarutree.picky": "ピッキー",
+  "item.kimnarutree.pickyded": "故ピッキー",
+  "item.kimnarutree.passbook": "通帳",
   "item.kimnarutree.npc_spawn_egg": "NPCのスポーンエッグ",
 
   "_comment": "Block",
