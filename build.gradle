@@ -84,6 +84,7 @@ dependencies {
   minecraft 'net.minecraftforge:forge:1.15.2-31.1.30'
   compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
   runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
+    compile fg.deobf(files("libs/ReAuth-1.14-3.8.0-deobf.jar"))
 }
 
 

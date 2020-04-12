@@ -25,6 +25,7 @@ public class ServerHandler {
 	@SubscribeEvent
 	public static void onServerStarting(FMLServerStartingEvent ev) {
 		KNTCommands.registerCommand(ev.getCommandDispatcher());
+
 	}
 
 	@SubscribeEvent

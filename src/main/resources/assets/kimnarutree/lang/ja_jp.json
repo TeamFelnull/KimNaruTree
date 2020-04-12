@@ -6,7 +6,8 @@
 
   "_comment": "Block",
   "block.kimnarutree.test_block": "テストブロック",
-
+  "block.kimnarutree.dennis_posed": "なんだこのオッサン！",
+  
   "_comment": "Command",
   "commands.money.show.me": "残高は %s です",
   "commands.money.show.player": "%s の残高は %s です",
