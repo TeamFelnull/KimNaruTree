@@ -11,7 +11,7 @@ import java.util.Set;
 
 import org.teamfelnull.kimnarutree.KimNaruTree;
 import org.teamfelnull.kimnarutree.util.FileLoadUtil;
-import org.teamfelnull.kimnarutree.util.player.PlayerHelper;
+import org.teamfelnull.kimnarutree.util.PlayerHelper;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;

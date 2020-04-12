@@ -11,14 +11,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
-public class Passbook extends Item {
+public class PassbookItem extends Item {
 
-	public Passbook(Properties properties) {
+	public PassbookItem(Properties properties) {
 		super(properties);
 	}
 
 	public static Item newPassbook() {
-		return new Passbook(new Item.Properties().group(KNTItemGroup.MOD_TAB))
+		return new PassbookItem(new Item.Properties().group(KNTItemGroup.MOD_TAB))
 				.setRegistryName(KimNaruTree.MODID, "passbook");
 	}
 

@@ -2,9 +2,9 @@ package org.teamfelnull.kimnarutree.command;
 
 import java.util.Collection;
 
+import org.teamfelnull.kimnarutree.data.UnSavedPlayerData;
+import org.teamfelnull.kimnarutree.util.PlayerHelper;
 import org.teamfelnull.kimnarutree.util.StringHelper;
-import org.teamfelnull.kimnarutree.util.player.PlayerDatas;
-import org.teamfelnull.kimnarutree.util.player.PlayerHelper;
 
 import com.mojang.brigadier.CommandDispatcher;
 
@@ -133,7 +133,6 @@ public class PCInfomationCommand {
 
 	private static String getPlayerPCInfo(PlayerEntity pl, String statename) {
 
-		return PlayerHelper.getPlayerData(PlayerDatas.UNSAVED_PLAYER_DATA,
-				PlayerHelper.getUUID(pl), statename);
+		return UnSavedPlayerData.getData(PlayerHelper.getUUID(pl), statename);
 	}
 }

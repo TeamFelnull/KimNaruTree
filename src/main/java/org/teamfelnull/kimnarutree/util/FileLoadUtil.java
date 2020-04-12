@@ -1,6 +1,7 @@
 package org.teamfelnull.kimnarutree.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,6 +15,10 @@ import org.teamfelnull.kimnarutree.KimNaruTree;
 import net.minecraft.server.MinecraftServer;
 
 public class FileLoadUtil {
+	public static Path getOptionDataPath() {
+		File file = new File("kimunarutree");
+		return file.toPath();
+	}
 
 	public static Path getWorldSaveDataPath(MinecraftServer ms) {
 		Path pth = ms.getActiveAnvilConverter().getFile(ms.getFolderName(), "test").getParentFile().toPath();
@@ -48,16 +53,19 @@ public class FileLoadUtil {
 					try {
 						String[] fruit = st.split("=", 0);
 						map.put(fruit[0], fruit[1]);
-					} catch (Exception e) {}
+					} catch (Exception e) {
+					}
 				}
 			}
 
 			br.close();
 			fr.close();
 		} catch (FileNotFoundException e) {
-			KimNaruTree.LOGGER.error("Failed File Write " + "Path :" + path.toString() + " File :" + name + ".txt  " + e.getLocalizedMessage());
+			KimNaruTree.LOGGER.error("Failed File Write " + "Path :" + path.toString() + " File :" + name + ".txt  "
+					+ e.getLocalizedMessage());
 		} catch (IOException e) {
-			KimNaruTree.LOGGER.error("Failed File Write " + "Path :" + path.toString() + " File :" + name + ".txt  " + e.getLocalizedMessage());
+			KimNaruTree.LOGGER.error("Failed File Write " + "Path :" + path.toString() + " File :" + name + ".txt  "
+					+ e.getLocalizedMessage());
 		}
 	}
 
@@ -73,7 +81,7 @@ public class FileLoadUtil {
 			properties.store(fw, comment);
 		} catch (IOException e) {
 			KimNaruTree.LOGGER.error("Failed File Write " + "Path :" + path.toString()
-			+ " File :" + name + ".txt  " + e.getLocalizedMessage());
+					+ " File :" + name + ".txt  " + e.getLocalizedMessage());
 		}
 	}
 }
