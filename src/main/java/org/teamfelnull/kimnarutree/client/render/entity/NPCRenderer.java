@@ -5,7 +5,6 @@ import org.teamfelnull.kimnarutree.entity.NPCEntity;
 
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.layers.BeeStingerLayer;
 import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ElytraLayer;
 import net.minecraft.client.renderer.entity.layers.HeadLayer;
@@ -29,7 +28,6 @@ public class NPCRenderer extends BipedRenderer<NPCEntity, NPCModel<NPCEntity>> {
 		this.addLayer(new HeldItemLayer<>(this));
 		this.addLayer(new HeadLayer<>(this));
 		this.addLayer(new ElytraLayer<>(this));
-		this.addLayer(new BeeStingerLayer<>(this));
 	}
 
 	public ResourceLocation getEntityTexture(NPCEntity entity) {

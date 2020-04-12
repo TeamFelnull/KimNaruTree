@@ -7,10 +7,11 @@ import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.INPC;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.OpenDoorGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,6 +19,9 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundEvents;
@@ -25,6 +29,8 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 public class NPCEntity extends CreatureEntity implements INPC {
+	private static final DataParameter<Integer> SHAKE_HEAD_TICKS = EntityDataManager
+			.createKey(NPCEntity.class, DataSerializers.VARINT);
 	public NonNullList<ItemStack> inventoryItems = NonNullList.withSize(36, ItemStack.EMPTY);
 	public long money;
 	public int armorchangeCooldwon;
@@ -35,14 +41,47 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		this.setCanPickUpLoot(true);
 	}
 
+	public int getShakeHeadTicks() {
+		return this.dataManager.get(SHAKE_HEAD_TICKS);
+	}
+
+	public void setShakeHeadTicks(int p_213720_1_) {
+		this.dataManager.set(SHAKE_HEAD_TICKS, p_213720_1_);
+	}
+
+	protected void registerData() {
+		super.registerData();
+		this.dataManager.register(SHAKE_HEAD_TICKS, 0);
+
+	}
+
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new SwimGoal(this));
-		this.goalSelector.addGoal(1, new OpenDoorGoal(this, false));
-		this.goalSelector.addGoal(2, new RandomWalkingGoal(this, 0.6D));
-		this.goalSelector.addGoal(3, new PanicGoal(this, 0.5D));
-		this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 3.0F, 1.0F));
-		this.goalSelector.addGoal(5, new LookAtGoal(this, MobEntity.class, 8.0F));
+		this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1D, false));
+		this.goalSelector.addGoal(1, new SwimGoal(this));
+		this.goalSelector.addGoal(2, new OpenDoorGoal(this, true));
+		//	this.goalSelector.addGoal(3, new PanicGoal(this, 0.5D));
+		this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 3.0F, 1.0F));
+		this.goalSelector.addGoal(4, new LookAtGoal(this, MobEntity.class, 8.0F));
+
+		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+	}
+
+	@Override
+	protected void registerAttributes() {
+		super.registerAttributes();
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) 0.35F);
+		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12.0D);
+		this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+
+	}
+
+	private void shakeHead() {
+		this.setShakeHeadTicks(40);
+		if (!this.world.isRemote()) {
+			this.playSound(SoundEvents.ENTITY_VILLAGER_NO, this.getSoundVolume(), this.getSoundPitch());
+		}
 
 	}
 
@@ -71,6 +110,10 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		this.setDropChance(EquipmentSlotType.MAINHAND, 0);
 		this.setDropChance(EquipmentSlotType.OFFHAND, 0);
 
+		if (this.getShakeHeadTicks() > 0) {
+			this.setShakeHeadTicks(this.getShakeHeadTicks() - 1);
+		}
+
 		if (this.armorchangeCooldwon <= 0) {
 			this.updateEquipment();
 			armorchangeCooldwon = 200;
@@ -95,6 +138,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 				}
 			}
 		}
+
 	}
 
 	/*
@@ -135,7 +179,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 			return true;
 		} else {
 
-			this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(KNTItems.PICKYDED));
+			this.shakeHead();
 
 		}
 		return super.processInteract(player, hand);

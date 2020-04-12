@@ -47,6 +47,7 @@ public class ServerHandler {
 	@SubscribeEvent
 	public static void onWorldLoad(WorldEvent.Load e) {
 		PlayerDataLoader.readerStart(e.getWorld().getWorld().getServer());
+
 	}
 
 	@SubscribeEvent
