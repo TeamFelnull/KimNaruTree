@@ -26,8 +26,17 @@ public class ServerHandler {
 	@SubscribeEvent
 	public static void onServerStarting(FMLServerStartingEvent ev) {
 		KNTCommands.registerCommand(ev.getCommandDispatcher());
+<<<<<<< HEAD
 		BankData.read(ev.getServer());
 		PlayerDataLoader.readerStart(ev.getServer());
+=======
+<<<<<<< HEAD
+
+=======
+		BankData.read(ev.getServer());
+		PlayerDataLoader.readerStart(ev.getServer());
+>>>>>>> master
+>>>>>>> master
 	}
 
 	@SubscribeEvent
@@ -47,6 +56,18 @@ public class ServerHandler {
 	}
 
 	@SubscribeEvent
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	public static void onWorldLoad(WorldEvent.Load e) {
+		PlayerDataLoader.readerStart(e.getWorld().getWorld().getServer());
+
+	}
+
+	@SubscribeEvent
+=======
+>>>>>>> master
+>>>>>>> master
 	public static void onWorldSave(WorldEvent.Save e) {
 		PlayerDataLoader.writerStart(e.getWorld().getWorld().getServer());
 		BankData.write(e.getWorld().getWorld().getServer());
@@ -83,6 +104,7 @@ public class ServerHandler {
 
 		}
 
-		AdvancementUtil.checkFuneralCost( (ServerPlayerEntity) pl, mae - ato);
+		AdvancementUtil.checkFuneralCost((ServerPlayerEntity) pl, mae - ato);
 	}
+
 }

@@ -7,30 +7,33 @@ import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.INPC;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.OpenDoorGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.DamageSource;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 public class NPCEntity extends CreatureEntity implements INPC {
-
-	public long money;
+	private static final DataParameter<Integer> SHAKE_HEAD_TICKS = EntityDataManager
+			.createKey(NPCEntity.class, DataSerializers.VARINT);
 	public NonNullList<ItemStack> inventoryItems = NonNullList.withSize(36, ItemStack.EMPTY);
+	public long money;
+	public int armorchangeCooldwon;
 
 	//0~8が自分用のスロット//9~26が材料用//27~35が商品棚
 	protected NPCEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
@@ -38,13 +41,47 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		this.setCanPickUpLoot(true);
 	}
 
+	public int getShakeHeadTicks() {
+		return this.dataManager.get(SHAKE_HEAD_TICKS);
+	}
+
+	public void setShakeHeadTicks(int p_213720_1_) {
+		this.dataManager.set(SHAKE_HEAD_TICKS, p_213720_1_);
+	}
+
+	protected void registerData() {
+		super.registerData();
+		this.dataManager.register(SHAKE_HEAD_TICKS, 0);
+
+	}
+
 	@Override
 	protected void registerGoals() {
-		this.goalSelector.addGoal(0, new SwimGoal(this));
-		this.goalSelector.addGoal(1, new PanicGoal(this, 0.5D));
-		this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.35D));
-		this.goalSelector.addGoal(3, new LookAtGoal(this, MobEntity.class, 8.0F));
-		this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
+		this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1D, false));
+		this.goalSelector.addGoal(1, new SwimGoal(this));
+		this.goalSelector.addGoal(2, new OpenDoorGoal(this, true));
+		//	this.goalSelector.addGoal(3, new PanicGoal(this, 0.5D));
+		this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 3.0F, 1.0F));
+		this.goalSelector.addGoal(4, new LookAtGoal(this, MobEntity.class, 8.0F));
+
+		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+	}
+
+	@Override
+	protected void registerAttributes() {
+		super.registerAttributes();
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) 0.35F);
+		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12.0D);
+		this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+
+	}
+
+	private void shakeHead() {
+		this.setShakeHeadTicks(40);
+		if (!this.world.isRemote()) {
+			this.playSound(SoundEvents.ENTITY_VILLAGER_NO, this.getSoundVolume(), this.getSoundPitch());
+		}
 
 	}
 
@@ -59,6 +96,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		}
 
 		this.entityDropItem(this.getHeldItemMainhand());
+		this.entityDropItem(this.getHeldItemOffhand());
 
 	}
 
@@ -70,24 +108,55 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		this.setDropChance(EquipmentSlotType.LEGS, 0);
 		this.setDropChance(EquipmentSlotType.FEET, 0);
 		this.setDropChance(EquipmentSlotType.MAINHAND, 0);
+		this.setDropChance(EquipmentSlotType.OFFHAND, 0);
+
+		if (this.getShakeHeadTicks() > 0) {
+			this.setShakeHeadTicks(this.getShakeHeadTicks() - 1);
+		}
+
+		if (this.armorchangeCooldwon <= 0) {
+			this.updateEquipment();
+			armorchangeCooldwon = 200;
+		} else {
+			armorchangeCooldwon--;
+		}
+	}
+
+	public void updateEquipment() {
+		for (EquipmentSlotType slot : EquipmentSlotType.values()) {
+
+			if (slot != EquipmentSlotType.MAINHAND && slot != EquipmentSlotType.OFFHAND) {
+
+				NonNullList<ItemStack> mainlist = getMineItems();
+				ItemStack best = ItemUtil.getBestArmor(this.getItemStackFromSlot(slot), mainlist, slot);
+				if (!best.isEmpty() && this.getItemStackFromSlot(slot) != best) {
+
+					this.playEquipSound(best);
+
+					setMineItems(mainlist);
+					this.setItemStackToSlot(slot, best);
+				}
+			}
+		}
 
 	}
 
-	@Override
-	protected SoundEvent getAmbientSound() {
-		return SoundEvents.ENTITY_WANDERING_TRADER_AMBIENT;
-	}
+	/*
+		@Override
+		protected SoundEvent getAmbientSound() {
+			return SoundEvents.ENTITY_WANDERING_TRADER_AMBIENT;
+		}
 
-	@Override
-	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-		return SoundEvents.ENTITY_WANDERING_TRADER_HURT;
-	}
+		@Override
+		protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+			return SoundEvents.ENTITY_WANDERING_TRADER_HURT;
+		}
 
-	@Override
-	protected SoundEvent getDeathSound() {
-		return SoundEvents.ENTITY_WANDERING_TRADER_DEATH;
-	}
-
+		@Override
+		protected SoundEvent getDeathSound() {
+			return SoundEvents.ENTITY_WANDERING_TRADER_DEATH;
+		}
+	*/
 	@Override
 	public boolean canDespawn(double distanceToClosestPlayer) {
 		return false;
@@ -101,24 +170,18 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		if (itemstack.getItem() == KNTItems.PICKY) {
 
 			if (!player.world.isRemote) {
-
-				player.sendMessage(new StringTextComponent("items=" + this.getArmorInventoryList()));
-
-				player.sendMessage(new StringTextComponent("items=" + this.inventoryItems));
-
+				if (!player.isCrouching())
+					player.sendMessage(new StringTextComponent("items=" + this.getMineItems()));
+				else
+					player.sendMessage(new StringTextComponent("aritems=" + this.getArmorInventoryList()));
 
 			}
 			return true;
 		} else {
 
-			this.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.DIAMOND_HELMET));
-			this.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
-			this.setItemStackToSlot(EquipmentSlotType.LEGS, new ItemStack(Items.DIAMOND_LEGGINGS));
-			this.setItemStackToSlot(EquipmentSlotType.FEET, new ItemStack(Items.DIAMOND_BOOTS));
-			this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(KNTItems.PICKY));
+			this.shakeHead();
 
 		}
-		this.tick();
 		return super.processInteract(player, hand);
 	}
 
@@ -126,6 +189,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
 		this.money = compound.getLong("Money");
+		this.armorchangeCooldwon = compound.getInt("ArmorChangeCooldwon");
 		this.setCanPickUpLoot(true);
 		this.inventoryItems = NonNullList.withSize(36, ItemStack.EMPTY);
 		ItemStackHelper.loadAllItems(compound, this.inventoryItems);
@@ -136,7 +200,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
 		compound.putLong("Money", this.money);
-
+		compound.putInt("ArmorChangeCooldwon", this.armorchangeCooldwon);
 		ItemStackHelper.saveAllItems(compound, this.inventoryItems);
 	}
 
@@ -153,7 +217,14 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		ItemStack itemstack = itemEntity.getItem();
 		NonNullList<ItemStack> mainlist = getMineItems();
 
-		itemEntity.setItem(ItemUtil.addNonNullItem(mainlist, itemstack));
+		ItemStack pickitem = ItemUtil.addNonNullItem(mainlist, itemstack);
+
+		if (itemstack.getCount() != pickitem.getCount()) {
+			this.world.playSound((PlayerEntity) null, this.func_226277_ct_(), this.func_226278_cu_(),
+					this.func_226281_cx_(), SoundEvents.ENTITY_ITEM_PICKUP, this.getSoundCategory(), 0.5F, 2);
+		}
+
+		itemEntity.setItem(pickitem);
 
 		setMineItems(mainlist);
 
@@ -162,7 +233,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		}
 	}
 
-	protected NonNullList<ItemStack> getMineItems() {
+	public NonNullList<ItemStack> getMineItems() {
 
 		NonNullList<ItemStack> mainlist = NonNullList.withSize(9, ItemStack.EMPTY);
 
@@ -173,13 +244,13 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		return mainlist;
 	}
 
-	protected void setMineItems(NonNullList<ItemStack> itemsIn) {
+	public void setMineItems(NonNullList<ItemStack> itemsIn) {
 		for (int i = 0; i < itemsIn.size(); i++) {
 			inventoryItems.set(i, itemsIn.get(i));
 		}
 	}
 
-	protected NonNullList<ItemStack> getMaterialItems() {
+	public NonNullList<ItemStack> getMaterialItems() {
 
 		NonNullList<ItemStack> materiallist = NonNullList.withSize(18, ItemStack.EMPTY);
 
@@ -190,13 +261,13 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		return materiallist;
 	}
 
-	protected void setMaterialItems(NonNullList<ItemStack> itemsIn) {
+	public void setMaterialItems(NonNullList<ItemStack> itemsIn) {
 		for (int i = 0; i < itemsIn.size(); i++) {
 			inventoryItems.set(i + 9, itemsIn.get(i));
 		}
 	}
 
-	protected NonNullList<ItemStack> getProductItems() {
+	public NonNullList<ItemStack> getProductItems() {
 
 		NonNullList<ItemStack> Productlist = NonNullList.withSize(9, ItemStack.EMPTY);
 
@@ -207,7 +278,7 @@ public class NPCEntity extends CreatureEntity implements INPC {
 		return Productlist;
 	}
 
-	protected void setProductItems(NonNullList<ItemStack> itemsIn) {
+	public void setProductItems(NonNullList<ItemStack> itemsIn) {
 		for (int i = 0; i < itemsIn.size(); i++) {
 			inventoryItems.set(i + 9 + 18, itemsIn.get(i));
 		}

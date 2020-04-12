@@ -24,8 +24,8 @@ public class KNTItems {
 				.setRegistryName(KimNaruTree.MODID, name);
 	}
 
-	private static Item newSpawnEgg(EntityType<?> type, String name,int color1, int color2) {
-		return new SpawnEggItem(type, color1, color2,(new Item.Properties())
+	private static Item newSpawnEgg(EntityType<?> type, String name, int color1, int color2) {
+		return new SpawnEggItem(type, color1, color2, (new Item.Properties())
 				.group(KNTItemGroup.MOD_TAB)).setRegistryName(KimNaruTree.MODID, name);
 	}
 

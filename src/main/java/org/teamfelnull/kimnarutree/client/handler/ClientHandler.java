@@ -89,4 +89,12 @@ public class ClientHandler {
 			}
 		}
 	}
+
+//	@SubscribeEvent
+//	public static void onTooltip(ItemTooltipEvent e) {
+//
+//		e.getToolTip().add(new StringTextComponent(
+//				"test=" + Evaluations.getArmorEvaluation(e.getItemStack())));
+//
+//	}
 }
