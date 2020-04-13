@@ -13,6 +13,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit() {
 		super.preInit();
+		KimNaruTree.side = 1;
 	}
 
 	public static void clientInit() {

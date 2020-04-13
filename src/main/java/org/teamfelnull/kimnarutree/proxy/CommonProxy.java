@@ -2,9 +2,7 @@ package org.teamfelnull.kimnarutree.proxy;
 
 import org.teamfelnull.kimnarutree.KimNaruTree;
 import org.teamfelnull.kimnarutree.packet.PacketHandler;
-
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.advancements.ICriterionTrigger;
+import org.teamfelnull.kimnarutree.registries.DefaltBaseItemWorthRegistrey;
 
 public class CommonProxy {
 
@@ -15,16 +13,11 @@ public class CommonProxy {
 
 	public void init() {
 		KimNaruTree.LOGGER.info("Initing...");
+		DefaltBaseItemWorthRegistrey.init();
 	}
 
 	public void posInit() {
 		KimNaruTree.LOGGER.info("Post Initing...");
-
-		System.out.println("traaaaaaa");
-
-		for (ICriterionTrigger<?> s : CriteriaTriggers.getAll()) {
-			System.out.println(s.getId());
-		}
 
 	}
 }

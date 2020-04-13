@@ -16,6 +16,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 
 public class ServerHandler {
 
@@ -46,8 +47,8 @@ public class ServerHandler {
 	}
 
 	@SubscribeEvent
-	public static void onWorldUnload(WorldEvent.Unload e) {
-		DataWriter.onWorldUnLoad(e.getWorld().getWorld().getServer());
+	public static void onServerStopping(FMLServerStoppingEvent e) {
+		DataLoadSave.serverStopping(e.getServer());
 	}
 
 	@SubscribeEvent

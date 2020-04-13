@@ -23,6 +23,7 @@ public class KimNaruTree {
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static final CommonProxy proxy = DistExecutor
 			.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+	public static int side = 0;
 
 	public KimNaruTree() {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
