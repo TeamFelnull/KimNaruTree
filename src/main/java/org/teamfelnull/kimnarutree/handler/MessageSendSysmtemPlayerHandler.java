@@ -2,9 +2,9 @@ package org.teamfelnull.kimnarutree.handler;
 
 import java.util.function.Supplier;
 
+import org.teamfelnull.kimnarutree.data.UnSavedPlayerData;
 import org.teamfelnull.kimnarutree.packet.MessageSendSysmtemInfo;
-import org.teamfelnull.kimnarutree.util.player.PlayerDatas;
-import org.teamfelnull.kimnarutree.util.player.PlayerHelper;
+import org.teamfelnull.kimnarutree.util.PlayerHelper;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -25,6 +25,6 @@ public class MessageSendSysmtemPlayerHandler {
 	}
 
 	private static void setUnSavePlayerData(PlayerEntity pl, String statename, String state) {
-		PlayerHelper.setPlayerData(PlayerDatas.UNSAVED_PLAYER_DATA, PlayerHelper.getUUID(pl), statename, state);
+		UnSavedPlayerData.setData(PlayerHelper.getUUID(pl), statename, state);
 	}
 }

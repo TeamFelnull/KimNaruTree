@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=south": { "model": "kimnarutree:block/dennis_posed", "y": 180 },
+        "facing=west": { "model": "kimnarutree:block/dennis_posed", "y": 270 },
+        "facing=north": { "model": "kimnarutree:block/dennis_posed", "y": 0 },
+        "facing=east": { "model": "kimnarutree:block/dennis_posed", "y": 90 }
+    }
+}

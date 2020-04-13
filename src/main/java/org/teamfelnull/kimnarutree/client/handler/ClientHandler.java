@@ -1,5 +1,6 @@
 package org.teamfelnull.kimnarutree.client.handler;
 
+import org.teamfelnull.kimnarutree.item.PassbookItem;
 import org.teamfelnull.kimnarutree.packet.MessageSendSysmtemInfo;
 import org.teamfelnull.kimnarutree.packet.PacketHandler;
 import org.teamfelnull.kimnarutree.util.MCHelper;
@@ -79,7 +80,6 @@ public class ClientHandler {
 
 	@SubscribeEvent
 	public static void onChatReceived(ClientChatReceivedEvent e) {
-
 		if (e.getType() == ChatType.SYSTEM) {
 			if (e.getMessage() instanceof TranslationTextComponent) {
 				TranslationTextComponent me = (TranslationTextComponent) e.getMessage();
@@ -87,6 +87,17 @@ public class ClientHandler {
 					e.setCanceled(true);
 				}
 			}
+			if(e.getMessage().getString().contains("DataList: ")) {
+				PassbookItem.oldChatComponent = e.getMessage();
+			}
 		}
 	}
+
+//	@SubscribeEvent
+//	public static void onTooltip(ItemTooltipEvent e) {
+//
+//		e.getToolTip().add(new StringTextComponent(
+//				"test=" + Evaluations.getArmorEvaluation(e.getItemStack())));
+//
+//	}
 }
