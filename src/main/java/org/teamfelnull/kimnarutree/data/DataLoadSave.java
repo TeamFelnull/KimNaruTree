@@ -7,10 +7,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 
 public class DataLoadSave {
+
 	//ワールド（内部サーバー）が開かられる時
 	public static void serverStarting(MinecraftServer ms) {
 		BankData.read(ms);
-		SavedPlayerData.readerStart(ms);
+		SavedPlayerData.read(ms);
+		BaseItemWorthData.read();
+		BaseItemWorthData.write();
+		BaseItemWorthData.read();
 	}
 
 	//プレイヤーがログインした時
@@ -25,6 +29,7 @@ public class DataLoadSave {
 
 		if (KNTDatas.UNSAVED_PLAYER_DATA.containsKey(PlayerHelper.getUUID(pl)))
 			KNTDatas.UNSAVED_PLAYER_DATA.get(PlayerHelper.getUUID(pl)).clear();
+
 	}
 
 	//ワールドが保存される時
@@ -33,10 +38,12 @@ public class DataLoadSave {
 		BankData.write(ms);
 	}
 
-	//ワールドがアンロードされた時
-	public static void worldUnLoad(MinecraftServer ms) {
+	//ワールド（内部サーバー）が閉じた時
+	public static void serverStopping(MinecraftServer ms) {
 		KNTDatas.SAVED_PLAYER_DATA.clear();
 		KNTDatas.UNSAVED_PLAYER_DATA.clear();
+		KNTDatas.BASE_ITEM_WORTH_DATA.clear();
+
 	}
 
 }

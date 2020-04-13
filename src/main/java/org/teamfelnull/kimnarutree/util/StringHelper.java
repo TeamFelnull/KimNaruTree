@@ -5,6 +5,10 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
+
 public class StringHelper {
 
 	public static long convertLongFromString(String st) {
@@ -42,4 +46,13 @@ public class StringHelper {
 	public static String convertStringFromInt(int lo) {
 		return lo + "";
 	}
+
+	public static Item convertItemFromString(String st) {
+		return ForgeRegistries.ITEMS.getValue(new ResourceLocation(st));
+	}
+
+	public static String convertStringFromItem(Item item) {
+		return item.getRegistryName().toString();
+	}
+
 }
