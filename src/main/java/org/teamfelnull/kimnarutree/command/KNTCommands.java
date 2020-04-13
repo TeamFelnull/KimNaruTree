@@ -7,12 +7,10 @@ import net.minecraft.command.CommandSource;
 public class KNTCommands {
 
 	public static void registerCommand(CommandDispatcher<CommandSource> d) {
-		MoneyCommand.register(d);
-		ReloadMoneyCommand.register(d);
-		SetMoneyCommand.register(d);
-		AddMoneyCommand.register(d);
 		TestCommand.register(d);
+		MoneyCommand.register(d);
+		PlayerDataCommand.register(d);
+		BankDataCommand.register(d);
 		PCInfomationCommand.register(d);
-		BankCommand.register(d);
 	}
 }

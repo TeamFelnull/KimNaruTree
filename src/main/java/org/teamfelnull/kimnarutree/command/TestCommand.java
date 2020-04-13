@@ -1,6 +1,6 @@
 package org.teamfelnull.kimnarutree.command;
 
-import org.teamfelnull.kimnarutree.util.FileLoadUtil;
+import org.teamfelnull.kimnarutree.util.FileHelper;
 
 import com.mojang.brigadier.CommandDispatcher;
 
@@ -12,10 +12,11 @@ public class TestCommand {
 
 	public static void register(CommandDispatcher<CommandSource> d) {
 		d.register(Commands.literal("test")
-				.executes(source -> {
-					source.getSource()
-							.sendFeedback(new StringTextComponent(FileLoadUtil.getOptionDataPath().toString()), true);
-					return 1;
-				}));
+			.executes(source ->
+				{
+					source.getSource().sendFeedback(new StringTextComponent(FileHelper.getOptionDataPath().toString()), true);return 1;
+				}
+			)
+		);
 	}
 }
