@@ -13,8 +13,9 @@ public class DataReader {
 	public static void onServerStarting(MinecraftServer ms) {
 		BankData.read(ms);
 		PlayerHelper.resetHistory();
-		//PlayerData.readAll(ms);
-		//SavedPlayerData.readerStart(ms);
+		BaseItemWorthData.read();
+		BaseItemWorthData.write();
+		BaseItemWorthData.read();
 	}
 
 	//プレイヤーがログインした時

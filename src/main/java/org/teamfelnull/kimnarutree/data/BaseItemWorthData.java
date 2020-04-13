@@ -8,7 +8,7 @@ import java.nio.file.Path;
 
 import org.teamfelnull.kimnarutree.KimNaruTree;
 import org.teamfelnull.kimnarutree.registries.KNTRegistries;
-import org.teamfelnull.kimnarutree.util.FileLoadUtil;
+import org.teamfelnull.kimnarutree.util.FileHelper;
 import org.teamfelnull.kimnarutree.util.StringHelper;
 
 import com.google.gson.stream.JsonReader;
@@ -34,7 +34,7 @@ public class BaseItemWorthData {
 	//特定のアイテムのベース価値を読み込むプレイヤーに渡す
 	public static void read() {
 		KNTDatas.BASE_ITEM_WORTH_DATA.clear();
-		Path path = FileLoadUtil.getOptionDataPath();
+		Path path = FileHelper.getOptionDataPath();
 
 		try (JsonReader reader = new JsonReader(new FileReader(path + "/baseitemworth.json"))) {
 			reader.beginObject();
@@ -60,7 +60,7 @@ public class BaseItemWorthData {
 
 	//初期データを書き込む
 	public static void write() {
-		Path path = FileLoadUtil.getOptionDataPath();
+		Path path = FileHelper.getOptionDataPath();
 		path.toFile().mkdirs();
 		try (JsonWriter writer = new JsonWriter(new FileWriter(path + "/baseitemworth.json"))) {
 			writer.beginObject();

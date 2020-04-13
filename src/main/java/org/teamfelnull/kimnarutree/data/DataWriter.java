@@ -17,18 +17,11 @@ public class DataWriter {
 
 	//プレイヤーがログアウトした時
 	public static void onPlayerLogout(PlayerEntity pl) {
-		/*
-		if (KNTData.SAVED_PLAYER_DATA.containsKey(PlayerHelper.getUUID(pl)))
-			KNTData.SAVED_PLAYER_DATA.get(PlayerHelper.getUUID(pl)).clear();
 
-		if (KNTData.UNSAVED_PLAYER_DATA.containsKey(PlayerHelper.getUUID(pl)))
-			KNTData.UNSAVED_PLAYER_DATA.get(PlayerHelper.getUUID(pl)).clear();
-		*/
 	}
 
-	//ワールドがアンロードされた時
-	public static void onWorldUnLoad(MinecraftServer ms) {
-		//KNTData.SAVED_PLAYER_DATA.clear();
-		//KNTData.UNSAVED_PLAYER_DATA.clear();
+	//ワールド（内部サーバー）が閉じた時
+	public static void serverStopping(MinecraftServer ms) {
+
 	}
 }

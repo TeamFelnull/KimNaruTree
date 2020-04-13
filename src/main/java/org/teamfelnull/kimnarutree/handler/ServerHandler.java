@@ -3,6 +3,7 @@ package org.teamfelnull.kimnarutree.handler;
 import org.teamfelnull.kimnarutree.command.KNTCommands;
 import org.teamfelnull.kimnarutree.data.DataReader;
 import org.teamfelnull.kimnarutree.data.DataWriter;
+import org.teamfelnull.kimnarutree.data.KNTDatas;
 import org.teamfelnull.kimnarutree.money.MoneyConsumptions;
 import org.teamfelnull.kimnarutree.money.PlayerData;
 import org.teamfelnull.kimnarutree.util.AdvancementUtil;
@@ -48,7 +49,9 @@ public class ServerHandler {
 
 	@SubscribeEvent
 	public static void onServerStopping(FMLServerStoppingEvent e) {
-		DataLoadSave.serverStopping(e.getServer());
+		KNTDatas.SAVED_PLAYER_DATA.clear();
+		KNTDatas.UNSAVED_PLAYER_DATA.clear();
+		KNTDatas.BASE_ITEM_WORTH_DATA.clear();
 	}
 
 	@SubscribeEvent
