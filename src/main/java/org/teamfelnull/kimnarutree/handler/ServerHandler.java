@@ -66,7 +66,7 @@ public class ServerHandler {
 		PlayerData.setMoney(pl, ato);
 		for (ServerPlayerEntity spl : pl.getServer().getPlayerList().getPlayers()) {
 			spl.sendMessage(new TranslationTextComponent("message.rip", e.getSource().getDeathMessage(pl),
-					MoneyUtil.getDisplayAmount(ato)));
+					MoneyUtil.getDisplayAmount(sabun)));
 		}
 		AdvancementUtil.checkFuneralCost(pl, sabun);
 	}

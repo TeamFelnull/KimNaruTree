@@ -9,6 +9,7 @@
   "_comment": "Block",
   "block.kimnarutree.test_block": "テストブロック",
   "block.kimnarutree.dennis_posed": "なんだこのオッサン！",
+  "block.kimnarutree.note_pc": "ノートパソコン",
   
   "_comment": "Command",
   "commands.money.show.me": "残高は %s です",

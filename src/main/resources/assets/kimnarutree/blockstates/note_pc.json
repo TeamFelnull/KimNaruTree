@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "facing=south,open=false": { "model": "kimnarutree:block/note_pc_close", "y": 90 },
+        "facing=west,open=false": { "model": "kimnarutree:block/note_pc_close", "y": 180 },
+        "facing=north,open=false": { "model": "kimnarutree:block/note_pc_close", "y": 270 },
+        "facing=east,open=false": { "model": "kimnarutree:block/note_pc_close", "y": 0 },
+        "facing=south,open=true": { "model": "kimnarutree:block/note_pc_open", "y": 90 },
+        "facing=west,open=true": { "model": "kimnarutree:block/note_pc_open", "y": 180 },
+        "facing=north,open=true": { "model": "kimnarutree:block/note_pc_open", "y": 270 },
+        "facing=east,open=true": { "model": "kimnarutree:block/note_pc_open", "y": 0 }
+    }
+}

@@ -8,7 +8,8 @@
   "_comment": "Block",
   "block.kimnarutree.test_block": "Test Block",
   "block.kimnarutree.dennis_posed": "Dennis Posed",
-
+  "block.kimnarutree.note_pc": "Note PC",
+  
   "_comment": "Command",
   "commands.money.show.me": "Balance is %s",
   "commands.money.show.player": "%s 's Balance is %s",
