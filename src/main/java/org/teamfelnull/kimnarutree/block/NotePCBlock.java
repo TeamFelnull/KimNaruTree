@@ -184,6 +184,17 @@ public class NotePCBlock extends Block {
 			worldIn.setBlockState(pos, state, 2);
 			worldIn.playEvent(playerIn, 1037, pos, 0);
 			return ActionResultType.SUCCESS;
+		} else {
+
+			if (state.get(PHASE) == 3 && state.get(OPEN)) {
+
+				if (worldIn.isRemote) {
+
+					return ActionResultType.SUCCESS;
+				}
+
+			}
+
 		}
 		return ActionResultType.PASS;
 	}

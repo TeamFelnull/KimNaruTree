@@ -1,6 +1,7 @@
 package org.teamfelnull.kimnarutree.client.handler;
 
-import org.teamfelnull.kimnarutree.item.PassbookItem;
+import org.teamfelnull.kimnarutree.client.gui.TestScreen;
+import org.teamfelnull.kimnarutree.handler.MessagePassbookHandler;
 import org.teamfelnull.kimnarutree.packet.MessageSendSysmtemInfo;
 import org.teamfelnull.kimnarutree.packet.PacketHandler;
 import org.teamfelnull.kimnarutree.util.MCHelper;
@@ -13,6 +14,7 @@ import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.client.event.InputEvent.KeyInputEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -87,17 +89,25 @@ public class ClientHandler {
 					e.setCanceled(true);
 				}
 			}
-			if(e.getMessage().getString().contains("DataList: ")) {
-				PassbookItem.oldChatComponent = e.getMessage();
+			if (e.getMessage().getString().contains("DataList: ")) {
+				MessagePassbookHandler.oldChatComponent = e.getMessage();
 			}
 		}
 	}
 
-//	@SubscribeEvent
-//	public static void onTooltip(ItemTooltipEvent e) {
-//
-//		e.getToolTip().add(new StringTextComponent(
-//				"test=" + Evaluations.getArmorEvaluation(e.getItemStack())));
-//
-//	}
+	@SubscribeEvent
+	public static void onKey(KeyInputEvent e) {
+
+		if (mc.gameSettings.keyBindSprint.isPressed()) {
+			mc.displayGuiScreen(new TestScreen());
+		}
+
+	}
+	//	@SubscribeEvent
+	//	public static void onTooltip(ItemTooltipEvent e) {
+	//
+	//		e.getToolTip().add(new StringTextComponent(
+	//				"test=" + Evaluations.getArmorEvaluation(e.getItemStack())));
+	//
+	//	}
 }

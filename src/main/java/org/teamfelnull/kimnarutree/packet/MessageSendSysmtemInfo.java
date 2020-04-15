@@ -13,14 +13,8 @@ public class MessageSendSysmtemInfo {
 	public String fpsinfo;
 	public boolean tickupdate;
 
-	public static MessageSendSysmtemInfo decodeMessege(PacketBuffer buffer) {
-		return new MessageSendSysmtemInfo(buffer.readString(32767), buffer.readString(32767),
-				buffer.readString(32767),buffer.readString(32767), buffer.readString(32767),
-				buffer.readString(32767), buffer.readString(32767),buffer.readBoolean());
-	}
-
 	public MessageSendSysmtemInfo(String javaInfo, String osInfo, String cpuInfo, String gupInfo,
-			String modInfo,String memoryInfo,String fpsInfo, boolean tickUpdate) {
+			String modInfo, String memoryInfo, String fpsInfo, boolean tickUpdate) {
 
 		this.javainfo = javaInfo;
 		this.osinfo = osInfo;
@@ -30,6 +24,12 @@ public class MessageSendSysmtemInfo {
 		this.memoryinfo = memoryInfo;
 		this.fpsinfo = fpsInfo;
 		this.tickupdate = tickUpdate;
+	}
+
+	public static MessageSendSysmtemInfo decodeMessege(PacketBuffer buffer) {
+		return new MessageSendSysmtemInfo(buffer.readString(32767), buffer.readString(32767),
+				buffer.readString(32767), buffer.readString(32767), buffer.readString(32767),
+				buffer.readString(32767), buffer.readString(32767), buffer.readBoolean());
 	}
 
 	public static void encodeMessege(MessageSendSysmtemInfo messegeIn, PacketBuffer buffer) {

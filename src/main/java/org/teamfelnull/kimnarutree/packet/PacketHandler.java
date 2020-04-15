@@ -1,6 +1,7 @@
 package org.teamfelnull.kimnarutree.packet;
 
 import org.teamfelnull.kimnarutree.KimNaruTree;
+import org.teamfelnull.kimnarutree.handler.MessagePassbookHandler;
 import org.teamfelnull.kimnarutree.handler.MessageSendSysmtemPlayerHandler;
 
 import net.minecraft.util.ResourceLocation;
@@ -19,6 +20,8 @@ public class PacketHandler {
 	public static void init() {
 		INSTANCE.registerMessage(0, MessageSendSysmtemInfo.class, MessageSendSysmtemInfo::encodeMessege,
 				MessageSendSysmtemInfo::decodeMessege, MessageSendSysmtemPlayerHandler::reversiveMessage);
+		INSTANCE.registerMessage(1, MessagePassbook.class, MessagePassbook::encodeMessege,
+				MessagePassbook::decodeMessege, MessagePassbookHandler::reversiveMessage);
 
 	}
 }
