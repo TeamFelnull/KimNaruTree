@@ -2,6 +2,6 @@
     "pack": {
         "description": "kimnarutree resources",
         "pack_format": 5,
-        "_comment": "A KimNaruTree Pack"
+        "_comment": "KimNaruTree Pack"
     }
 }

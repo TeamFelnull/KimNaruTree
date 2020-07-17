@@ -9,6 +9,7 @@
   "block.kimnarutree.test_block": "Test Block",
   "block.kimnarutree.dennis_posed": "Dennis Posed",
   "block.kimnarutree.note_pc": "Note PC",
+  "block.kimnarutree.test_npc_modoki": "Test Npc Modoki",
   
   "_comment": "Command",
   "commands.money.show.me": "Balance is %s",

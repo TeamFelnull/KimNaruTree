@@ -1,15 +1,20 @@
 modLoader="javafml"
-loaderVersion="[28,)" 
-issueTrackerURL="http://my.issue.tracker/"
+loaderVersion="[32,)" 
+issueTrackerURL="https://github.com/TeamFelnull/KimNaruTree/issues"
+logoFile="logo.png" 
 [[mods]]
 modId="kimnarutree"
 version="${file.jarVersion}" 
 displayName="Kim Naru Tree"
-updateJSONURL="http://myurl.me/" 
-displayURL="" 
-logoFile="n.png" 
-credits=""
-authors="TeamFelNull" 
-description='''
-Thank you for downloading!
-'''
+updateJSONURL="https://raw.githubusercontent.com/TeamFelnull/KimNaruTree/master/update_check.json" 
+displayURL="https://github.com/TeamFelnull/KimNaruTree" 
+credits="TeamFelNull"
+authors="MORIMORI0317" 
+description="Thank you for downloading!\nThis mod is The Ikisugi Economy."
+
+[[dependencies.kimnarutree]]
+    modId="otyacraftengine"
+    mandatory=true
+    versionRange="[1.0,)"
+    ordering="NONE"
+    side="BOTH"

@@ -1,6 +1,3 @@
 {
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "kimnarutree:block/test"
-    }
+    "parent": "kimnarutree:block/test_block"
 }
