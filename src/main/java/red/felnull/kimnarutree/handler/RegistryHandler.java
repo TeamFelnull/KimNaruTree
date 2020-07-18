@@ -1,16 +1,16 @@
 package red.felnull.kimnarutree.handler;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import red.felnull.kimnarutree.block.KNTBlocks;
-import red.felnull.kimnarutree.command.KNTCommands;
 import red.felnull.kimnarutree.container.KNTContainerTypes;
+import red.felnull.kimnarutree.entity.KNTEntityTypes;
 import red.felnull.kimnarutree.item.KNTItems;
 import red.felnull.kimnarutree.tileentity.KNTTileEntityTypes;
 
@@ -36,6 +36,11 @@ public class RegistryHandler {
     @SubscribeEvent
     public static void onContainerTypeRegistry(final RegistryEvent.Register<ContainerType<?>> e) {
         KNTContainerTypes.registerContainerType(e.getRegistry());
+    }
+
+    @SubscribeEvent
+    public static void onEntityRegistry(final RegistryEvent.Register<EntityType<?>> e) {
+        KNTEntityTypes.registerEntity(e.getRegistry());
     }
 
 
