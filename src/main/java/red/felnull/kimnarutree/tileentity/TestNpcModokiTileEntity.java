@@ -10,10 +10,11 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import red.felnull.kimnarutree.container.TestNpcModokiContainer;
 import red.felnull.otyacraftengine.tileentity.IClientSyncbleTileEntity;
+import red.felnull.otyacraftengine.tileentity.IkisugiTileEntity;
 
 import javax.annotation.Nullable;
 
-public class TestNpcModokiTileEntity extends TileEntity implements INamedContainerProvider, IClientSyncbleTileEntity, ITickableTileEntity {
+public class TestNpcModokiTileEntity extends IkisugiTileEntity implements INamedContainerProvider, IClientSyncbleTileEntity, ITickableTileEntity {
 
 
     public TestNpcModokiTileEntity() {
