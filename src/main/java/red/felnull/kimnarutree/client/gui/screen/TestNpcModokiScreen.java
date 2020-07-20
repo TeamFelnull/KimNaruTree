@@ -1,7 +1,6 @@
 package red.felnull.kimnarutree.client.gui.screen;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.inventory.ChestScreen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -27,6 +26,7 @@ public class TestNpcModokiScreen extends AbstractIkisugiContainerScreen<TestNpcM
     @Override
     public void initByIKSG() {
         super.initByIKSG();
+
         this.addWidgetByIKSG(new Button(this.getWidthByIKSG() / 2 - 100, 24 * 2, 98, 20, new TranslationTextComponent("fml.menu.mods"), button -> {
             Minecraft.getInstance().player.sendStatusMessage(new StringTextComponent("test"), false);
         }));
