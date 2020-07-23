@@ -6,6 +6,6 @@ import red.felnull.otyacraftengine.api.registries.OERegistries;
 
 public class KNTWorldDatas {
     public static void register() {
-        OERegistries.registrierPlayerData(new ResourceLocation(KimNaruTree.MODID, "client_sync_playerdata"), new ClientSyncPlayerWorldData());
+        OERegistries.registrierWorldData(new ResourceLocation(KimNaruTree.MODID, "moneydata"), new MoneyWorldData());
     }
 }
