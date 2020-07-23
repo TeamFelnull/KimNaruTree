@@ -7,7 +7,7 @@ import red.felnull.otyacraftengine.data.PlayerWorldData;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class MoneyPlayerWorldData extends PlayerWorldData {
+public class ClientSyncPlayerWorldData extends PlayerWorldData {
     @Override
     public boolean isClientSincble() {
         return true;
@@ -15,12 +15,12 @@ public class MoneyPlayerWorldData extends PlayerWorldData {
 
     @Override
     public Path getSavedFolderPath() {
-        return Paths.get(KimNaruTree.MODID + "\\money");
+        return Paths.get(KimNaruTree.MODID + "\\clientsyncplayerdata");
     }
 
     @Override
     public CompoundNBT getDefaltNBT(CompoundNBT tag) {
-        tag.putLong("money", 0);
+        tag.putLong("money_balance", 0);
         return tag;
     }
 }
