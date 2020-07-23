@@ -40,6 +40,9 @@
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "Kim Naru Tree",
 
+  "_comment": "Gui",
+  "countrycreate.title": "Create country",
+
   "_comment": "Advancement",
   "advancements.root.title": "Welcome to Underground",
   "advancements.root.desc": "Possess 1000 G",
