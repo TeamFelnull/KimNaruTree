@@ -31,5 +31,6 @@ public class TestNpcModokiScreen extends AbstractIkisugiContainerScreen<TestNpcM
             Minecraft.getInstance().player.sendStatusMessage(new StringTextComponent("test"), false);
         }));
 
+
     }
 }
