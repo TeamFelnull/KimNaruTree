@@ -42,6 +42,9 @@
 
   "_comment": "Gui",
   "countrycreate.title": "Create country",
+  "countrycreate.enterName": "Country Name",
+  "countrycreate.defaltName": "%s's Contry",
+  "countrycreate.enterFlag": "National flag",
 
   "_comment": "Advancement",
   "advancements.root.title": "Welcome to Underground",
