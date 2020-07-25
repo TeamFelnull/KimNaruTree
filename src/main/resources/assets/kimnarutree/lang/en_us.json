@@ -22,15 +22,6 @@
   "commands.money.write": "Writing Money",
   "commands.money.load": "Loading Money",
 
-  "commands.pcinfomation.java": "%s 's Java Infomation : %s",
-  "commands.pcinfomation.os": "%s 's Operating System Infomation : %s",
-  "commands.pcinfomation.processor": "%s 's Processor Infomation : %s",
-  "commands.pcinfomation.graphiccard": "%s 's Graphi Ccard Infomation : %s",
-  "commands.pcinfomation.mod": "%s 's Mod List : %s",
-  "commands.pcinfomation.memory": "%s 's Memory Infomation : %s",
-  "commands.pcinfomation.fps": "%s 's FPS : %s",
-  "commands.pcinfomation.fps.average": "Overall Average FPS : %s fps",
-
   "_comment": "Money",
   "money.currencyunit.g": "%s G",
 
@@ -45,6 +36,14 @@
   "countrycreate.enterName": "Country Name",
   "countrycreate.defaltName": "%s's Contry",
   "countrycreate.enterFlag": "National flag",
+  "countrycreate.dropInfo": "Drag and drop files into this window to set Flag",
+  "countrycreate.loadingImage": "Loading images...",
+  "countrycreate.loadingErr": "Loading error : %s",
+  "countrycreate.err.multiplefiles": "Files that multiple files",
+  "countrycreate.err.noimage": "Files that are not images",
+
+  "_comment": "Country",
+  "country.notification": "%s founded %s",
 
   "_comment": "Advancement",
   "advancements.root.title": "Welcome to Underground",

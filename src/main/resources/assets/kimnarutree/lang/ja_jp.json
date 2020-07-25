@@ -22,15 +22,6 @@
   "commands.money.write": "金を書き込み中",
   "commands.money.load": "金を読み込み、書き込み中",
 
-  "commands.pcinfomation.java": "%s のJava情報 : %s",
-  "commands.pcinfomation.os": "%s のOS情報 : %s",
-  "commands.pcinfomation.processor": "%s のCPU情報 : %s",
-  "commands.pcinfomation.graphiccard": "%s のGPU情報 : %s",
-  "commands.pcinfomation.mod": "%s のMODリスト : %s",
-  "commands.pcinfomation.memory": "%s のメモリー情報 : %s",
-  "commands.pcinfomation.fps": "%s のFPS : %s",
-  "commands.pcinfomation.fps.average": "全体平均FPS : %s fps",
-
   "_comment": "Money",
   "money.currencyunit.g": "%s G",
 
@@ -39,6 +30,17 @@
 
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "金なる木",
+
+  "_comment": "Gui",
+  "countrycreate.title": "国を作成",
+  "countrycreate.enterName": "国名",
+  "countrycreate.defaltName": "%sの国",
+  "countrycreate.enterFlag": "国旗",
+  "countrycreate.dropInfo": "このウィンドウにファイルをドラッグアンドドロップして、国旗をセットします",
+  "countrycreate.loadingImage": "画像を読み込み中です...",
+  "countrycreate.loadingErr": "読み込みエラー : %s",
+  "countrycreate.err.multiplefiles": "複数のファイル",
+  "countrycreate.err.noimage": "画像ではないファイル",
 
   "_comment": "Advancement",
   "advancements.root.title": "下の世界",

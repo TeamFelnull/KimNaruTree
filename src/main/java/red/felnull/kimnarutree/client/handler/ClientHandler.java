@@ -5,6 +5,7 @@ import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import red.felnull.kimnarutree.client.gui.screen.CountryCreateScreen;
 import red.felnull.otyacraftengine.client.keys.OEKeyBindings;
@@ -12,6 +13,13 @@ import red.felnull.otyacraftengine.client.keys.OEKeyBindings;
 public class ClientHandler {
 
     private static Minecraft mc = Minecraft.getInstance();
+
+
+    @SubscribeEvent
+    public static void onTick(TickEvent.ClientTickEvent e) {
+
+
+    }
 
     @SubscribeEvent
     public static void onKey(InputEvent.KeyInputEvent e) {
