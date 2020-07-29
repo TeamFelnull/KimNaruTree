@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.util.ResourceLocation;
 import red.felnull.kimnarutree.client.render.model.NPCModel;
 import red.felnull.kimnarutree.entity.NPCEntity;
-import red.felnull.otyacraftengine.client.util.TextureHelper;
+import red.felnull.otyacraftengine.client.util.TextureUtil;
 
 public class NPCRenderer extends BipedRenderer<NPCEntity, NPCModel<NPCEntity>> {
     private static final ResourceLocation TEXTURES = new ResourceLocation(
@@ -36,7 +36,7 @@ public class NPCRenderer extends BipedRenderer<NPCEntity, NPCModel<NPCEntity>> {
 
         if (entity.getCustomName() != null) {
             String name = entity.getCustomName().getString();
-            return TextureHelper.getPlayerSkinTexture(name);
+            return TextureUtil.getPlayerSkinTexture(name);
         }
         return TEXTURES;
     }

@@ -17,16 +17,15 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 public class CreateCountryMessageHandler {
+
+
     public static void reversiveMessage(CreateCountryMessage message, Supplier<NetworkEvent.Context> ctx) {
         ServerPlayerEntity player = ctx.get().getSender();
-
         String countryUUID = UUID.randomUUID().toString();
-
         Country country = new Country(countryUUID);
         country.setName(message.name);
         country.setFoundedPlayer(PlayerHelper.getUserName(player), PlayerHelper.getUUID(player));
         country.setFlagImageUUID(message.flagUUID);
-        country.getPeoplePlayers().add(PlayerHelper.getUUID(player));
 
         WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).put(countryUUID, country.write(new CompoundNBT()));
 

@@ -12,8 +12,8 @@ import red.felnull.kimnarutree.KimNaruTree;
 import red.felnull.kimnarutree.util.CountryUtil;
 import red.felnull.otyacraftengine.client.gui.IkisugiDialogTexts;
 import red.felnull.otyacraftengine.client.gui.screen.IkisugiScreen;
-import red.felnull.otyacraftengine.client.util.RenderHelper;
-import red.felnull.otyacraftengine.client.util.TextureHelper;
+import red.felnull.otyacraftengine.client.util.RenderUtil;
+import red.felnull.otyacraftengine.client.util.TextureUtil;
 import red.felnull.otyacraftengine.util.PictuerUtil;
 import red.felnull.otyacraftengine.util.PlayerHelper;
 
@@ -85,18 +85,18 @@ public class CountryCreateScreen extends IkisugiScreen {
         ResourceLocation loc = TEST_NATIONAL_FLAG;
 
         if (flagImage != null) {
-            loc = TextureHelper.getPictureImageTexture(flagImage);
+            loc = TextureUtil.getPictureImageTexture(flagImage);
         }
-        RenderHelper.matrixPush(matrix);
+        RenderUtil.matrixPush(matrix);
         RenderSystem.enableBlend();
-        RenderHelper.guiBindAndBlit(loc, matrix, this.getWidthByIKSG() / 2 - 150, 110, 0, 0, widthFlag / 3, heightFlag / 3, widthFlag / 3, heightFlag / 3);
-        RenderHelper.matrixPop(matrix);
+        RenderUtil.guiBindAndBlit(loc, matrix, this.getWidthByIKSG() / 2 - 150, 110, 0, 0, widthFlag / 3, heightFlag / 3, widthFlag / 3, heightFlag / 3);
+        RenderUtil.matrixPop(matrix);
 
         if (loading) {
-            RenderHelper.matrixPush(matrix);
+            RenderUtil.matrixPush(matrix);
             RenderSystem.enableBlend();
-            RenderHelper.guiBindAndBlit(TextureHelper.getLoadingIconTextuer(), matrix, this.getWidthByIKSG() / 2 - 150 + 256 / 3 + 5, 97 + 10, 0, 0, 8, 8, 8, 8);
-            RenderHelper.matrixPop(matrix);
+            RenderUtil.guiBindAndBlit(TextureUtil.getLoadingIconTextuer(), matrix, this.getWidthByIKSG() / 2 - 150 + 256 / 3 + 5, 97 + 10, 0, 0, 8, 8, 8, 8);
+            RenderUtil.matrixPop(matrix);
             this.drawStringByIKSG(matrix, this.field_230712_o_, I18n.format("countrycreate.loadingImage"), this.getWidthByIKSG() / 2 - 150 + 256 / 3 + 15, 97 + 10, -6250336);
         }
 
@@ -160,7 +160,6 @@ class LoadingThread extends Thread {
                 aw = (int) ((float) size * (w / h));
                 ah = size;
             }
-            System.out.println(aw + "=test=" + ah);
             BufferedImage outbfi = new BufferedImage(aw, ah, bfi.getType());
             outbfi.createGraphics().drawImage(bfi.getScaledInstance(aw, ah, Image.SCALE_AREA_AVERAGING), 0, 0, aw, ah, null);
             screen.widthFlag = outbfi.getWidth();

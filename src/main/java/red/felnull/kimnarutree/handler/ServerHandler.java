@@ -6,8 +6,10 @@ import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import red.felnull.kimnarutree.command.KNTCommands;
+import red.felnull.kimnarutree.data.KNTDatas;
 import red.felnull.kimnarutree.money.MoneyConsumptions;
 import red.felnull.kimnarutree.util.MoneyUtil;
+import red.felnull.otyacraftengine.api.event.ReceiverEvent;
 
 public class ServerHandler {
     @SubscribeEvent
@@ -30,4 +32,13 @@ public class ServerHandler {
         }
         MoneyUtil.checkFuneralCost(pl, sabun);
     }
+
+    @SubscribeEvent
+    public static void onReceive(ReceiverEvent.Server.Pos e) {
+        if (e.getLocation().equals(KNTDatas.WORLD_NATIONAL_FLAG)) {
+            System.out.println(e.getName());
+        }
+    }
+
+
 }

@@ -2,6 +2,7 @@ package red.felnull.kimnarutree.proxy;
 
 import net.minecraftforge.common.MinecraftForge;
 import red.felnull.kimnarutree.KimNaruTree;
+import red.felnull.kimnarutree.data.KNTDatas;
 import red.felnull.kimnarutree.data.KNTWorldData;
 import red.felnull.kimnarutree.entity.KNTEntityTypes;
 import red.felnull.kimnarutree.handler.ServerHandler;
@@ -17,6 +18,7 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(ServerHandler.class);
         OERegistries.registrierModColor(KimNaruTree.MODID, 16776960);
         KNTEntityTypes.regsterAttrubytes();
+        KNTDatas.init();
     }
 
     public void init() {

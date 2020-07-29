@@ -1,10 +1,6 @@
 package red.felnull.kimnarutree.country;
 
 import net.minecraft.nbt.CompoundNBT;
-import red.felnull.kimnarutree.util.KNBTUtil;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class Country {
     private String name;
@@ -12,7 +8,6 @@ public class Country {
     private String foundedPlayerName;
     private String foundedPlayerUUID;
     private String flagImageUUID;
-    private Set<String> peoplePlayerUUIDs = new HashSet<String>();
 
     public Country(String uuid) {
         this.name = name;
@@ -29,7 +24,6 @@ public class Country {
         this.foundedPlayerName = tag.getCompound("FoundedPlayer").getString("name");
         this.foundedPlayerUUID = tag.getCompound("FoundedPlayer").getString("uuid");
         this.flagImageUUID = tag.getString("FlagImageUUID");
-        this.peoplePlayerUUIDs = KNBTUtil.readStringSet(tag.getCompound("PeoplePlayerUUIDs"));
     }
 
     public CompoundNBT write(CompoundNBT tag) {
@@ -39,7 +33,6 @@ public class Country {
         foundedPlayer.putString("uuid", this.foundedPlayerUUID);
         tag.put("FoundedPlayer", foundedPlayer);
         tag.putString("FlagImageUUID", this.flagImageUUID);
-        tag.put("PeoplePlayerUUIDs", KNBTUtil.writeStringSet(new CompoundNBT(), peoplePlayerUUIDs));
         return tag;
     }
 
@@ -76,7 +69,5 @@ public class Country {
         this.flagImageUUID = flagImageUUID;
     }
 
-    public Set<String> getPeoplePlayers() {
-        return peoplePlayerUUIDs;
-    }
+
 }
