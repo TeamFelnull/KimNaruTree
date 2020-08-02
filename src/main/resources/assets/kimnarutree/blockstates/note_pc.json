@@ -1,28 +1,100 @@
 {
-    "variants": {
-        "facing=south,open=false": { "model": "kimnarutree:block/note_pc_close", "y": 90 },
-        "facing=west,open=false": { "model": "kimnarutree:block/note_pc_close", "y": 180 },
-        "facing=north,open=false": { "model": "kimnarutree:block/note_pc_close", "y": 270 },
-        "facing=east,open=false": { "model": "kimnarutree:block/note_pc_close", "y": 0 },
-        "facing=south,open=true,phase=0": { "model": "kimnarutree:block/note_pc_open_0", "y": 90 },
-        "facing=west,open=true,phase=0": { "model": "kimnarutree:block/note_pc_open_0", "y": 180 },
-        "facing=north,open=true,phase=0": { "model": "kimnarutree:block/note_pc_open_0", "y": 270 },
-        "facing=east,open=true,phase=0": { "model": "kimnarutree:block/note_pc_open_0", "y": 0 },
-        "facing=south,open=true,phase=1": { "model": "kimnarutree:block/note_pc_open_1", "y": 90 },
-        "facing=west,open=true,phase=1": { "model": "kimnarutree:block/note_pc_open_1", "y": 180 },
-        "facing=north,open=true,phase=1": { "model": "kimnarutree:block/note_pc_open_1", "y": 270 },
-        "facing=east,open=true,phase=1": { "model": "kimnarutree:block/note_pc_open_1", "y": 0 },
-        "facing=south,open=true,phase=2": { "model": "kimnarutree:block/note_pc_open_2", "y": 90 },
-        "facing=west,open=true,phase=2": { "model": "kimnarutree:block/note_pc_open_2", "y": 180 },
-        "facing=north,open=true,phase=2": { "model": "kimnarutree:block/note_pc_open_2", "y": 270 },
-        "facing=east,open=true,phase=2": { "model": "kimnarutree:block/note_pc_open_2", "y": 0 },
-        "facing=south,open=true,phase=3": { "model": "kimnarutree:block/note_pc_open_3", "y": 90 },
-        "facing=west,open=true,phase=3": { "model": "kimnarutree:block/note_pc_open_3", "y": 180 },
-        "facing=north,open=true,phase=3": { "model": "kimnarutree:block/note_pc_open_3", "y": 270 },
-        "facing=east,open=true,phase=3": { "model": "kimnarutree:block/note_pc_open_3", "y": 0 },
-        "facing=south,open=true,phase=4": { "model": "kimnarutree:block/note_pc_open_2", "y": 90 },
-        "facing=west,open=true,phase=4": { "model": "kimnarutree:block/note_pc_open_2", "y": 180 },
-        "facing=north,open=true,phase=4": { "model": "kimnarutree:block/note_pc_open_2", "y": 270 },
-        "facing=east,open=true,phase=4": { "model": "kimnarutree:block/note_pc_open_2", "y": 0 }
+  "variants": {
+    "facing=south,open=false": {
+      "model": "kimnarutree:block/note_pc_close",
+      "y": 90
+    },
+    "facing=west,open=false": {
+      "model": "kimnarutree:block/note_pc_close",
+      "y": 180
+    },
+    "facing=north,open=false": {
+      "model": "kimnarutree:block/note_pc_close",
+      "y": 270
+    },
+    "facing=east,open=false": {
+      "model": "kimnarutree:block/note_pc_close",
+      "y": 0
+    },
+    "facing=south,open=true,phase=0": {
+      "model": "kimnarutree:block/note_pc_open_0",
+      "y": 90
+    },
+    "facing=west,open=true,phase=0": {
+      "model": "kimnarutree:block/note_pc_open_0",
+      "y": 180
+    },
+    "facing=north,open=true,phase=0": {
+      "model": "kimnarutree:block/note_pc_open_0",
+      "y": 270
+    },
+    "facing=east,open=true,phase=0": {
+      "model": "kimnarutree:block/note_pc_open_0",
+      "y": 0
+    },
+    "facing=south,open=true,phase=1": {
+      "model": "kimnarutree:block/note_pc_open_1",
+      "y": 90
+    },
+    "facing=west,open=true,phase=1": {
+      "model": "kimnarutree:block/note_pc_open_1",
+      "y": 180
+    },
+    "facing=north,open=true,phase=1": {
+      "model": "kimnarutree:block/note_pc_open_1",
+      "y": 270
+    },
+    "facing=east,open=true,phase=1": {
+      "model": "kimnarutree:block/note_pc_open_1",
+      "y": 0
+    },
+    "facing=south,open=true,phase=2": {
+      "model": "kimnarutree:block/note_pc_open_2",
+      "y": 90
+    },
+    "facing=west,open=true,phase=2": {
+      "model": "kimnarutree:block/note_pc_open_2",
+      "y": 180
+    },
+    "facing=north,open=true,phase=2": {
+      "model": "kimnarutree:block/note_pc_open_2",
+      "y": 270
+    },
+    "facing=east,open=true,phase=2": {
+      "model": "kimnarutree:block/note_pc_open_2",
+      "y": 0
+    },
+    "facing=south,open=true,phase=3": {
+      "model": "kimnarutree:block/note_pc_open_3",
+      "y": 90
+    },
+    "facing=west,open=true,phase=3": {
+      "model": "kimnarutree:block/note_pc_open_3",
+      "y": 180
+    },
+    "facing=north,open=true,phase=3": {
+      "model": "kimnarutree:block/note_pc_open_3",
+      "y": 270
+    },
+    "facing=east,open=true,phase=3": {
+      "model": "kimnarutree:block/note_pc_open_3",
+      "y": 0
+    },
+    "facing=south,open=true,phase=4": {
+      "model": "kimnarutree:block/note_pc_open_2",
+      "y": 90
+    },
+    "facing=west,open=true,phase=4": {
+      "model": "kimnarutree:block/note_pc_open_2",
+      "y": 180
+    },
+    "facing=north,open=true,phase=4": {
+      "model": "kimnarutree:block/note_pc_open_2",
+      "y": 270
+    },
+    "facing=east,open=true,phase=4": {
+      "model": "kimnarutree:block/note_pc_open_2",
+      "y": 0
     }
+  }
 }

@@ -15,6 +15,9 @@ public class CountryWorldData extends WorldData {
 
     @Override
     public CompoundNBT getInitialNBT(CompoundNBT tag) {
+        tag.put("countrys", new CompoundNBT());
+        tag.put("players", new CompoundNBT());
+        tag.put("territorys", new CompoundNBT());
         return tag;
     }
 }

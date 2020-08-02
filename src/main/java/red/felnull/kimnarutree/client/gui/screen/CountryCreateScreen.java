@@ -9,11 +9,11 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import red.felnull.kimnarutree.KimNaruTree;
-import red.felnull.kimnarutree.util.CountryUtil;
+import red.felnull.kimnarutree.country.Country;
 import red.felnull.otyacraftengine.client.gui.IkisugiDialogTexts;
 import red.felnull.otyacraftengine.client.gui.screen.IkisugiScreen;
-import red.felnull.otyacraftengine.client.util.RenderUtil;
-import red.felnull.otyacraftengine.client.util.TextureUtil;
+import red.felnull.otyacraftengine.client.util.IKSGRenderUtil;
+import red.felnull.otyacraftengine.client.util.IKSGTextureUtil;
 import red.felnull.otyacraftengine.util.PictuerUtil;
 import red.felnull.otyacraftengine.util.PlayerHelper;
 
@@ -24,12 +24,9 @@ import java.util.List;
 
 public class CountryCreateScreen extends IkisugiScreen {
 
-    protected static final ResourceLocation TEST_NATIONAL_FLAG = new ResourceLocation(KimNaruTree.MODID, "textures/gui/test_national_flag.png");
+    public static final ResourceLocation TEST_NATIONAL_FLAG = new ResourceLocation(KimNaruTree.MODID, "textures/gui/test_national_flag.png");
     private final Screen lastScreen;
-
-    private TextFieldWidget countryNameField;
     protected Button btnCreate;
-    private String contryName;
     protected byte[] flagImage;
     protected boolean loading = false;
     protected String lodingErr;
@@ -37,6 +34,8 @@ public class CountryCreateScreen extends IkisugiScreen {
     protected int heightFlag;
     protected boolean createflag1;
     protected boolean createflag2;
+    private TextFieldWidget countryNameField;
+    private String contryName;
 
     public CountryCreateScreen(Screen screen) {
         super(new TranslationTextComponent("countrycreate.title"));
@@ -48,8 +47,9 @@ public class CountryCreateScreen extends IkisugiScreen {
     @Override
     public void initByIKSG() {
         btnCreate = this.addWidgetByIKSG(new Button(this.getWidthByIKSG() / 2 - 155 + 160, this.getHeightByIKSG() - 29, 150, 20, IkisugiDialogTexts.CRATE, (ac) -> {
+            BufferedImage iamge = PictuerUtil.geBfftImage(flagImage);
+            Country.sendCreateRequest(contryName, flagImage, iamge.getWidth(), iamge.getHeight());
             this.getMinecraft().displayGuiScreen(null);
-            CountryUtil.sendCreateRequest(contryName, flagImage);
         }));
         this.addWidgetByIKSG(new Button(this.getWidthByIKSG() / 2 - 155, this.getHeightByIKSG() - 29, 150, 20, IkisugiDialogTexts.CANCEL, (p_213125_1_) -> {
             this.getMinecraft().displayGuiScreen(lastScreen);
@@ -85,18 +85,18 @@ public class CountryCreateScreen extends IkisugiScreen {
         ResourceLocation loc = TEST_NATIONAL_FLAG;
 
         if (flagImage != null) {
-            loc = TextureUtil.getPictureImageTexture(flagImage);
+            loc = IKSGTextureUtil.getPictureImageTexture(flagImage);
         }
-        RenderUtil.matrixPush(matrix);
+        IKSGRenderUtil.matrixPush(matrix);
         RenderSystem.enableBlend();
-        RenderUtil.guiBindAndBlit(loc, matrix, this.getWidthByIKSG() / 2 - 150, 110, 0, 0, widthFlag / 3, heightFlag / 3, widthFlag / 3, heightFlag / 3);
-        RenderUtil.matrixPop(matrix);
+        IKSGRenderUtil.guiBindAndBlit(loc, matrix, this.getWidthByIKSG() / 2 - 150, 110, 0, 0, widthFlag / 3, heightFlag / 3, widthFlag / 3, heightFlag / 3);
+        IKSGRenderUtil.matrixPop(matrix);
 
         if (loading) {
-            RenderUtil.matrixPush(matrix);
+            IKSGRenderUtil.matrixPush(matrix);
             RenderSystem.enableBlend();
-            RenderUtil.guiBindAndBlit(TextureUtil.getLoadingIconTextuer(), matrix, this.getWidthByIKSG() / 2 - 150 + 256 / 3 + 5, 97 + 10, 0, 0, 8, 8, 8, 8);
-            RenderUtil.matrixPop(matrix);
+            IKSGRenderUtil.guiBindAndBlit(IKSGTextureUtil.getLoadingIconTextuer(), matrix, this.getWidthByIKSG() / 2 - 150 + 256 / 3 + 5, 97 + 10, 0, 0, 8, 8, 8, 8);
+            IKSGRenderUtil.matrixPop(matrix);
             this.drawStringByIKSG(matrix, this.field_230712_o_, I18n.format("countrycreate.loadingImage"), this.getWidthByIKSG() / 2 - 150 + 256 / 3 + 15, 97 + 10, -6250336);
         }
 

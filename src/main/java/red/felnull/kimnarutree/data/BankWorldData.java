@@ -21,7 +21,7 @@ public class BankWorldData extends WorldData {
         central.putLong("reserve", -1);
         central.putFloat("interestRate", 0.01F);
         central.putFloat("reserveDepositRate", 0.1F);
-        CompoundNBT deposit= new CompoundNBT();
+        CompoundNBT deposit = new CompoundNBT();
         deposit.putLong("none", 0);
         central.put("deposits", deposit);
         CompoundNBT debts = new CompoundNBT();

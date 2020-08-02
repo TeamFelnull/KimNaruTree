@@ -4,13 +4,14 @@
   "item.kimnarutree.picky": "Picky",
   "item.kimnarutree.pickyded": "Pickyded",
   "item.kimnarutree.npc_spawn_egg": "NPC Spawn Egg",
-
+  "item.kimnarutree.country_debug_stick": "Country Debug Stick",
+  "tooltip.detailedinformation.item.kimnarutree.country_debug_stick": "Debugging item that can edit the territory of the country",
+  "item.kimnarutree.country_debug_stick.alreadyset": "Country Debug Stick (%s)",
   "_comment": "Block",
   "block.kimnarutree.test_block": "Test Block",
   "block.kimnarutree.dennis_posed": "Dennis Posed",
   "block.kimnarutree.note_pc": "Note PC",
   "block.kimnarutree.test_npc_modoki": "Test Npc Modoki",
-  
   "_comment": "Command",
   "commands.money.show.me": "Balance is %s",
   "commands.money.show.player": "%s 's Balance is %s",
@@ -21,16 +22,15 @@
   "commands.money.read": "Reading Money",
   "commands.money.write": "Writing Money",
   "commands.money.load": "Loading Money",
-
   "_comment": "Money",
   "money.currencyunit.g": "%s G",
-
   "_comment": "Message",
   "message.rip": "%s; R.I.P. %s",
-
+  "message.country.territory": "%s territory",
+  "message.country.terranullius": "Terra nullius",
+  "message.country.set": "Set to %s",
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "Kim Naru Tree",
-
   "_comment": "Gui",
   "countrycreate.title": "Create country",
   "countrycreate.enterName": "Country Name",
@@ -41,10 +41,9 @@
   "countrycreate.loadingErr": "Loading error : %s",
   "countrycreate.err.multiplefiles": "Files that multiple files",
   "countrycreate.err.noimage": "Files that are not images",
-
   "_comment": "Country",
   "country.notification": "%s founded %s",
-
+  "country.belongTo": "You already belong to another country",
   "_comment": "Advancement",
   "advancements.root.title": "Welcome to Underground",
   "advancements.root.desc": "Possess 1000 G",
@@ -74,5 +73,4 @@
   "advancements.funeral_30000000.desc": "Hold a 30000000 G Funeral",
   "advancements.funeral_1000000000.title": "The Whole Country Cried",
   "advancements.funeral_1000000000.desc": "Mourn for 1000000000 G"
-  
 }

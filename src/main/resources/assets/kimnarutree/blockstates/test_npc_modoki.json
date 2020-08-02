@@ -1,5 +1,7 @@
 {
-    "variants": {
-        "": { "model": "kimnarutree:block/test_npc_modoki" }
+  "variants": {
+    "": {
+      "model": "kimnarutree:block/test_npc_modoki"
     }
+  }
 }

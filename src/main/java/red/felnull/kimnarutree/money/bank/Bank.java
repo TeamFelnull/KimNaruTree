@@ -22,23 +22,23 @@ public class Bank {
         return Knbt.ofBank(name).getFloat("interestRate");
     }
 
-    public static HashMap<String, Long> getDepositMap(String name){
+    public static HashMap<String, Long> getDepositMap(String name) {
         HashMap<String, Long> map = new HashMap<>();
-        for(String key : Knbt.ofBankDeposit(name).keySet()) map.put(key, getDeposit(name, key));
+        for (String key : Knbt.ofBankDeposit(name).keySet()) map.put(key, getDeposit(name, key));
         return map;
     }
 
-    public static long getDeposit(String name, String uuid){
+    public static long getDeposit(String name, String uuid) {
         return Knbt.ofBankDeposit(name).getLong(uuid);
     }
 
-    public static HashMap<String, Long> getDebtMap(String name){
+    public static HashMap<String, Long> getDebtMap(String name) {
         HashMap<String, Long> map = new HashMap<>();
-        for(String key : Knbt.ofBankDebt(name).keySet()) map.put(key, getDebt(name, key));
+        for (String key : Knbt.ofBankDebt(name).keySet()) map.put(key, getDebt(name, key));
         return map;
     }
 
-    public static long getDebt(String name, String uuid){
+    public static long getDebt(String name, String uuid) {
         return Knbt.ofBankDebt(name).getLong(uuid);
     }
 
@@ -62,17 +62,17 @@ public class Bank {
         Knbt.ofBankDebt(name).putLong(uuid, getDebt(name, uuid) - amount);
     }
 
-    public void addDeposit(String name, String uuid, long amount){
+    public void addDeposit(String name, String uuid, long amount) {
         Knbt.ofBankDeposit(name).putLong(uuid, amount);
         long reserve = (long) (amount * getReserveDepositRate(name));
         addReserve(name, reserve);
         addLoan(name, amount - reserve);
     }
 
-    public void withdrawDeposit(String name, String uuid, long amount){
+    public void withdrawDeposit(String name, String uuid, long amount) {
         long depositResult = getDeposit(name, uuid) - amount;
-        if(depositResult >= 0) Knbt.ofBankDeposit(name).putLong(uuid, depositResult);
-        long reserveResult = getReserve(name)-amount;
-        if(reserveResult >= 0) addReserve(name, reserveResult);
+        if (depositResult >= 0) Knbt.ofBankDeposit(name).putLong(uuid, depositResult);
+        long reserveResult = getReserve(name) - amount;
+        if (reserveResult >= 0) addReserve(name, reserveResult);
     }
 }
