@@ -29,6 +29,8 @@ public class CreateCountryMessageHandler {
         country.setFlagImageUUID(message.flagUUID);
         country.setFlagWidth(message.flagW);
         country.setFlagHeight(message.flagH);
+        country.setRepresentativePlayer(PlayerHelper.getUserName(player), PlayerHelper.getUUID(player));
+        country.setSize(0);
 
         Country.addContry(country);
         Country.setPlayer(ctx.get().getSender(), country);

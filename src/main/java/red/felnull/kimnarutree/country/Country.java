@@ -23,9 +23,12 @@ public class Country {
     private String name;
     private String foundedPlayerName;
     private String foundedPlayerUUID;
+    private String representativePlayerName;
+    private String representativePlayerUUID;
     private String flagImageUUID;
     private int flagWidth;
     private int flagHeight;
+    private int size;
 
     public static Country clientNowCountry;
 
@@ -70,6 +73,10 @@ public class Country {
         WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("players").putString(PlayerHelper.getUUID(player), country.getUuid());
     }
 
+    public void writeData() {
+        WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("countrys").put(getUuid(), write(new CompoundNBT()));
+    }
+
     public static void addContry(Country country) {
 
         WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("countrys").put(country.getUuid(), country.write(new CompoundNBT()));
@@ -77,22 +84,33 @@ public class Country {
 
     public static Country getContryByTerritory(ResourceLocation dimensionLocation, ChunkPos pos) {
         CompoundNBT ctags = WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("territorys");
-        String chunkSt = dimensionLocation.toString() + ":" + pos.x + ":" + pos.z;
+        String dimSt = dimensionLocation.toString();
+        String chunkSt = pos.x + ":" + pos.z;
 
-        if (!ctags.contains(chunkSt) || ctags.getString(chunkSt).equals("terranullius"))
+        if (!ctags.contains(dimSt) || !ctags.getCompound(dimSt).contains(chunkSt) || ctags.getCompound(dimSt).getString(chunkSt).equals("terranullius"))
             return null;
 
-        return getCountryByUUID(ctags.getString(chunkSt));
+        return getCountryByUUID(ctags.getCompound(dimSt).getString(chunkSt));
     }
 
     public static void setTerritory(ResourceLocation dimensionLocation, ChunkPos pos, Country country) {
-        String chunkSt = dimensionLocation.toString() + ":" + pos.x + ":" + pos.z;
+        Country befC = getContryByTerritory(dimensionLocation, pos);
+
+        if (befC != null) {
+            befC.setSize(befC.getSize() - 1);
+            befC.writeData();
+        }
         if (country != null) {
-            WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("territorys").putString(chunkSt, country.getUuid());
-        } else {
-            WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("territorys").putString(chunkSt, "terranullius");
+                country.setSize(country.getSize() + 1);
+                country.writeData();
         }
 
+
+        String dimSt = dimensionLocation.toString();
+        String chunkSt = pos.x + ":" + pos.z;
+        CompoundNBT ctag = WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("territorys").contains(dimSt) ? WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("territorys").getCompound(dimSt) : new CompoundNBT();
+        ctag.putString(chunkSt, country != null ? country.getUuid() : "terranullius");
+        WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("territorys").put(dimSt, ctag);
     }
 
     public static List<Country> getCountrys() {
@@ -116,9 +134,12 @@ public class Country {
         this.name = tag.getString("name");
         this.foundedPlayerName = tag.getCompound("FoundedPlayer").getString("name");
         this.foundedPlayerUUID = tag.getCompound("FoundedPlayer").getString("uuid");
+        this.representativePlayerName = tag.getCompound("RepresentativePlayer").getString("name");
+        this.representativePlayerUUID = tag.getCompound("RepresentativePlayer").getString("uuid");
         this.flagImageUUID = tag.getString("FlagImageUUID");
         this.flagWidth = tag.getInt("FlagWidth");
         this.flagHeight = tag.getInt("FlagHeight");
+        this.size = tag.getInt("Size");
     }
 
     public CompoundNBT write(CompoundNBT tag) {
@@ -126,10 +147,18 @@ public class Country {
         CompoundNBT foundedPlayer = new CompoundNBT();
         foundedPlayer.putString("name", this.foundedPlayerName);
         foundedPlayer.putString("uuid", this.foundedPlayerUUID);
+
+        CompoundNBT representativePlayer = new CompoundNBT();
+        representativePlayer.putString("name", this.representativePlayerName);
+        representativePlayer.putString("uuid", this.representativePlayerUUID);
+
         tag.put("FoundedPlayer", foundedPlayer);
+        tag.put("RepresentativePlayer", representativePlayer);
+
         tag.putString("FlagImageUUID", this.flagImageUUID);
         tag.putInt("FlagWidth", this.flagWidth);
         tag.putInt("FlagHeight", this.flagHeight);
+        tag.putInt("Size", this.size);
         return tag;
     }
 
@@ -184,6 +213,28 @@ public class Country {
 
     public void setFlagHeight(int flagHeight) {
         this.flagHeight = flagHeight;
+    }
+
+    public String getRepresentativePlayerName() {
+        return representativePlayerName;
+    }
+
+
+    public String getRepresentativePlayerUUID() {
+        return representativePlayerUUID;
+    }
+
+    public void setRepresentativePlayer(String name, String uuid) {
+        this.representativePlayerName = name;
+        this.representativePlayerUUID = uuid;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
 

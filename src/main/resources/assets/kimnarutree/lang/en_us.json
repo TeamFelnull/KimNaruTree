@@ -29,6 +29,9 @@
   "message.country.territory": "%s territory",
   "message.country.terranullius": "Terra nullius",
   "message.country.set": "Set to %s",
+  "message.country.representative": "KING : %s",
+  "message.country.size": "Country Size : %s",
+
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "Kim Naru Tree",
   "_comment": "Gui",

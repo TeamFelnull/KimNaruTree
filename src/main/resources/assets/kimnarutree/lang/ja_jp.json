@@ -29,6 +29,7 @@
   "message.country.territory": "%s の領土",
   "message.country.terranullius": "無主地",
   "message.country.set": "%s にしました",
+  "message.country.representative": "王 : %s",
   "_comment": "CreativeTab",
   "itemGroup.kimnarutree": "金なる木",
   "_comment": "Gui",
