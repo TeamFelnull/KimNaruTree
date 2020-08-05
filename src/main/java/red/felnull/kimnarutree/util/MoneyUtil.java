@@ -9,7 +9,6 @@ import red.felnull.otyacraftengine.data.WorldDataManager;
 import red.felnull.otyacraftengine.util.PlayerHelper;
 
 public class MoneyUtil {
-    //残高取得
     public static long getMoney(String uuid, boolean isClientSide) {
         return WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "moneydata")).getCompound(uuid).getLong("balance");
     }
@@ -18,7 +17,6 @@ public class MoneyUtil {
         return getMoney(PlayerHelper.getUUID(playerEntity), isClientSide);
     }
 
-    //残高変更（鯖からの呼び出しのみ）
     public static void setMoney(String uuid, long money) {
         CompoundNBT tag = new CompoundNBT();
         tag.putLong("balance", money);
@@ -30,7 +28,6 @@ public class MoneyUtil {
         checkWallet(sp, getMoney(sp, false));
     }
 
-    //残高加算（鯖からの呼び出しのみ）
     public static void addMoney(String uuid, long money) {
         setMoney(uuid, getMoney(uuid, false) + money);
     }
@@ -39,7 +36,6 @@ public class MoneyUtil {
         addMoney(PlayerHelper.getUUID(sp), money);
     }
 
-    //金額表示
     public static TranslationTextComponent getDisplayAmount(long money) {
         return new TranslationTextComponent("money.currencyunit.g", money);
     }
