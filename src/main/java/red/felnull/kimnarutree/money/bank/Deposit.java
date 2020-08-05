@@ -35,4 +35,12 @@ public class Deposit extends AbstractNBTBased {
     public void setBalance(long balance){
         getNBT().putLong(BALANCE, balance);
     }
+
+    public void addBalance(long balance){
+        getNBT().putLong(BALANCE, getBalance() + balance);
+    }
+
+    public long getInterest(){
+        return (long) (getBalance() * new Bank(bankName).getInterestRate());
+    }
 }

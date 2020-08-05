@@ -56,4 +56,19 @@ public class Bank extends AbstractNBTBased {
     public void setInterestRate(float  interestRate){
         getNBT().putFloat(INTEREST_RATE,  interestRate);
     }
+
+    public void addFund(long fund){
+        getNBT().putLong(FUND, getFund() + fund);
+    }
+
+    public void executePerDay(){
+        for(String uuid : getNBT().getCompound(PLAYER_ACCOUNTS).keySet()){
+            getPlayerAccountOf(uuid).calcInterest();
+            getPlayerAccountOf(uuid).getDebt().repay();
+        }
+        for(String bankName : getNBT().getCompound(BANK_ACCOUNTS).keySet()){
+            getPlayerAccountOf(bankName).calcInterest();
+            getPlayerAccountOf(bankName).getDebt().repay();
+        }
+    }
 }

@@ -35,4 +35,11 @@ public class Account extends AbstractNBTBased {
     public Debt getDebt(){
         return new Debt(bankName, name);
     }
+
+    public void calcInterest(){
+        Deposit dep = getDeposit();
+        Debt deb = getDebt();
+        dep.addBalance(dep.getInterest());
+        deb.addAmount(deb.getInterest());
+    }
 }

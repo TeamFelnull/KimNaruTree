@@ -8,6 +8,7 @@ import red.felnull.otyacraftengine.data.WorldDataManager;
 
 public class Knbt {
     public static String BANK_DATA = "bank_data";
+    public static String ZENGIN_DATA = "zengin_data";
     public static String MONEY_DATA = "money_data";
     public static String COUNTRY_DATA = "country_data";
 
@@ -21,6 +22,10 @@ public class Knbt {
 
     public static CompoundNBT getBanks(){
         return Knbt.get(BANK_DATA);
+    }
+
+    public static CompoundNBT getZengin(){
+        return Knbt.get(ZENGIN_DATA);
     }
 
     public static CompoundNBT getMoney(String name){
