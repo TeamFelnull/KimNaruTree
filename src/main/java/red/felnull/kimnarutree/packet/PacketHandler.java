@@ -17,7 +17,7 @@ public class PacketHandler {
     }
 
     public static void init() {
-        INSTANCE.registerMessage(next(), CreateCountryMessage.class, CreateCountryMessage::encodeMessege, CreateCountryMessage::decodeMessege, CreateCountryMessageHandler::reversiveMessage);
+        INSTANCE.registerMessage(next(), CreateCountryMessage.class, CreateCountryMessage::encodeMessage, CreateCountryMessage::decodeMessage, CreateCountryMessageHandler::reversiveMessage);
     }
 
 }

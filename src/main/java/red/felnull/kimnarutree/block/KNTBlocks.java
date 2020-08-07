@@ -13,7 +13,6 @@ import red.felnull.kimnarutree.item.KNTItemGroup;
 
 public class KNTBlocks {
 
-    //名前, マテリアル, 音, 硬さ, 爆破耐性
     public static Block TEST_BLOCK = newBlock("test_block", Material.ROCK, SoundType.WOOD, 1.0f, 2.0f);
     public static Block DENNIS_POSED = newOrnamentBlock("dennis_posed", Material.ROCK, SoundType.STONE, 1.0f, 2.0f);
     //public static Block NOTE_PC = new NotePCBlock(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(1f, 0.5f)).setRegistryName(KimNaruTree.MODID, "note_pc");

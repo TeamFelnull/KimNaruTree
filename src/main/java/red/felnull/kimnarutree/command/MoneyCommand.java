@@ -47,13 +47,13 @@ public class MoneyCommand {
     private static int showMoney(CommandSource source, Collection<ServerPlayerEntity> collection) {
         if (collection == null) {
             try {
-                source.sendFeedback(new TranslationTextComponent("commands.money.show.me", MoneyUtil.getDisplayAmount(MoneyUtil.getMoney(source.asPlayer(), false))), true);
+                source.sendFeedback(new TranslationTextComponent("commands.money.show.me", MoneyUtil.getDisplayAmount(MoneyUtil.getMoney(source.asPlayer()))), true);
             } catch (CommandSyntaxException e) {
                 return 0;
             }
         } else {
             for (ServerPlayerEntity pl : collection) {
-                source.sendFeedback(new TranslationTextComponent("commands.money.show.player", pl.getName(), MoneyUtil.getDisplayAmount(MoneyUtil.getMoney(pl, false))), true);
+                source.sendFeedback(new TranslationTextComponent("commands.money.show.player", pl.getName(), MoneyUtil.getDisplayAmount(MoneyUtil.getMoney(pl))), true);
             }
         }
         return 1;
@@ -69,7 +69,7 @@ public class MoneyCommand {
 
     private static int setMoney(CommandSource source, Collection<ServerPlayerEntity> collection, long i) {
         for (ServerPlayerEntity pl : collection) {
-            source.sendFeedback(new TranslationTextComponent("commands.money.set", pl.getName(), MoneyUtil.getDisplayAmount(MoneyUtil.getMoney(pl, false)), MoneyUtil.getDisplayAmount(i)), true);
+            source.sendFeedback(new TranslationTextComponent("commands.money.set", pl.getName(), MoneyUtil.getDisplayAmount(MoneyUtil.getMoney(pl)), MoneyUtil.getDisplayAmount(i)), true);
             MoneyUtil.setMoney(pl, i);
         }
         return 1;

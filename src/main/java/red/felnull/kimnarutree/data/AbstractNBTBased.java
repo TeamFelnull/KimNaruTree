@@ -2,35 +2,50 @@ package red.felnull.kimnarutree.data;
 
 import net.minecraft.nbt.CompoundNBT;
 
+import java.util.Objects;
+
 public abstract class AbstractNBTBased {
-    protected String name;
+    protected String key;
     protected String dummy = "dummy";
 
-    public AbstractNBTBased(String name){
-        this.name = name;
-    }
-
-    public String getName(){
-        return name;
+    public AbstractNBTBased(String key){
+        this.key = key;
     }
 
     public void init(){
-        getParentNBT().put(name, getDefaultNBT());
+        getParentNBT().put(key, getDefaultNBT());
     }
 
     public CompoundNBT getNBT(){
-        return getParentNBT().getCompound(name);
+        return getParentNBT().getCompound(key);
     }
 
     public abstract CompoundNBT getParentNBT();
 
     public abstract CompoundNBT getDefaultNBT();
 
-    public void setName(String name){
-        if(getParentNBT().contains(name)){
+    public String getKey(){
+        return key;
+    }
+
+    public void setKey(String key){
+        if(getParentNBT().contains(key)){
             return;
         }
-        getParentNBT().put(name, getNBT());
-        getParentNBT().remove(this.name);
+        getParentNBT().put(key, getNBT());
+        getParentNBT().remove(getKey());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractNBTBased that = (AbstractNBTBased) o;
+        return Objects.equals(getKey(), that.getKey());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getKey());
     }
 }

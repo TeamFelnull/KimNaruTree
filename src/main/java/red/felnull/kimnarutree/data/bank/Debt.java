@@ -52,7 +52,7 @@ public class Debt extends AbstractNBTBased {
     }
 
     public long getInterest(){
-        return (long) (getAmount() * new Account(bankName, name).getCreditworthiness());
+        return (long) (getAmount() * new Creditworthiness().getCreditworthinessOf(name));
     }
 
     public void repay(){

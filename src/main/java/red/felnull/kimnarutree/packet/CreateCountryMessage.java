@@ -15,14 +15,14 @@ public class CreateCountryMessage {
         this.flagH = flagH;
     }
 
-    public static CreateCountryMessage decodeMessege(PacketBuffer buffer) {
+    public static CreateCountryMessage decodeMessage(PacketBuffer buffer) {
         return new CreateCountryMessage(buffer.readString(32767), buffer.readString(32767), buffer.readInt(), buffer.readInt());
     }
 
-    public static void encodeMessege(CreateCountryMessage messegeIn, PacketBuffer buffer) {
-        buffer.writeString(messegeIn.name);
-        buffer.writeString(messegeIn.flagUUID);
-        buffer.writeInt(messegeIn.flagW);
-        buffer.writeInt(messegeIn.flagH);
+    public static void encodeMessage(CreateCountryMessage messageIn, PacketBuffer buffer) {
+        buffer.writeString(messageIn.name);
+        buffer.writeString(messageIn.flagUUID);
+        buffer.writeInt(messageIn.flagW);
+        buffer.writeInt(messageIn.flagH);
     }
 }

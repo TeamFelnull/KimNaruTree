@@ -7,7 +7,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import red.felnull.kimnarutree.country.Country;
+import red.felnull.kimnarutree.data.country.Country;
 import red.felnull.kimnarutree.data.KNTDatas;
 import red.felnull.kimnarutree.item.KNTItems;
 import red.felnull.otyacraftengine.api.event.client.RenderItemOverlayIntoGUIEvent;

@@ -14,36 +14,42 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import red.felnull.kimnarutree.country.Country;
+import red.felnull.kimnarutree.data.country.Country;
 import red.felnull.otyacraftengine.item.IDetailedInfomationItem;
 
 import java.util.List;
 
 public class CountryDebugStickItem extends Item implements IDetailedInfomationItem {
+
+    public static String COUNTRY_UUID = "CountryUUID";
+    public static String COUNTRY_NAME = "CountryName";
+    public static String FLAG_UUID = "FlagUUID";
+    public static String FLAG_WIDTH = "FlagWidth";
+    public static String FLAG_HEIGHT = "FlagHeight";
+
     public CountryDebugStickItem(Properties properties) {
         super(properties);
+    }
+
+    public static Country getCountryForItem(ItemStack stack) {
+        CompoundNBT tag = stack.getTag();
+
+        if (tag == null || !tag.contains(COUNTRY_UUID) || tag.getString(COUNTRY_UUID).equals("null"))
+            return null;
+
+        return Country.getCountryByUUID(tag.getString(COUNTRY_UUID));
     }
 
     public static void setCountryForItem(ItemStack stack, Country country) {
         CompoundNBT tag = stack.getOrCreateTag();
 
         if (country != null) {
-            tag.putString("CountryUUID", country.getUuid());
-            tag.putString("CountryName", country.getName());
-            tag.putString("CountryFlag", country.getFlagImageUUID());
-            tag.putInt("FlagWidth", country.getFlagWidth());
-            tag.putInt("FlagHeight", country.getFlagHeight());
+            tag.putString(COUNTRY_UUID, country.getUUID());
+            tag.putString(COUNTRY_NAME, country.getName());
+            tag.putString(FLAG_UUID, country.getFlagImageUUID());
+            tag.putInt(FLAG_WIDTH, country.getFlagWidth());
+            tag.putInt(FLAG_HEIGHT, country.getFlagHeight());
         }
-    }
-
-    public static Country getCountryForItem(ItemStack stack) {
-        CompoundNBT tag = stack.getTag();
-
-        if (tag == null || !tag.contains("CountryUUID") || tag.getString("CountryUUID").equals("null"))
-            return null;
-
-
-        return Country.getCountryByUUID(tag.getString("CountryUUID"));
     }
 
     @Override
@@ -59,20 +65,20 @@ public class CountryDebugStickItem extends Item implements IDetailedInfomationIt
 
             if (!player.isCrouching()) {
                 Country country = getCountryForItem(context.getItem());
-                Country afcountry = Country.getContryByTerritory(world.func_234923_W_().func_240901_a_(), new ChunkPos(context.getPos()));
-                if (country != null && (afcountry == null || !afcountry.equals(country))) {
-                    Country.setTerritory(context.getWorld().func_234923_W_().func_240901_a_(), new ChunkPos(context.getPos()), country);
+                Country preCountry = Country.getCountryByTerritory(world, new ChunkPos(context.getPos()));
+                if (country != null && (preCountry == null || !preCountry.equals(country))) {
+                    Country.setTerritory(context.getWorld(), new ChunkPos(context.getPos()), country);
                     player.sendStatusMessage(new TranslationTextComponent("message.country.set", country.getName()), true);
                 }
             } else {
-                Country country = Country.getContryByTerritory(world.func_234923_W_().func_240901_a_(), new ChunkPos(context.getPos()));
+                Country country = Country.getCountryByTerritory(world, new ChunkPos(context.getPos()));
                 if (country != null) {
-                    Country.setTerritory(context.getWorld().func_234923_W_().func_240901_a_(), new ChunkPos(context.getPos()), null);
+                    Country.setTerritory(context.getWorld(), new ChunkPos(context.getPos()), null);
                     player.sendStatusMessage(new TranslationTextComponent("message.country.set", new TranslationTextComponent("message.country.terranullius")), true);
                 }
             }
-
         }
+
         return ActionResultType.func_233537_a_(world.isRemote);
     }
 
@@ -84,13 +90,13 @@ public class CountryDebugStickItem extends Item implements IDetailedInfomationIt
         ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
 
         if (!player.isCrouching()) {
-            Country country = Country.getContryByTerritory(worldIn.func_234923_W_().func_240901_a_(), new ChunkPos(pos));
+            Country country = Country.getCountryByTerritory(worldIn, new ChunkPos(pos));
             if (country != null)
                 player.sendStatusMessage(new TranslationTextComponent("message.country.territory", country.getName()), true);
             else
                 player.sendStatusMessage(new TranslationTextComponent("message.country.terranullius"), true);
         } else {
-            List<Country> countryList = Country.getCountrys();
+            List<Country> countryList = Country.getCountryList();
             if (countryList.isEmpty()) {
                 return false;
             } else {
@@ -113,8 +119,8 @@ public class CountryDebugStickItem extends Item implements IDetailedInfomationIt
     @Override
     public ITextComponent getDisplayName(ItemStack stack) {
 
-        if (stack.getTag() != null && stack.getTag().contains("CountryName") && !stack.getTag().getString("CountryName").equals("null")) {
-            return new TranslationTextComponent(this.getTranslationKey(stack) + ".alreadyset", stack.getTag().getString("CountryName"));
+        if (stack.getTag() != null && stack.getTag().contains(COUNTRY_NAME) && !stack.getTag().getString(COUNTRY_NAME).equals("null")) {
+            return new TranslationTextComponent(this.getTranslationKey(stack) + ".alreadyset", stack.getTag().getString(COUNTRY_NAME));
         }
 
         return super.getDisplayName(stack);

@@ -2,18 +2,24 @@ package red.felnull.kimnarutree.handler;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import red.felnull.kimnarutree.command.KNTCommands;
-import red.felnull.kimnarutree.country.Country;
+import red.felnull.kimnarutree.data.Knbt;
+import red.felnull.kimnarutree.data.bank.CentralBank;
+import red.felnull.kimnarutree.data.country.Country;
 import red.felnull.kimnarutree.data.KNTDatas;
-import red.felnull.kimnarutree.money.MoneyConsumptions;
+import red.felnull.kimnarutree.data.player.KNTPlayerData;
+import red.felnull.kimnarutree.data.territory.Territory;
 import red.felnull.kimnarutree.util.MoneyUtil;
 import red.felnull.otyacraftengine.api.ResponseSender;
+import red.felnull.otyacraftengine.util.PlayerHelper;
 import red.felnull.otyacraftengine.util.ServerHelper;
 
 public class ServerHandler {
@@ -28,8 +34,8 @@ public class ServerHandler {
             return;
         }
         ServerPlayerEntity pl = (ServerPlayerEntity) e.getEntityLiving();
-        long mae = MoneyUtil.getMoney(pl, false);
-        long ato = MoneyConsumptions.ofFuneral(mae);
+        long mae = MoneyUtil.getMoney(pl);
+        long ato = MoneyUtil.ofFuneral(mae);
         long sabun = mae - ato;
         MoneyUtil.setMoney(pl, ato);
         for (ServerPlayerEntity spl : pl.getServer().getPlayerList().getPlayers()) {
@@ -40,13 +46,32 @@ public class ServerHandler {
 
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent e) {
-        ServerHelper.getOnlinePlayers().forEach(n -> {
-            Country country = Country.getContryByTerritory(n.world.func_234923_W_().func_240901_a_(), new ChunkPos(n.func_233580_cy_()));
+        ServerHelper.getOnlinePlayers().forEach(pl -> {
+            Country country = Country.getCountryOn(pl);
             if (country != null) {
-                ResponseSender.sendToClient((ServerPlayerEntity) n, KNTDatas.COUNTRY_SYNC, 0, country.getUuid(), country.write(new CompoundNBT()));
+                ResponseSender.sendToClient((ServerPlayerEntity) pl, KNTDatas.COUNTRY_SYNC, 0, country.getUUID(), country.getNBT());
             } else {
-                ResponseSender.sendToClient((ServerPlayerEntity) n, KNTDatas.COUNTRY_SYNC, 1, "", new CompoundNBT());
+                ResponseSender.sendToClient((ServerPlayerEntity) pl, KNTDatas.COUNTRY_SYNC, 1, "", new CompoundNBT());
             }
         });
+        //CentralBank.IKSGFund();
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLogIn(PlayerEvent.PlayerLoggedInEvent e) {
+        if(!Knbt.PLAYER_DATA.contains(PlayerHelper.getUUID(e.getPlayer())))
+            KNTPlayerData.register(e.getPlayer());
+    }
+
+    @SubscribeEvent
+    public static void onServerStart(FMLServerStartingEvent e) {
+        if(!Knbt.Bank().getNBTs().contains(CentralBank.CENTRAL_BANK_UUID))
+            CentralBank.register();
+    }
+
+    @SubscribeEvent
+    public static void onWorldSave(WorldEvent.Save e) {
+        if(!Knbt.Territory().getNBTs().contains(e.getWorld().getWorld().func_234923_W_().func_240901_a_().toString()))
+        Territory.register(e.getWorld().getWorld());
     }
 }

@@ -3,61 +3,60 @@ package red.felnull.kimnarutree.data;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import red.felnull.kimnarutree.KimNaruTree;
-import red.felnull.kimnarutree.money.bank.Bank;
 import red.felnull.otyacraftengine.data.WorldDataManager;
 
 public class Knbt {
+
+    public String DATA;
+
     public static String BANK_DATA = "bank_data";
     public static String ZENGIN_DATA = "zengin_data";
-    public static String MONEY_DATA = "money_data";
+    public static String PLAYER_DATA = "player_data";
     public static String COUNTRY_DATA = "country_data";
+    public static String TERRITORY_DATA = "territory_data";
 
-    public static CompoundNBT get(String name){
-        return WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, name));
+    private Knbt(String data){
+        DATA = data;
     }
 
-    public static CompoundNBT getBank(String name){
-        return Knbt.get(BANK_DATA).getCompound(name);
+    private static CompoundNBT getNBTsOf(String key){
+        return WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, key));
     }
 
-    public static CompoundNBT getBanks(){
-        return Knbt.get(BANK_DATA);
+    public CompoundNBT getNBTs(){
+        return Knbt.getNBTsOf(DATA);
     }
 
-    public static CompoundNBT getZengin(){
-        return Knbt.get(ZENGIN_DATA);
+    public CompoundNBT get(String key){
+        return getNBTs().getCompound(key);
     }
 
-    public static CompoundNBT getMoney(String name){
-        return Knbt.get(MONEY_DATA).getCompound(name);
+    public void register(AbstractNBTBased nbtClass){
+        CompoundNBT nbt = nbtClass.getDefaultNBT();
+        getNBTs().put(nbtClass.getKey(), nbt);
     }
 
-    public static CompoundNBT getCountry(String name){
-        return Knbt.get(COUNTRY_DATA).getCompound(name);
+    public void remove(String key){
+        getNBTs().remove(key);
     }
 
-    public static void addBank(String name, CompoundNBT nbt){
-        Knbt.get(BANK_DATA).put(name, nbt);
+    public static Knbt Bank(){
+        return new Knbt(BANK_DATA);
     }
 
-    public static void addMoney(String name, CompoundNBT nbt){
-        Knbt.get(MONEY_DATA).put(name, nbt);
+    public static Knbt Zengin(){
+        return new Knbt(ZENGIN_DATA);
     }
 
-    public static void addCountry(String name, CompoundNBT nbt){
-        Knbt.get(COUNTRY_DATA).put(name, nbt);
+    public static Knbt PlayerData(){
+        return new Knbt(PLAYER_DATA);
     }
 
-    public static void removeBank(String name){
-        Knbt.get(BANK_DATA).remove(name);
+    public static Knbt Country(){
+        return new Knbt(COUNTRY_DATA);
     }
 
-    public static void removeMoney(String name){
-        Knbt.get(MONEY_DATA).remove(name);
+    public static Knbt Territory(){
+        return new Knbt(TERRITORY_DATA);
     }
-
-    public static void removeCountry(String name){
-        Knbt.get(COUNTRY_DATA).remove(name);
-    }
-
 }

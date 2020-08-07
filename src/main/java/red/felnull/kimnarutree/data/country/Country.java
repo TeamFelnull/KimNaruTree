@@ -7,19 +7,33 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import red.felnull.kimnarutree.KimNaruTree;
+import red.felnull.kimnarutree.data.AbstractNBTBased;
 import red.felnull.kimnarutree.data.KNTDatas;
+import red.felnull.kimnarutree.data.Knbt;
 import red.felnull.kimnarutree.packet.CreateCountryMessage;
 import red.felnull.kimnarutree.packet.PacketHandler;
 import red.felnull.otyacraftengine.api.DataSendReceiverManager;
 import red.felnull.otyacraftengine.data.WorldDataManager;
+import red.felnull.otyacraftengine.util.PictuerUtil;
 import red.felnull.otyacraftengine.util.PlayerHelper;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Country {
-    protected String uuid;
+public class Country extends AbstractNBTBased {
+
+    public static String NAME = "Name";
+    public static String FOUNDED_PLAYER_NAME = "FoundedPlayerName";
+    public static String FOUNDED_PLAYER_UUID= "FoundedPlayerUUID";
+    public static String REPRESENTATIVE_PLAYER_NAME = "RepresentativePlayerName";
+    public static String REPRESENTATIVE_PLAYER_UUID = "RepresentativePlayerUUID";
+    public static String FLAG_WIDTH = "FlagWidth";
+    public static String FLAG_HEIGHT = "FlagHeight";
+    public static String SIZE = "Size";
+    public static String FLAG = "Flag";
+
     private String name;
     private String foundedPlayerName;
     private String foundedPlayerUUID;
@@ -32,41 +46,62 @@ public class Country {
 
     public static Country clientNowCountry;
 
-    public Country(String uuid) {
-        this.name = name;
-        this.uuid = uuid;
+    public Country() {
+        super(UUID.randomUUID().toString());
     }
 
-    public Country(String uuid, CompoundNBT tag) {
-        this.uuid = uuid;
+    public Country(String uuid) {
+        super(uuid);
+    }
+
+    @Deprecated
+    public Country(CompoundNBT tag) {
+        super(UUID.randomUUID().toString());
         this.read(tag);
     }
 
+    @Override
+    public CompoundNBT getParentNBT() {
+        return Knbt.getCountries();
+    }
+
+    @Override
+    public CompoundNBT getDefaultNBT() {
+        CompoundNBT tag = new CompoundNBT();
+        tag.putString(NAME, "");
+        tag.putString(FOUNDED_PLAYER_NAME, "");
+        tag.putString(FOUNDED_PLAYER_UUID, "");
+        tag.putString(REPRESENTATIVE_PLAYER_NAME, "");
+        tag.putString(REPRESENTATIVE_PLAYER_UUID, "");
+        tag.putInt(FLAG_HEIGHT, 0);
+        tag.putInt(FLAG_WIDTH, 0);
+        tag.putInt(SIZE, 0);
+        return tag;
+    }
 
     @OnlyIn(Dist.CLIENT)
-    public static void sendCreateRequest(String name, byte[] flagImage, int flagWidth, int flagHeight) {
+    public static void sendCreateRequest(String name, byte[] flagImage) {
         String flagID = UUID.randomUUID().toString();
+        BufferedImage image = PictuerUtil.geBfftImage(flagImage);
+
         DataSendReceiverManager.instance().sendToServer(KNTDatas.WORLD_NATIONAL_FLAG, flagID, flagImage);
-        PacketHandler.INSTANCE.sendToServer(new CreateCountryMessage(name, flagID, flagWidth, flagHeight));
+        PacketHandler.INSTANCE.sendToServer(new CreateCountryMessage(name, flagID, image.getWidth(), image.getHeight()));
     }
 
     public static Country getCountryByUUID(String uuid) {
-        CompoundNBT ctags = WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("countrys");
-
-        if (!ctags.contains(uuid))
+        if (!Knbt.getCountries().contains(uuid))
             return null;
 
-        return new Country(uuid, ctags.getCompound(uuid));
+        return new Country(uuid);
     }
 
-    public static Country getCountrybyPlayer(ServerPlayerEntity player) {
-        CompoundNBT ctags = WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("players");
+    public static Country getCountryByPlayer(ServerPlayerEntity player) {
         String playerUUID = PlayerHelper.getUUID(player);
 
-        if (!ctags.contains(playerUUID))
+        if (!new KNTPlayerData(playerUUID).belongTo())
             return null;
 
-        return getCountryByUUID(ctags.getString(playerUUID));
+        return getCountryByUUID();
     }
 
     public static void setPlayer(ServerPlayerEntity player, Country country) {
@@ -77,12 +112,12 @@ public class Country {
         WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("countrys").put(getUuid(), write(new CompoundNBT()));
     }
 
-    public static void addContry(Country country) {
+    public static void addCountry(Country country) {
 
         WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("countrys").put(country.getUuid(), country.write(new CompoundNBT()));
     }
 
-    public static Country getContryByTerritory(ResourceLocation dimensionLocation, ChunkPos pos) {
+    public static Country getCountryByTerritory(ResourceLocation dimensionLocation, ChunkPos pos) {
         CompoundNBT ctags = WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("territorys");
         String dimSt = dimensionLocation.toString();
         String chunkSt = pos.x + ":" + pos.z;
@@ -94,7 +129,7 @@ public class Country {
     }
 
     public static void setTerritory(ResourceLocation dimensionLocation, ChunkPos pos, Country country) {
-        Country befC = getContryByTerritory(dimensionLocation, pos);
+        Country befC = getCountryByTerritory(dimensionLocation, pos);
 
         if (befC != null) {
             befC.setSize(befC.getSize() - 1);
@@ -108,15 +143,14 @@ public class Country {
 
         String dimSt = dimensionLocation.toString();
         String chunkSt = pos.x + ":" + pos.z;
-        CompoundNBT ctag = WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("territorys").contains(dimSt) ? WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("territorys").getCompound(dimSt) : new CompoundNBT();
+        CompoundNBT ctag = Knbt.getTerritories().contains(dimSt) ? Knbt.getTerritory(dimSt) : new CompoundNBT();
         ctag.putString(chunkSt, country != null ? country.getUuid() : "terranullius");
-        WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("territorys").put(dimSt, ctag);
+        Knbt.addTerritory(dimSt, ctag);
     }
 
-    public static List<Country> getCountrys() {
-        List<Country> countryList = new ArrayList<Country>();
-        CompoundNBT ctags = WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "countrydata")).getCompound("countrys");
-        ctags.keySet().forEach(n -> countryList.add(getCountryByUUID(n)));
+    public static List<Country> getCountryList() {
+        List<Country> countryList = new ArrayList<>();
+        Knbt.getCountries().keySet().forEach(n -> countryList.add(getCountryByUUID(n)));
         return countryList;
     }
 

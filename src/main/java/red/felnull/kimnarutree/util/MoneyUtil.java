@@ -5,31 +5,30 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import red.felnull.kimnarutree.KimNaruTree;
+import red.felnull.kimnarutree.data.player.KNTPlayerData;
 import red.felnull.otyacraftengine.data.WorldDataManager;
 import red.felnull.otyacraftengine.util.PlayerHelper;
 
 public class MoneyUtil {
-    public static long getMoney(String uuid, boolean isClientSide) {
-        return WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "moneydata")).getCompound(uuid).getLong("balance");
+    public static long getMoney(String uuid) {
+        return new KNTPlayerData(uuid).getMoney();
     }
 
-    public static long getMoney(ServerPlayerEntity playerEntity, boolean isClientSide) {
-        return getMoney(PlayerHelper.getUUID(playerEntity), isClientSide);
+    public static long getMoney(ServerPlayerEntity playerEntity) {
+        return getMoney(PlayerHelper.getUUID(playerEntity));
     }
 
     public static void setMoney(String uuid, long money) {
-        CompoundNBT tag = new CompoundNBT();
-        tag.putLong("balance", money);
-        WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, "moneydata")).put(uuid, tag);
+        new KNTPlayerData(uuid).setMoney(money);
     }
 
     public static void setMoney(ServerPlayerEntity sp, long money) {
         setMoney(PlayerHelper.getUUID(sp), money);
-        checkWallet(sp, getMoney(sp, false));
+        checkWallet(sp, getMoney(sp));
     }
 
     public static void addMoney(String uuid, long money) {
-        setMoney(uuid, getMoney(uuid, false) + money);
+        setMoney(uuid, getMoney(uuid) + money);
     }
 
     public static void addMoney(ServerPlayerEntity sp, long money) {
@@ -38,6 +37,14 @@ public class MoneyUtil {
 
     public static TranslationTextComponent getDisplayAmount(long money) {
         return new TranslationTextComponent("money.currencyunit.g", money);
+    }
+
+    public static long ofFuneral(long moneyIn) {
+
+        if (moneyIn <= 0)
+            return moneyIn;
+        return moneyIn / 2;
+
     }
 
     public static void checkWallet(ServerPlayerEntity player, long money) {

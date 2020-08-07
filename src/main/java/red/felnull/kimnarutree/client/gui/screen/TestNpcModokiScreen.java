@@ -9,7 +9,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import red.felnull.kimnarutree.KimNaruTree;
 import red.felnull.kimnarutree.container.TestNpcModokiContainer;
-import red.felnull.kimnarutree.money.bank.Bank;
+import red.felnull.kimnarutree.data.bank.CentralBank;
 import red.felnull.otyacraftengine.client.gui.screen.AbstractIkisugiContainerScreen;
 
 public class TestNpcModokiScreen extends AbstractIkisugiContainerScreen<TestNpcModokiContainer> {
@@ -29,7 +29,7 @@ public class TestNpcModokiScreen extends AbstractIkisugiContainerScreen<TestNpcM
         super.initByIKSG();
 
         this.addWidgetByIKSG(new Button(this.getWidthByIKSG() / 2 - 100, 24 * 2, 98, 20, new TranslationTextComponent("fml.menu.mods"), button -> {
-            Minecraft.getInstance().player.sendStatusMessage(new StringTextComponent(Bank.instance("central").getName()), false);
+
         }));
 
 
