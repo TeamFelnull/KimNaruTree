@@ -1,26 +1,29 @@
-package red.felnull.kimnarutree.money.bank;
+package red.felnull.kimnarutree.data.bank;
 
 import net.minecraft.nbt.CompoundNBT;
 import red.felnull.kimnarutree.data.AbstractNBTBased;
-import red.felnull.kimnarutree.money.zengin.Creditworthiness;
+import red.felnull.kimnarutree.data.Knbt;
+import red.felnull.kimnarutree.data.player.KNTPlayerData;
+
+import java.util.Objects;
 
 public class Debt extends AbstractNBTBased {
 
-    protected String bankName;
-    protected String accountName;
+    protected String accountUUID;
+    protected String bankUUID;
 
     public static String AMOUNT = "Amount";
     public static String REPAYMENT_AMOUNT = "RepaymentAmount";
 
-    public Debt(String bankName, String accountName) {
+    public Debt(String accountUUID, String bankUUID) {
         super(Account.DEPOSIT);
-        this.bankName = bankName;
-        this.accountName = accountName;
+        this.accountUUID = accountUUID;
+        this.bankUUID = bankUUID;
     }
 
     @Override
     public CompoundNBT getParentNBT() {
-        return new Account(bankName, accountName).getNBT();
+        return Knbt.Bank().get(bankUUID).getCompound(Bank.ACCOUNTS).getCompound(accountUUID);
     }
 
     @Override
@@ -31,37 +34,53 @@ public class Debt extends AbstractNBTBased {
         return nbt;
     }
 
-    public long getAmount(){
-        return getNBT().getLong(AMOUNT);
+    public void repay(){
+        Deposit dep = new Deposit(accountUUID, bankUUID);
+        long repaymentAmount = getRepaymentAmount();
+        if(repaymentAmount >= dep.getBalance()){
+            new KNTPlayerData(accountUUID).setCreditworthiness(810);
+            return;
+        }
+        dep.addBalance(-getRepaymentAmount());
+        addAmount(-getRepaymentAmount());
     }
 
-    public long getRepaymentAmount(){
-        return getNBT().getLong(REPAYMENT_AMOUNT);
+    public long getAmount(){
+        return getNBT().getLong(AMOUNT);
     }
 
     public void setAmount(long amount){
         getNBT().putLong(AMOUNT, amount);
     }
 
+    public void addAmount(long balance){
+        setAmount(getAmount() + balance);
+    }
+
+    public long getRepaymentAmount(){
+        return getNBT().getLong(REPAYMENT_AMOUNT);
+    }
+
     public void setRepaymentAmount(long repaymentAmount){
         getNBT().putLong(REPAYMENT_AMOUNT, repaymentAmount);
     }
 
-    public void addAmount(long balance){
-        getNBT().putLong(AMOUNT, getAmount() + balance);
-    }
-
     public long getInterest(){
-        return (long) (getAmount() * new Creditworthiness().getCreditworthinessOf(name));
+        return getAmount() * new KNTPlayerData(accountUUID).getCreditworthiness();
     }
 
-    public void repay(){
-        Deposit dep = new Account(bankName, name).getDeposit();
-        long repaymentAmount = -getRepaymentAmount();
-        if(repaymentAmount >= dep.getBalance()){
-            Creditworthiness.setCreditworthinessOf(name, 1145141919810L);
-            return;
-        }
-        dep.addBalance(-getRepaymentAmount());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Debt debt = (Debt) o;
+        return Objects.equals(accountUUID, debt.accountUUID) &&
+                Objects.equals(bankUUID, debt.bankUUID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), accountUUID, bankUUID);
     }
 }

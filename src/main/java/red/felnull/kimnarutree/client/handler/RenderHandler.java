@@ -9,6 +9,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import red.felnull.kimnarutree.data.country.Country;
 import red.felnull.kimnarutree.data.KNTDatas;
+import red.felnull.kimnarutree.item.CountryDebugStickItem;
 import red.felnull.kimnarutree.item.KNTItems;
 import red.felnull.otyacraftengine.api.event.client.RenderItemOverlayIntoGUIEvent;
 import red.felnull.otyacraftengine.client.util.IKSGRenderUtil;
@@ -25,14 +26,14 @@ public class RenderHandler {
     public static void onItemOverlay(RenderItemOverlayIntoGUIEvent e) {
         if (e.getStack().getItem() == KNTItems.COUNTRY_DEBUG_STICK) {
             CompoundNBT tag = e.getStack().getTag();
-            if (tag != null && tag.contains("CountryFlag") && tag.contains("FlagWidth") && tag.contains("FlagHeight")) {
+            if (tag != null && tag.contains(CountryDebugStickItem.FLAG_UUID) && tag.contains(CountryDebugStickItem.FLAG_WIDTH) && tag.contains(CountryDebugStickItem.FLAG_HEIGHT)) {
                 MatrixStack ms = new MatrixStack();
                 IKSGRenderUtil.matrixPush(ms);
                 IKSGRenderUtil.matrixTranslatef(ms, 0, 0, e.getZLevel() + 200.0F);
 
                 int size = 12;
-                float w = tag.getInt("FlagWidth");
-                float h = tag.getInt("FlagHeight");
+                float w = tag.getInt(CountryDebugStickItem.FLAG_WIDTH);
+                float h = tag.getInt(CountryDebugStickItem.FLAG_HEIGHT);
 
                 int aw = 0;
                 int ah = 0;
@@ -48,7 +49,7 @@ public class RenderHandler {
                     ah = size;
                 }
 
-                IKSGRenderUtil.guiBindAndBlit(IKSGTextureUtil.getReceiveTexture(KNTDatas.WORLD_NATIONAL_FLAG, tag.getString("CountryFlag")), ms, e.getX(), e.getY(), 0, 0, aw, ah, aw, ah);
+                IKSGRenderUtil.guiBindAndBlit(IKSGTextureUtil.getReceiveTexture(KNTDatas.WORLD_NATIONAL_FLAG, tag.getString(CountryDebugStickItem.FLAG_UUID)), ms, e.getX(), e.getY(), 0, 0, aw, ah, aw, ah);
                 IKSGRenderUtil.matrixPop(ms);
             }
         }

@@ -1,39 +1,38 @@
-package red.felnull.kimnarutree.money.bank;
+package red.felnull.kimnarutree.data.bank;
 
 import net.minecraft.nbt.CompoundNBT;
 import red.felnull.kimnarutree.data.AbstractNBTBased;
+import red.felnull.kimnarutree.data.Knbt;
 
 public class Account extends AbstractNBTBased {
 
-    protected String bankName;
+    protected String bankUUID;
 
     public static String DEPOSIT = "Deposit";
     public static String DEBT = "Debt";
 
-    public Account(String bankName, String name) {
-        super(name);
-        this.bankName = bankName;
+    public Account(String accountUUID, String bankUUID) {
+        super(accountUUID);
+        this.bankUUID = bankUUID;
     }
 
     @Override
     public CompoundNBT getParentNBT() {
-        return new Bank(bankName).getNBT();
+        return Knbt.Bank().get(bankUUID).getCompound(Bank.ACCOUNTS);
     }
 
     @Override
     public CompoundNBT getDefaultNBT() {
         CompoundNBT nbt = new CompoundNBT();
-        nbt.put(DEPOSIT, new Deposit(bankName, name).getDefaultNBT());
-        nbt.put(DEBT, new Debt(bankName, name).getDefaultNBT());
+        nbt.put(DEPOSIT, new Deposit(getKey(), bankUUID).getDefaultNBT());
+        nbt.put(DEBT, new Debt(getKey(), bankUUID).getDefaultNBT());
         return nbt;
     }
 
-    public Deposit getDeposit(){
-        return new Deposit(bankName, name);
-    }
+    public static void register(String accountUUID, String bankUUID){
+        Account acc = new Account(accountUUID, bankUUID);
 
-    public Debt getDebt(){
-        return new Debt(bankName, name);
+        Knbt.Bank().get(Bank.ACCOUNTS).put(accountUUID, acc.getDefaultNBT());
     }
 
     public void calcInterest(){
@@ -41,5 +40,13 @@ public class Account extends AbstractNBTBased {
         Debt deb = getDebt();
         dep.addBalance(dep.getInterest());
         deb.addAmount(deb.getInterest());
+    }
+
+    public Deposit getDeposit(){
+        return new Deposit(getKey(), bankUUID);
+    }
+
+    public Debt getDebt(){
+        return new Debt(getKey(), bankUUID);
     }
 }

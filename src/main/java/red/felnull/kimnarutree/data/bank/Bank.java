@@ -1,82 +1,120 @@
-package red.felnull.kimnarutree.money.bank;
+package red.felnull.kimnarutree.data.bank;
 
 import net.minecraft.nbt.CompoundNBT;
 import red.felnull.kimnarutree.data.Knbt;
 import red.felnull.kimnarutree.data.AbstractNBTBased;
+import red.felnull.otyacraftengine.util.StringHelper;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class Bank extends AbstractNBTBased {
 
+    public static String ACCOUNTS = "Accounts";
+    public static String NAME = "Name";
     public static String FUND = "Fund";
     public static String INTEREST_RATE = "InterestRate";
-    public static String PLAYER_ACCOUNTS = "PlayerAccounts";
-    public static String BANK_ACCOUNTS = "BankAccounts";
 
-    public Bank(String name) {
-        super(name);
+    public Bank() {
+        super(UUID.randomUUID().toString());
+    }
+
+    protected Bank(String uuid) {
+        super(uuid);
     }
 
     @Override
     public CompoundNBT getParentNBT() {
-        return Knbt.getBanks();
+        return Knbt.Bank().getNBTs();
     }
 
     @Override
     public CompoundNBT getDefaultNBT() {
         CompoundNBT nbt = new CompoundNBT();
+        nbt.putString(NAME, "");
         nbt.putLong(FUND, 0);
         nbt.putFloat(INTEREST_RATE, 0.01F);
-        nbt.put(PLAYER_ACCOUNTS, new PlayerAccount(this.name, dummy).getDefaultNBT());
-        nbt.put(BANK_ACCOUNTS, new BankAccount(this.name, dummy).getDefaultNBT());
         return nbt;
+    }
+
+    public static void register(String name, String uuid){
+        Bank bank = new Bank(uuid);
+
+        Knbt.Bank().register(bank);
+        bank.setName(name);
+
+        Account.register(dummy, uuid);
+    }
+
+    public void executePerDay(){
+        getAccountSet().forEach( account -> {
+            account.calcInterest();
+            account.getDebt().repay();
+        });
+    }
+
+    public static Bank getBankByUUID(String uuid){
+        if (!Knbt.Bank().getNBTs().contains(uuid))
+            return null;
+
+        return new Bank(uuid);
+    }
+
+//
+//    public static Bank getBankByName(String name){
+//        String resultUUID = null;
+//
+//        for (String uuid : Knbt.Bank().getNBTs().keySet()) {
+//            if (getBankByUUID(uuid).getName().equals(name))
+//                resultUUID = uuid;
+//        }
+//
+//        return getBankByUUID(resultUUID);
+//    }
+
+    public Set<Account> getAccountSet(){
+        HashSet<Account> set = new HashSet<>();
+        getNBT().getCompound(ACCOUNTS).keySet().forEach( uuid -> set.add(new Account(uuid, getKey())));
+
+        return set;
+    }
+
+    public void addAccount(String uuid){
+        CompoundNBT accTag = new CompoundNBT();
+        accTag.put(uuid, new Account(uuid, getKey()).getDefaultNBT());
+        getNBT().put(ACCOUNTS, accTag);
+    }
+
+    public String getName(){
+        return getNBT().getString(NAME);
+    }
+
+    public void setName(String name){
+        getNBT().putString(NAME, name);
     }
 
     public long getFund(){
         return getNBT().getLong(FUND);
     }
 
-    public  float getInterestRate() {
-        return getNBT().getFloat(INTEREST_RATE);
-    }
-
-    public PlayerAccount getPlayerAccountOf(String name){
-        return new PlayerAccount(this.name, name);
-    }
-
-    public BankAccount getBankAccountOf(String name){
-        return new BankAccount(this.name, name);
-    }
-
     public void setFund(long fund){
         getNBT().putLong(FUND, fund);
+    }
+
+    public void addFund(long fund){
+        setFund(getFund() + fund);
+    }
+
+    public  float getInterestRate() {
+        return getNBT().getFloat(INTEREST_RATE);
     }
 
     public void setInterestRate(float  interestRate){
         getNBT().putFloat(INTEREST_RATE,  interestRate);
     }
 
-    public void addFund(long fund){
-        getNBT().putLong(FUND, getFund() + fund);
-    }
-
-    public void addPlayerAccount(String name){
-        getNBT().put(PLAYER_ACCOUNTS, new PlayerAccount(this.name, name).getDefaultNBT());
-    }
-
-    public void addBankAccount(String name){
-        getNBT().put(BANK_ACCOUNTS, new BankAccount(this.name, name).getDefaultNBT());
-    }
-
-    public void executePerDay(){
-        for(String uuid : getNBT().getCompound(PLAYER_ACCOUNTS).keySet()){
-            getPlayerAccountOf(uuid).calcInterest();
-            getPlayerAccountOf(uuid).getDebt().repay();
-        }
-        for(String bankName : getNBT().getCompound(BANK_ACCOUNTS).keySet()){
-            getPlayerAccountOf(bankName).calcInterest();
-            getPlayerAccountOf(bankName).getDebt().repay();
-        }
+    public Account getAccount(String uuid){
+        return new Account(uuid, getKey());
     }
 }

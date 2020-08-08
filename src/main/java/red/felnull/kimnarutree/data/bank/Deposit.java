@@ -1,24 +1,27 @@
-package red.felnull.kimnarutree.money.bank;
+package red.felnull.kimnarutree.data.bank;
 
 import net.minecraft.nbt.CompoundNBT;
 import red.felnull.kimnarutree.data.AbstractNBTBased;
+import red.felnull.kimnarutree.data.Knbt;
+
+import java.util.Objects;
 
 public class Deposit extends AbstractNBTBased {
 
-    protected String bankName;
-    protected String accountName;
+    protected String accountUUID;
+    protected String bankUUID;
 
     public static String BALANCE = "Balance";
 
-    public Deposit(String bankName, String accountName) {
+    public Deposit(String accountUUID, String bankUUID) {
         super(Account.DEPOSIT);
-        this.bankName = bankName;
-        this.accountName = accountName;
+        this.accountUUID = accountUUID;
+        this.bankUUID = bankUUID;
     }
 
     @Override
     public CompoundNBT getParentNBT() {
-        return new Account(bankName, accountName).getNBT();
+        return Knbt.Bank().get(bankUUID).getCompound(Bank.ACCOUNTS).getCompound(accountUUID);
     }
 
     @Override
@@ -37,10 +40,25 @@ public class Deposit extends AbstractNBTBased {
     }
 
     public void addBalance(long balance){
-        getNBT().putLong(BALANCE, getBalance() + balance);
+        setBalance(getBalance() + balance);
     }
 
     public long getInterest(){
-        return (long) (getBalance() * new Bank(bankName).getInterestRate());
+        return (long) (getBalance() * new Bank(bankUUID).getInterestRate());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Deposit deposit = (Deposit) o;
+        return Objects.equals(accountUUID, deposit.accountUUID) &&
+                Objects.equals(bankUUID, deposit.bankUUID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), accountUUID, bankUUID);
     }
 }
