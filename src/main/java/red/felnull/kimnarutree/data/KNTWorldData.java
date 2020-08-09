@@ -10,9 +10,9 @@ import red.felnull.otyacraftengine.api.registries.OERegistries;
 
 public class KNTWorldData {
     public static void register() {
-        OERegistries.registrierWorldData(new ResourceLocation(KimNaruTree.MODID, Knbt.BANK_DATA), new BankWorldData());
-        OERegistries.registrierWorldData(new ResourceLocation(KimNaruTree.MODID, Knbt.PLAYER_DATA), new PlayerWorldData());
-        OERegistries.registrierWorldData(new ResourceLocation(KimNaruTree.MODID, Knbt.COUNTRY_DATA), new CountryWorldData());
-        OERegistries.registrierWorldData(new ResourceLocation(KimNaruTree.MODID, Knbt.TERRITORY_DATA), new TerritoryWorldData());
+        OERegistries.registrierWorldData(new ResourceLocation(KimNaruTree.MOD_ID, Knbt.BANK_DATA), new BankWorldData());
+        OERegistries.registrierWorldData(new ResourceLocation(KimNaruTree.MOD_ID, Knbt.PLAYER_DATA), new PlayerWorldData());
+        OERegistries.registrierWorldData(new ResourceLocation(KimNaruTree.MOD_ID, Knbt.COUNTRY_DATA), new CountryWorldData());
+        OERegistries.registrierWorldData(new ResourceLocation(KimNaruTree.MOD_ID, Knbt.TERRITORY_DATA), new TerritoryWorldData());
     }
 }

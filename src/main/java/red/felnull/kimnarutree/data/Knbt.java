@@ -5,26 +5,36 @@ import net.minecraft.util.ResourceLocation;
 import red.felnull.kimnarutree.KimNaruTree;
 import red.felnull.otyacraftengine.data.WorldDataManager;
 
+import java.util.Set;
+
 public class Knbt {
 
     public String DATA;
 
-    public static String BANK_DATA = "bank_data";
-    public static String ZENGIN_DATA = "zengin_data";
-    public static String PLAYER_DATA = "player_data";
-    public static String COUNTRY_DATA = "country_data";
-    public static String TERRITORY_DATA = "territory_data";
+    public static final String BANK_DATA = "bank_data";
+    public static final String ZENGIN_DATA = "zengin_data";
+    public static final String PLAYER_DATA = "player_data";
+    public static final String COUNTRY_DATA = "country_data";
+    public static final String TERRITORY_DATA = "territory_data";
 
     private Knbt(String data){
         DATA = data;
     }
 
+    public static ResourceLocation getRL(String key){
+        return new ResourceLocation(KimNaruTree.MOD_ID, key);
+    }
+
     private static CompoundNBT getNBTsOf(String key){
-        return WorldDataManager.instance().getWorldData(new ResourceLocation(KimNaruTree.MODID, key));
+        return WorldDataManager.instance().getWorldData(getRL(key));
     }
 
     public CompoundNBT getNBTs(){
         return Knbt.getNBTsOf(DATA);
+    }
+
+    public Set<String> keySet(){
+        return getNBTs().keySet();
     }
 
     public CompoundNBT get(String key){

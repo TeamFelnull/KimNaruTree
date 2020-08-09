@@ -11,10 +11,10 @@ import java.util.UUID;
 
 public class Bank extends AbstractNBTBased {
 
-    public static String ACCOUNTS = "Accounts";
-    public static String NAME = "Name";
-    public static String FUND = "Fund";
-    public static String INTEREST_RATE = "InterestRate";
+    public static final String ACCOUNTS = "Accounts";
+    public static final String NAME = "Name";
+    public static final String FUND = "Fund";
+    public static final String INTEREST_RATE = "InterestRate";
 
     public Bank() {
         super(UUID.randomUUID().toString());

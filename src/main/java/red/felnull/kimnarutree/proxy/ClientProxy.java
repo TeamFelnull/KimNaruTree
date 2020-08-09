@@ -2,14 +2,14 @@ package red.felnull.kimnarutree.proxy;
 
 
 import net.minecraftforge.common.MinecraftForge;
-import red.felnull.kimnarutree.client.gui.screen.KNTScrennContainerFactorys;
+import red.felnull.kimnarutree.client.gui.screen.KNTScreenContainerFactories;
 import red.felnull.kimnarutree.client.handler.ClientHandler;
 import red.felnull.kimnarutree.client.handler.RenderHandler;
 import red.felnull.kimnarutree.client.render.entity.KNTEntityRendering;
 
 public class ClientProxy extends CommonProxy {
     public static void clientInit() {
-        KNTScrennContainerFactorys.registerFactories();
+        KNTScreenContainerFactories.registerFactories();
         KNTEntityRendering.registerRendering();
     }
 

@@ -11,7 +11,7 @@ public class Deposit extends AbstractNBTBased {
     protected String accountUUID;
     protected String bankUUID;
 
-    public static String BALANCE = "Balance";
+    public static final String BALANCE = "Balance";
 
     public Deposit(String accountUUID, String bankUUID) {
         super(Account.DEPOSIT);

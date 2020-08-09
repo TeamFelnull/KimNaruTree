@@ -1,7 +1,6 @@
 package red.felnull.kimnarutree.block;
 
 
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -10,13 +9,19 @@ import net.minecraft.item.Item;
 import net.minecraftforge.registries.IForgeRegistry;
 import red.felnull.kimnarutree.KimNaruTree;
 import red.felnull.kimnarutree.item.KNTItemGroup;
+import red.felnull.kimnarutree.lib.BLOCK;
+
+import static red.felnull.kimnarutree.lib.TranslationUtil.kntTranslate;
 
 public class KNTBlocks {
 
-    public static Block TEST_BLOCK = newBlock("test_block", Material.ROCK, SoundType.WOOD, 1.0f, 2.0f);
-    public static Block DENNIS_POSED = newOrnamentBlock("dennis_posed", Material.ROCK, SoundType.STONE, 1.0f, 2.0f);
-    //public static Block NOTE_PC = new NotePCBlock(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(1f, 0.5f)).setRegistryName(KimNaruTree.MODID, "note_pc");
-    public static Block TEST_NPC_MODOKI = new TestNpcModokiBlock(AbstractBlock.Properties.create(Material.ROCK)).setRegistryName(KimNaruTree.MODID, "test_npc_modoki");
+    public static Block TEST_BLOCK = KNTBlock.instance(BLOCK.TEST_BLOCK, Material.ROCK, SoundType.WOOD, 1.0f, 2.0f);
+    public static Block DENNIS_POSED = OrnamentBlock.instance(BLOCK.DENNIS_POSED, Material.ROCK, SoundType.STONE, 1.0f, 2.0f);
+    //public static Block NOTE_PC = NotePCBlock.instance(BLOCK.NOTE_PC, Material.IRON, SoundType.METAL, 1f, 0.5f);
+    public static Block TEST_NPC_MODOKI = TestNpcModokiBlock.instance(BLOCK.TEST_NPC_MODOKI);
+
+    public static final String REGISTERING_BLOCK = "Registering Block : ";
+    public static final String REGISTERING_BLOCK_ITEM= "Registering BlockItem : ";
 
     public static void registerBlock(IForgeRegistry<Block> r) {
         registryBlock(r, TEST_BLOCK);
@@ -30,21 +35,13 @@ public class KNTBlocks {
         registryBlockItem(r, TEST_NPC_MODOKI);
     }
 
-    private static Block newOrnamentBlock(String name, Material materialIn, SoundType sound, float hardness, float resistance) {
-        return new OrnamentBlock(AbstractBlock.Properties.create(materialIn).sound(sound).hardnessAndResistance(hardness, resistance)).setRegistryName(KimNaruTree.MODID, name);
-    }
-
-    private static Block newBlock(String name, Material materialIn, SoundType sound, float hardness, float resistance) {
-        return new Block(AbstractBlock.Properties.create(materialIn).sound(sound).hardnessAndResistance(hardness, resistance)).setRegistryName(KimNaruTree.MODID, name);
-    }
-
     private static void registryBlock(IForgeRegistry<Block> r, Block b) {
-        KimNaruTree.LOGGER.info("Registering Block : " + b.getRegistryName());
+        KimNaruTree.LOGGER.info(REGISTERING_BLOCK + b.getRegistryName());
         r.register(b);
     }
 
     private static void registryBlockItem(IForgeRegistry<Item> r, Block b) {
-        KimNaruTree.LOGGER.info("Registering BlockItem : " + b.getRegistryName());
+        KimNaruTree.LOGGER.info(REGISTERING_BLOCK_ITEM + b.getRegistryName());
         r.register(new BlockItem(b, new Item.Properties().group(KNTItemGroup.MOD_TAB)).setRegistryName(b.getRegistryName()));
     }
 }

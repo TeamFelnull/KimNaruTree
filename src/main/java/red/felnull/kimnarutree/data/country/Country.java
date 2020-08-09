@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,18 +26,18 @@ import red.felnull.otyacraftengine.util.PlayerHelper;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
-public class Country extends AbstractNBTBased {
+public class Country extends AbstractNBTBased{
 
     public static Country clientNowCountry;
 
-    public static String CITIZENS = "Citizens";
-    public static String NAME = "Name";
-    public static String SIZE = "Size";
-    public static String FOUNDED_PLAYER_UUID= "FoundedPlayerUUID";
-    public static String REPRESENTATIVE_PLAYER_UUID = "RepresentativePlayerUUID";
-    public static String FLAG_IMAGE_UUID = "FlagImageUUID";
-    public static String FLAG_WIDTH = "FlagWidth";
-    public static String FLAG_HEIGHT = "FlagHeight";
+    public static final String CITIZENS = "Citizens";
+    public static final String NAME = "Name";
+    public static final String SIZE = "Size";
+    public static final String FOUNDED_PLAYER_UUID= "FoundedPlayerUUID";
+    public static final String REPRESENTATIVE_PLAYER_UUID = "RepresentativePlayerUUID";
+    public static final String FLAG_IMAGE_UUID = "FlagImageUUID";
+    public static final String FLAG_WIDTH = "FlagWidth";
+    public static final String FLAG_HEIGHT = "FlagHeight";
 
     public Country() {
         super(UUID.randomUUID().toString());
@@ -76,6 +77,8 @@ public class Country extends AbstractNBTBased {
         country.setFlagWidth(message.flagW);
         country.setFlagHeight(message.flagH);
         country.addPlayer(player);
+
+        new KNTPlayerData(player).setCountryUUID(country.getUUID());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -114,6 +117,10 @@ public class Country extends AbstractNBTBased {
         return getCountryByTerritory(world.func_234923_W_().func_240901_a_(), pos);
     }
 
+    public static Country getCountryByTerritory(World world, BlockPos pos) {
+        return getCountryByTerritory(world.func_234923_W_().func_240901_a_(), new ChunkPos(pos));
+    }
+
     public static Country getCountryOn(ServerPlayerEntity player) {
         return getCountryByTerritory(player.world.func_234923_W_().func_240901_a_(), new ChunkPos(player.func_233580_cy_()));
     }
@@ -121,33 +128,36 @@ public class Country extends AbstractNBTBased {
     public static void setTerritory(ResourceLocation dim, ChunkPos pos, Country country) {
         Country preCountry = getCountryByTerritory(dim, pos);
 
-        if (preCountry != null) {
+        if (preCountry != null && !preCountry.equals(country)) {
             preCountry.addSize(-1);
         }
         if (country != null) {
             country.addSize(+1);
         }
 
-        Territory.addTerritory(dim, pos, country.getUUID());
+        Territory.addTerritory(dim, pos, country);
     }
 
     public static void setTerritory(World world, ChunkPos pos, Country country) {
         setTerritory(world.func_234923_W_().func_240901_a_(), pos, country);
     }
 
-    public static List<Country> getCountryList() {
-        List<Country> countryList = new ArrayList<>();
-        Knbt.Country().getNBTs().keySet().forEach(uuid -> countryList.add(getCountryByUUID(uuid)));
-
-        return countryList;
+    public static void setTerritory(World world, BlockPos pos, Country country) {
+        setTerritory(world.func_234923_W_().func_240901_a_(), new ChunkPos(pos), country);
     }
 
-    public Map<String, String> getCitizens(){
-        HashMap<String, String> citizens = new HashMap<>();
+    public static ArrayList<Country> getCountryList() {
+        TreeSet<String> countryUUIDs = new TreeSet<>(Knbt.Country().keySet());
+        return new ArrayList<Country>(){{
+            countryUUIDs.forEach(uuid -> add(getCountryByUUID(uuid)));
+        }};
+    }
 
-        getNBT().getCompound(CITIZENS).keySet().forEach(uuid -> citizens.put(uuid, KNTPlayerData.getUserNameFromUUID(uuid)));
-
-        return citizens;
+    public TreeMap<String, String> getCitizens(){
+        Set<String> citizenUUIDs = getNBT().getCompound(CITIZENS).keySet();
+        return new TreeMap<String, String>(){{
+            citizenUUIDs.forEach(uuid -> put(uuid, KNTPlayerData.getUserNameFromUUID(uuid)));
+        }};
     }
     public void addPlayer(ServerPlayerEntity player) {
         String plUUID = PlayerHelper.getUUID(player);

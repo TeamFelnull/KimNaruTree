@@ -8,8 +8,8 @@ public class Account extends AbstractNBTBased {
 
     protected String bankUUID;
 
-    public static String DEPOSIT = "Deposit";
-    public static String DEBT = "Debt";
+    public static final String DEPOSIT = "Deposit";
+    public static final String DEBT = "Debt";
 
     public Account(String accountUUID, String bankUUID) {
         super(accountUUID);

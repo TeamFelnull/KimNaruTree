@@ -1,4 +1,4 @@
-package red.felnull.kimnarutree.container;
+package red.felnull.kimnarutree.entity.container;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -10,7 +10,6 @@ public class TestNpcModokiContainer extends IkisugiContainer {
 
     public TestNpcModokiContainer(int windowId, PlayerInventory playerInventory, BlockPos pos) {
         super(KNTContainerTypes.TEST_NPC_MODOKI, windowId);
-
     }
 
     @Override

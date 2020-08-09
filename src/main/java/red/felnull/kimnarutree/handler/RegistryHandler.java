@@ -9,10 +9,10 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import red.felnull.kimnarutree.block.KNTBlocks;
-import red.felnull.kimnarutree.container.KNTContainerTypes;
+import red.felnull.kimnarutree.entity.container.KNTContainerTypes;
 import red.felnull.kimnarutree.entity.KNTEntityTypes;
 import red.felnull.kimnarutree.item.KNTItems;
-import red.felnull.kimnarutree.tileentity.KNTTileEntityTypes;
+import red.felnull.kimnarutree.entity.tile.KNTTileEntityTypes;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RegistryHandler {

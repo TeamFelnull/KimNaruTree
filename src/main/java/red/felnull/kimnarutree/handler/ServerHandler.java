@@ -1,5 +1,6 @@
 package red.felnull.kimnarutree.handler;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -17,6 +18,8 @@ import red.felnull.kimnarutree.data.country.Country;
 import red.felnull.kimnarutree.data.KNTDatas;
 import red.felnull.kimnarutree.data.player.KNTPlayerData;
 import red.felnull.kimnarutree.data.territory.Territory;
+import red.felnull.kimnarutree.lib.MESSAGE;
+import red.felnull.kimnarutree.lib.TranslationUtil;
 import red.felnull.kimnarutree.util.MoneyUtil;
 import red.felnull.otyacraftengine.api.ResponseSender;
 import red.felnull.otyacraftengine.util.PlayerHelper;
@@ -30,18 +33,17 @@ public class ServerHandler {
 
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent e) {
-        if (!(e.getEntityLiving() instanceof ServerPlayerEntity)) {
+        if (!(e.getEntityLiving() instanceof ServerPlayerEntity))
             return;
-        }
+
         ServerPlayerEntity pl = (ServerPlayerEntity) e.getEntityLiving();
-        long mae = MoneyUtil.getMoney(pl);
-        long ato = MoneyUtil.ofFuneral(mae);
+        KNTPlayerData data = new KNTPlayerData(pl);
+        long mae = data.getMoney();
+        long ato = data.funeralCost();
         long sabun = mae - ato;
-        MoneyUtil.setMoney(pl, ato);
-        for (ServerPlayerEntity spl : pl.getServer().getPlayerList().getPlayers()) {
-            spl.sendStatusMessage(new TranslationTextComponent("message.rip", e.getSource().getDeathMessage(pl), MoneyUtil.getDisplayAmount(sabun)), false);
-        }
-        MoneyUtil.checkFuneralCost(pl, sabun);
+        data.setMoney(sabun);
+        pl.getServer().getPlayerList().getPlayers().forEach( spl ->
+            spl.sendStatusMessage(TranslationUtil.kntTranslate(MESSAGE.RIP, e.getSource().getDeathMessage(pl), MoneyUtil.getDisplayAmount(sabun)), false));
     }
 
     @SubscribeEvent

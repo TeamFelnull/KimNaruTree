@@ -16,8 +16,8 @@ public class CommonProxy {
         PacketHandler.init();
         KNTWorldData.register();
         MinecraftForge.EVENT_BUS.register(ServerHandler.class);
-        OERegistries.registrierModColor(KimNaruTree.MODID, 16776960);
-        KNTEntityTypes.regsterAttrubytes();
+        OERegistries.registrierModColor(KimNaruTree.MOD_ID, 16776960);
+        KNTEntityTypes.registerAttributes();
         KNTDatas.init();
     }
 

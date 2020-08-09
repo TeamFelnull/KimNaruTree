@@ -1,11 +1,11 @@
 package red.felnull.kimnarutree.client.gui.screen;
 
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import red.felnull.kimnarutree.lib.GUI;
+import red.felnull.kimnarutree.lib.TranslationUtil;
 import red.felnull.otyacraftengine.client.gui.screen.IkisugiScreen;
 
 public class CountryMenuScreen extends IkisugiScreen {
     public CountryMenuScreen() {
-        super(new TranslationTextComponent("countrymenu.title"));
+        super(TranslationUtil.kntTranslate(GUI.COUNTRY_MENU_TITLE));
     }
 }

@@ -11,6 +11,8 @@ import red.felnull.kimnarutree.data.country.Country;
 import red.felnull.kimnarutree.data.KNTDatas;
 import red.felnull.kimnarutree.item.CountryDebugStickItem;
 import red.felnull.kimnarutree.item.KNTItems;
+import red.felnull.kimnarutree.lib.MESSAGE;
+import red.felnull.kimnarutree.lib.TranslationUtil;
 import red.felnull.otyacraftengine.api.event.client.RenderItemOverlayIntoGUIEvent;
 import red.felnull.otyacraftengine.client.util.IKSGRenderUtil;
 import red.felnull.otyacraftengine.client.util.IKSGTextureUtil;
@@ -18,6 +20,9 @@ import red.felnull.otyacraftengine.util.IkisugiMath;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
+
+import static red.felnull.kimnarutree.lib.TranslationUtil.i18n;
 
 public class RenderHandler {
     private static Minecraft mc = Minecraft.getInstance();
@@ -64,18 +69,16 @@ public class RenderHandler {
             if (Country.clientNowCountry != null) {
 
                 String contrySt = Country.clientNowCountry.getName();
-                String representativeSt = I18n.format("message.country.representative", Country.clientNowCountry.getRepresentativePlayerName());
-                String sizeSt = I18n.format("message.country.size", Country.clientNowCountry.getSize());
+                String representativeSt = i18n(MESSAGE.COUNTRY_REPRESENTATIVE, Country.clientNowCountry.getRepresentativePlayerName());
+                String sizeSt = i18n(MESSAGE.COUNTRY_SIZE, Country.clientNowCountry.getSize());
 
-                List<String> displaySts = new ArrayList<String>();
+                List<String> displaySts = new ArrayList<>();
                 displaySts.add(contrySt);
                 displaySts.add(representativeSt);
                 displaySts.add(sizeSt);
 
                 int[] disSizes = new int[displaySts.size()];
-                for (int i = 0; i < displaySts.size(); i++) {
-                    disSizes[i] = mc.fontRenderer.getStringWidth(displaySts.get(i));
-                }
+                IntStream.range(0, displaySts.size()).forEach(i -> disSizes[i] = mc.fontRenderer.getStringWidth(displaySts.get(i)));
 
                 int mostStr = IkisugiMath.mostInt(disSizes);
                 int moziH = 10;
@@ -100,12 +103,12 @@ public class RenderHandler {
 
                 IKSGRenderUtil.guiBindAndBlit(IKSGTextureUtil.getReceiveTexture(KNTDatas.WORLD_NATIONAL_FLAG, Country.clientNowCountry.getFlagImageUUID()), e.getMatrixStack(), w - mostStr - 4 - aw, h - 3 - flagY, 0, 0, aw, ah, aw, ah);
 
-                for (int i = 0; i < displaySts.size(); i++) {
-                    mc.fontRenderer.func_238422_b_(e.getMatrixStack(), new StringTextComponent(displaySts.get(i)), w - mostStr - 2, h - 3 - flagY + moziH * i, 14737632);
-                }
+                IntStream.range(0, displaySts.size()).forEach( i ->
+                        mc.fontRenderer.func_238422_b_(e.getMatrixStack(), new StringTextComponent(displaySts.get(i)), w - mostStr - 2, h - 3 - flagY + moziH * i, 14737632)
+                );
 
             } else {
-                String tel = I18n.format("message.country.terranullius");
+                String tel = i18n(MESSAGE.COUNTRY_TERRA_NULLIUS);
                 mc.fontRenderer.func_238422_b_(e.getMatrixStack(), new StringTextComponent(tel), w - mc.fontRenderer.getStringWidth(tel) - 2, h - 9, 14737632);
             }
             IKSGRenderUtil.matrixPop(e.getMatrixStack());

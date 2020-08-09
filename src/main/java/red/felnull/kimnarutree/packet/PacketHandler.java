@@ -8,7 +8,7 @@ import red.felnull.kimnarutree.handler.CreateCountryMessageHandler;
 
 public class PacketHandler {
     public static final String PROTOCOL_VERSION = "1";
-    public static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(KimNaruTree.MODID, "knt_channel")).clientAcceptedVersions(a -> true).serverAcceptedVersions(a -> true).networkProtocolVersion(() -> PROTOCOL_VERSION).simpleChannel();
+    public static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(KimNaruTree.MOD_ID, "knt_channel")).clientAcceptedVersions(a -> true).serverAcceptedVersions(a -> true).networkProtocolVersion(() -> PROTOCOL_VERSION).simpleChannel();
     private static int integer = -1;
 
     private static int next() {

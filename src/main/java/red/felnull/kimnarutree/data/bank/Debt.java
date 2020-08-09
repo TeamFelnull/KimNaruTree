@@ -12,8 +12,8 @@ public class Debt extends AbstractNBTBased {
     protected String accountUUID;
     protected String bankUUID;
 
-    public static String AMOUNT = "Amount";
-    public static String REPAYMENT_AMOUNT = "RepaymentAmount";
+    public static final String AMOUNT = "Amount";
+    public static final String REPAYMENT_AMOUNT = "RepaymentAmount";
 
     public Debt(String accountUUID, String bankUUID) {
         super(Account.DEPOSIT);

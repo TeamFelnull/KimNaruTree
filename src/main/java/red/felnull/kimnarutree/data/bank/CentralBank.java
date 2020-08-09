@@ -4,8 +4,8 @@ import red.felnull.kimnarutree.data.Knbt;
 
 public class CentralBank extends  Bank{
 
-    public static String CENTRAL_BANK_UUID = "114514-1919-810";
-    public static String CENTRAL_BANK_NAME = "CentralBank";
+    public static final String CENTRAL_BANK_UUID = "114514-1919-810";
+    public static final String CENTRAL_BANK_NAME = "CentralBank";
 
     public CentralBank() {
         super(CENTRAL_BANK_UUID);

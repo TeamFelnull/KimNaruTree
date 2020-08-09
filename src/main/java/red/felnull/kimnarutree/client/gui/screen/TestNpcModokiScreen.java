@@ -1,19 +1,17 @@
 package red.felnull.kimnarutree.client.gui.screen;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import red.felnull.kimnarutree.KimNaruTree;
-import red.felnull.kimnarutree.container.TestNpcModokiContainer;
-import red.felnull.kimnarutree.data.bank.CentralBank;
+import red.felnull.kimnarutree.entity.container.TestNpcModokiContainer;
+import red.felnull.kimnarutree.lib.ResourceUtil;
+import red.felnull.kimnarutree.lib.TEXTURE;
 import red.felnull.otyacraftengine.client.gui.screen.AbstractIkisugiContainerScreen;
 
 public class TestNpcModokiScreen extends AbstractIkisugiContainerScreen<TestNpcModokiContainer> {
-    protected static final ResourceLocation SB_GUI_TEXTURE = new ResourceLocation(KimNaruTree.MODID, "textures/gui/npc_test.png");
+    protected static final ResourceLocation SB_GUI_TEXTURE = ResourceUtil.kntResource(TEXTURE.GUI_NPC_TEST);
 
     public TestNpcModokiScreen(TestNpcModokiContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);

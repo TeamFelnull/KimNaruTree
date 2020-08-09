@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public abstract class AbstractNBTBased {
     protected String key;
-    protected static String dummy = "dummy";
+    protected static final String dummy = "dummy";
 
     public AbstractNBTBased(String key){
         this.key = key;

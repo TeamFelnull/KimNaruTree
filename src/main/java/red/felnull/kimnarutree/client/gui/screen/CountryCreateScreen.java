@@ -5,11 +5,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
 import red.felnull.kimnarutree.KimNaruTree;
 import red.felnull.kimnarutree.data.country.Country;
+import red.felnull.kimnarutree.lib.GUI;
 import red.felnull.otyacraftengine.client.gui.IkisugiDialogTexts;
 import red.felnull.otyacraftengine.client.gui.screen.IkisugiScreen;
 import red.felnull.otyacraftengine.client.util.IKSGRenderUtil;
@@ -22,64 +21,65 @@ import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.List;
 
+import static red.felnull.kimnarutree.lib.TranslationUtil.*;
+
 public class CountryCreateScreen extends IkisugiScreen {
 
-    public static final ResourceLocation TEST_NATIONAL_FLAG = new ResourceLocation(KimNaruTree.MODID, "textures/gui/test_national_flag.png");
+    public static final ResourceLocation TEST_NATIONAL_FLAG = new ResourceLocation(KimNaruTree.MOD_ID, "textures/gui/test_national_flag.png");
     private final Screen lastScreen;
     protected Button btnCreate;
     protected byte[] flagImage;
     protected boolean loading = false;
     protected String loadingErr;
-    protected int widthFlag;
-    protected int heightFlag;
-    protected boolean createFlag1;
-    protected boolean createFlag2;
-    private TextFieldWidget countryNameField;
+    protected int flagWidth;
+    protected int flagHeight;
+    protected boolean hasSetCountryName;
+    protected boolean hasSetFlagImage;
     private String countryName;
+    private TextFieldWidget countryNameField;
 
     public CountryCreateScreen(Screen screen) {
-        super(new TranslationTextComponent("countrycreate.title"));
+        super(kntTranslate(GUI.COUNTRY_CREATE_TITLE));
         this.lastScreen = screen;
-        widthFlag = 256;
-        heightFlag = 171;
+        flagWidth = 256;
+        flagHeight = 171;
     }
 
     @Override
     public void initByIKSG() {
-        btnCreate = this.addWidgetByIKSG(new Button(this.getWidthByIKSG() / 2 - 155 + 160, this.getHeightByIKSG() - 29, 150, 20, IkisugiDialogTexts.CRATE, (ac) -> {
-            Country.sendCreateRequest(countryName, flagImage);
-            this.getMinecraft().displayGuiScreen(null);
+        btnCreate = addWidgetByIKSG(new Button(getWidthByIKSG() / 2 - 155 + 160, getHeightByIKSG() - 29, 150, 20, IkisugiDialogTexts.CRATE, ac -> {
+                    Country.sendCreateRequest(countryName, flagImage);
+            getMinecraft().displayGuiScreen(null);
         }));
-        this.addWidgetByIKSG(new Button(this.getWidthByIKSG() / 2 - 155, this.getHeightByIKSG() - 29, 150, 20, IkisugiDialogTexts.CANCEL, (p_213125_1_) -> {
-            this.getMinecraft().displayGuiScreen(lastScreen);
-        }));
-        this.countryNameField = this.addWidgetByIKSG(new TextFieldWidget(this.field_230712_o_, this.field_230708_k_ / 2 - 100, 60, 200, 20, new TranslationTextComponent("selectWorld.enterName")));
-        this.countryNameField.setText(I18n.format("countrycreate.defaltName", PlayerHelper.getUserName(getMinecraft().player)));
-        this.countryNameField.setResponder((string) -> {
-            this.countryName = string;
-            createFlag1 = !this.countryNameField.getText().isEmpty();
-            this.btnCreate.field_230693_o_ = createFlag1 && createFlag2;
+        addWidgetByIKSG(new Button(getWidthByIKSG() / 2 - 155, getHeightByIKSG() - 29, 150, 20, IkisugiDialogTexts.CANCEL, p_213125_1_ ->
+                getMinecraft().displayGuiScreen(lastScreen)));
+        countryNameField = addWidgetByIKSG(new TextFieldWidget(field_230712_o_, field_230708_k_ / 2 - 100, 60, 200, 20, kntTranslate(GUI.SELECT_WORLD_ENTER_NAME)));
+        countryNameField.setText(i18n((GUI.COUNTRY_CREATE_DEFAULT_NAME), PlayerHelper.getUserName(getMinecraft().player)));
+        countryNameField.setResponder((string) -> {
+            countryName = string;
+            hasSetCountryName = !countryNameField.getText().isEmpty();
+            btnCreate.field_230693_o_ = hasSetCountryName && hasSetFlagImage;
         });
-        createFlag1 = !this.countryNameField.getText().isEmpty();
-        this.btnCreate.field_230693_o_ = createFlag1 && createFlag2;
-        countryName = this.countryNameField.getText();
+        countryName = countryNameField.getText();
+        hasSetCountryName = !countryName.isEmpty();
+        btnCreate.field_230693_o_ = hasSetCountryName && hasSetFlagImage;
 
-        this.setFocusedDefault(this.countryNameField);
+        setFocusedDefault(countryNameField);
     }
 
     @Override
     public void tickByIKSG() {
-        this.countryNameField.tick();
+        countryNameField.tick();
     }
 
     @Override
     public void renderByIKSG(MatrixStack matrix, int mouseX, int mouseY, float parTick) {
-        this.renderBackgroundByIKSG(matrix);
-        this.drawCenterStringByIKSG(matrix, getTitleByIKSG(), getWidthByIKSG() / 2, 15, 16777215);
+        renderBackgroundByIKSG(matrix);
+        drawCenterStringByIKSG(matrix, getTitleByIKSG(), getWidthByIKSG() / 2, 15, 16777215);
         super.renderByIKSG(matrix, mouseX, mouseY, parTick);
-        this.drawStringByIKSG(matrix, this.field_230712_o_, I18n.format("countrycreate.enterName"), this.getWidthByIKSG() / 2 - 100, 47, -6250336);
-        this.drawStringByIKSG(matrix, this.field_230712_o_, I18n.format("countrycreate.enterFlag"), this.getWidthByIKSG() / 2 - 150, 87, -6250336);
-        this.drawStringByIKSG(matrix, this.field_230712_o_, I18n.format("countrycreate.dropInfo"), this.getWidthByIKSG() / 2 - 150, 97, -6250336);
+        drawStringByIKSG(matrix, field_230712_o_, i18n(GUI.COUNTRY_CREATE_ENTER_NAME), getWidthByIKSG() / 2 - 100, 47, -6250336);
+        drawStringByIKSG(matrix, field_230712_o_, i18n(GUI.COUNTRY_CREATE_ENTER_FLAG), getWidthByIKSG() / 2 - 150, 87, -6250336);
+        drawStringByIKSG(matrix, field_230712_o_, i18n(GUI.COUNTRY_CREATE_DROP_INFO), getWidthByIKSG() / 2 - 150, 97, -6250336);
 
         ResourceLocation loc = TEST_NATIONAL_FLAG;
 
@@ -88,23 +88,22 @@ public class CountryCreateScreen extends IkisugiScreen {
         }
         IKSGRenderUtil.matrixPush(matrix);
         RenderSystem.enableBlend();
-        IKSGRenderUtil.guiBindAndBlit(loc, matrix, this.getWidthByIKSG() / 2 - 150, 110, 0, 0, widthFlag / 3, heightFlag / 3, widthFlag / 3, heightFlag / 3);
+        IKSGRenderUtil.guiBindAndBlit(loc, matrix, getWidthByIKSG() / 2 - 150, 110, 0, 0, flagWidth / 3, flagHeight / 3, flagWidth / 3, flagHeight / 3);
         IKSGRenderUtil.matrixPop(matrix);
 
         if (loading) {
             IKSGRenderUtil.matrixPush(matrix);
             RenderSystem.enableBlend();
-            IKSGRenderUtil.guiBindAndBlit(IKSGTextureUtil.getLoadingIconTextuer(), matrix, this.getWidthByIKSG() / 2 - 150 + 256 / 3 + 5, 97 + 10, 0, 0, 8, 8, 8, 8);
+            IKSGRenderUtil.guiBindAndBlit(IKSGTextureUtil.getLoadingIconTextuer(), matrix, getWidthByIKSG() / 2 - 150 + 256 / 3 + 5, 97 + 10, 0, 0, 8, 8, 8, 8);
             IKSGRenderUtil.matrixPop(matrix);
-            this.drawStringByIKSG(matrix, this.field_230712_o_, I18n.format("countrycreate.loadingImage"), this.getWidthByIKSG() / 2 - 150 + 256 / 3 + 15, 97 + 10, -6250336);
+            drawStringByIKSG(matrix, field_230712_o_, i18n(GUI.COUNTRY_CREATE_LOADING_IMAGE), getWidthByIKSG() / 2 - 150 + 256 / 3 + 15, 97 + 10, -6250336);
         }
 
         if (loadingErr != null) {
-            this.drawStringByIKSG(matrix, this.field_230712_o_, I18n.format("countrycreate.loadingErr", loadingErr), this.getWidthByIKSG() / 2 - 150 + 256 / 3 + 3, 97 + 10, -6250336);
+            drawStringByIKSG(matrix, field_230712_o_, i18n((GUI.COUNTRY_CREATE_ERR_LOADING), loadingErr), getWidthByIKSG() / 2 - 150 + 256 / 3 + 3, 97 + 10, -6250336);
         }
 
-        this.countryNameField.func_230430_a_(matrix, mouseX, mouseY, parTick);
-
+        countryNameField.func_230430_a_(matrix, mouseX, mouseY, parTick);
     }
 
     @Override
@@ -114,7 +113,7 @@ public class CountryCreateScreen extends IkisugiScreen {
             LoadingThread lt = new LoadingThread(this, dragFiles.get(0));
             lt.start();
         } else if (dragFiles.size() != 1) {
-            loadingErr = I18n.format("countrycreate.err.multiplefiles");
+            loadingErr = i18n(GUI.COUNTRY_CREATE_ERR_MULTIPLE_FILES);
         }
     }
 
@@ -138,7 +137,7 @@ class LoadingThread extends Thread {
         try {
             BufferedImage bfi = PictuerUtil.getBffImage(path);
             if (bfi == null) {
-                screen.loadingErr = I18n.format("countrycreate.err.noimage");
+                screen.loadingErr = i18n(GUI.COUNTRY_CREATE_ERR_NO_IMAGE);
                 screen.loading = false;
                 return;
             }
@@ -161,19 +160,19 @@ class LoadingThread extends Thread {
             }
             BufferedImage outbfi = new BufferedImage(aw, ah, bfi.getType());
             outbfi.createGraphics().drawImage(bfi.getScaledInstance(aw, ah, Image.SCALE_AREA_AVERAGING), 0, 0, aw, ah, null);
-            screen.widthFlag = outbfi.getWidth();
-            screen.heightFlag = outbfi.getHeight();
+            screen.flagWidth = outbfi.getWidth();
+            screen.flagHeight = outbfi.getHeight();
             screen.flagImage = PictuerUtil.geByteImage(outbfi);
             if (screen.flagImage == null) {
-                screen.widthFlag = 256;
-                screen.heightFlag = 171;
+                screen.flagWidth = 256;
+                screen.flagHeight = 171;
             }
             screen.loadingErr = null;
         } catch (Exception ex) {
             screen.loadingErr = ex.toString();
         }
-        screen.createFlag2 = screen.flagImage != null;
-        screen.btnCreate.field_230693_o_ = screen.createFlag1 && screen.createFlag2;
+        screen.hasSetFlagImage = screen.flagImage != null;
+        screen.btnCreate.field_230693_o_ = screen.hasSetCountryName && screen.hasSetFlagImage;
         screen.loading = false;
     }
 }

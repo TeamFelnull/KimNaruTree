@@ -1,16 +1,17 @@
 package red.felnull.kimnarutree.handler;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
 import red.felnull.kimnarutree.data.country.Country;
+import red.felnull.kimnarutree.lib.MESSAGE;
+import red.felnull.kimnarutree.lib.StringUtil;
 import red.felnull.kimnarutree.packet.CreateCountryMessage;
 import red.felnull.otyacraftengine.util.PlayerHelper;
 
-import java.util.UUID;
 import java.util.function.Supplier;
+
+import static red.felnull.kimnarutree.lib.TranslationUtil.kntTranslate;
 
 public class CreateCountryMessageHandler {
 
@@ -19,14 +20,14 @@ public class CreateCountryMessageHandler {
         ServerPlayerEntity pl = ctx.get().getSender();
 
         if (Country.getCountryByPlayer(pl) != null) {
-            pl.sendStatusMessage(new TranslationTextComponent("country.belongTo"), false);
+            pl.sendStatusMessage(kntTranslate(MESSAGE.COUNTRY_BELONG_TO), false);
             return;
         }
 
         Country.register(pl, message);
         pl.getServer().getPlayerList().getPlayers().forEach( player ->
-            player.sendStatusMessage(new TranslationTextComponent("country.notification"
-                    , new StringTextComponent(PlayerHelper.getUserName(player)).func_240699_a_(TextFormatting.GREEN)
-                    , new StringTextComponent(message.name).func_240699_a_(TextFormatting.YELLOW)), false));
+            player.sendStatusMessage(kntTranslate(MESSAGE.COUNTRY_NOTIFICATION
+                    , StringUtil.colorText(PlayerHelper.getUserName(player), TextFormatting.GREEN)
+                    , StringUtil.colorText(message.name, TextFormatting.YELLOW)), false));
     }
 }

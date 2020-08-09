@@ -10,11 +10,12 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.util.ResourceLocation;
 import red.felnull.kimnarutree.client.render.model.NPCModel;
 import red.felnull.kimnarutree.entity.NPCEntity;
+import red.felnull.kimnarutree.lib.ResourceUtil;
+import red.felnull.kimnarutree.lib.TEXTURE;
 import red.felnull.otyacraftengine.client.util.IKSGTextureUtil;
 
 public class NPCRenderer extends BipedRenderer<NPCEntity, NPCModel<NPCEntity>> {
-    private static final ResourceLocation TEXTURES = new ResourceLocation(
-            "textures/entity/steve.png");
+    private static final ResourceLocation TEXTURES = ResourceUtil.resource(TEXTURE.ENTITY_STEVE);
 
     public NPCRenderer(EntityRendererManager renderManagerIn) {
 

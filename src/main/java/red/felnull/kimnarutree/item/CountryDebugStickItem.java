@@ -9,47 +9,57 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import red.felnull.kimnarutree.KimNaruTree;
 import red.felnull.kimnarutree.data.country.Country;
+import red.felnull.kimnarutree.lib.ITranslationEnum;
+import red.felnull.kimnarutree.lib.MESSAGE;
 import red.felnull.otyacraftengine.item.IDetailedInfomationItem;
 
 import java.util.List;
 
-public class CountryDebugStickItem extends Item implements IDetailedInfomationItem {
+import static red.felnull.kimnarutree.lib.TranslationUtil.*;
 
-    public static String COUNTRY_UUID = "CountryUUID";
-    public static String COUNTRY_NAME = "CountryName";
-    public static String FLAG_UUID = "FlagUUID";
-    public static String FLAG_WIDTH = "FlagWidth";
-    public static String FLAG_HEIGHT = "FlagHeight";
+public class CountryDebugStickItem extends KNTItem implements IDetailedInfomationItem {
+
+    public static final String COUNTRY_UUID = "CountryUUID";
+    public static final String COUNTRY_NAME = "CountryName";
+    public static final String FLAG_UUID = "FlagUUID";
+    public static final String FLAG_WIDTH = "FlagWidth";
+    public static final String FLAG_HEIGHT = "FlagHeight";
+
+    public static final String ALREADY_SET = ".already_set";
 
     public CountryDebugStickItem(Properties properties) {
         super(properties);
     }
 
+    public static Item instance(ITranslationEnum klang, int maxStackSize){
+        return new CountryDebugStickItem(new Item.Properties().maxStackSize(maxStackSize).group(KNTItemGroup.MOD_TAB)).setRegistryName(KimNaruTree.MOD_ID, klang.getKey());
+    }
+
     public static Country getCountryForItem(ItemStack stack) {
         CompoundNBT tag = stack.getTag();
 
-        if (tag == null || !tag.contains(COUNTRY_UUID) || tag.getString(COUNTRY_UUID).equals("null"))
+        if (tag == null || !tag.contains(COUNTRY_UUID))
             return null;
 
         return Country.getCountryByUUID(tag.getString(COUNTRY_UUID));
     }
 
     public static void setCountryForItem(ItemStack stack, Country country) {
-        CompoundNBT tag = stack.getOrCreateTag();
+        if (country == null)
+            return;
 
-        if (country != null) {
-            tag.putString(COUNTRY_UUID, country.getUUID());
-            tag.putString(COUNTRY_NAME, country.getName());
-            tag.putString(FLAG_UUID, country.getFlagImageUUID());
-            tag.putInt(FLAG_WIDTH, country.getFlagWidth());
-            tag.putInt(FLAG_HEIGHT, country.getFlagHeight());
-        }
+        CompoundNBT tag = stack.getOrCreateTag();
+        tag.putString(COUNTRY_UUID, country.getUUID());
+        tag.putString(COUNTRY_NAME, country.getName());
+        tag.putString(FLAG_UUID, country.getFlagImageUUID());
+        tag.putInt(FLAG_WIDTH, country.getFlagWidth());
+        tag.putInt(FLAG_HEIGHT, country.getFlagHeight());
     }
 
     @Override
@@ -59,22 +69,25 @@ public class CountryDebugStickItem extends Item implements IDetailedInfomationIt
 
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        PlayerEntity player = context.getPlayer();
         World world = context.getWorld();
+        BlockPos pos = context.getPos();
+        PlayerEntity player = context.getPlayer();
+
         if (!world.isRemote && player != null) {
+            Country current = Country.getCountryByTerritory(world, pos);
 
             if (!player.isCrouching()) {
-                Country country = getCountryForItem(context.getItem());
-                Country preCountry = Country.getCountryByTerritory(world, new ChunkPos(context.getPos()));
-                if (country != null && (preCountry == null || !preCountry.equals(country))) {
-                    Country.setTerritory(context.getWorld(), new ChunkPos(context.getPos()), country);
-                    player.sendStatusMessage(new TranslationTextComponent("message.country.set", country.getName()), true);
+                Country next = getCountryForItem(context.getItem());
+                if (next != null && !next.equals(current)) {
+                    Country.setTerritory(world, pos, next);
+                    player.sendStatusMessage(kntTranslate(MESSAGE.COUNTRY_SET, next.getName()), true);
                 }
-            } else {
-                Country country = Country.getCountryByTerritory(world, new ChunkPos(context.getPos()));
-                if (country != null) {
-                    Country.setTerritory(context.getWorld(), new ChunkPos(context.getPos()), null);
-                    player.sendStatusMessage(new TranslationTextComponent("message.country.set", new TranslationTextComponent("message.country.terranullius")), true);
+            }
+
+            if (player.isCrouching()) {
+                if (current != null) {
+                    Country.setTerritory(world, pos, null);
+                    player.sendStatusMessage(kntTranslate(MESSAGE.COUNTRY_SET, kntTranslate(MESSAGE.COUNTRY_TERRA_NULLIUS)), true);
                 }
             }
         }
@@ -87,40 +100,39 @@ public class CountryDebugStickItem extends Item implements IDetailedInfomationIt
         if (worldIn.isRemote)
             return false;
 
-        ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
-
         if (!player.isCrouching()) {
-            Country country = Country.getCountryByTerritory(worldIn, new ChunkPos(pos));
-            if (country != null)
-                player.sendStatusMessage(new TranslationTextComponent("message.country.territory", country.getName()), true);
-            else
-                player.sendStatusMessage(new TranslationTextComponent("message.country.terranullius"), true);
-        } else {
-            List<Country> countryList = Country.getCountryList();
-            if (countryList.isEmpty()) {
-                return false;
-            } else {
-                Country settedC = getCountryForItem(stack);
-                Country setingC = null;
-                if (settedC == null) {
-                    setingC = countryList.get(0);
-                } else if (countryList.indexOf(settedC) == countryList.size() - 1) {
-                    setingC = countryList.get(0);
-                } else {
-                    setingC = countryList.get(countryList.indexOf(settedC) + 1);
-                }
-                player.sendStatusMessage(new StringTextComponent(setingC.getName()), true);
-                setCountryForItem(stack, setingC);
-            }
+            Country country = Country.getCountryByTerritory(worldIn, pos);
+            TranslationTextComponent component;
+            component = (country != null) ?
+                    kntTranslate(MESSAGE.COUNTRY_TERRITORY, country.getName()) : kntTranslate(MESSAGE.COUNTRY_TERRA_NULLIUS);
+
+            player.sendStatusMessage(component, true);
         }
+
+        if (player.isCrouching()) {
+            List<Country> list = Country.getCountryList();
+            if(list.isEmpty())
+                return false;
+
+            ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
+            Country current = getCountryForItem(stack);
+            Country next;
+            next = (current == null) || (list.indexOf(current) == list.size() - 1) ?
+                    list.get(0) : list.get(list.indexOf(current) + 1);
+
+            setCountryForItem(stack, next);
+            player.sendStatusMessage(new StringTextComponent(next.getName()), true);
+        }
+
         return false;
     }
 
     @Override
     public ITextComponent getDisplayName(ItemStack stack) {
+        CompoundNBT tag = stack.getTag();
 
-        if (stack.getTag() != null && stack.getTag().contains(COUNTRY_NAME) && !stack.getTag().getString(COUNTRY_NAME).equals("null")) {
-            return new TranslationTextComponent(this.getTranslationKey(stack) + ".alreadyset", stack.getTag().getString(COUNTRY_NAME));
+        if (tag != null && tag.contains(COUNTRY_NAME)) {
+            return kntTranslate(getTranslationKey(stack) + ALREADY_SET, tag.getString(COUNTRY_NAME));
         }
 
         return super.getDisplayName(stack);

@@ -1,20 +1,32 @@
 package red.felnull.kimnarutree.data.player;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import red.felnull.kimnarutree.data.AbstractNBTBased;
 import red.felnull.kimnarutree.data.Knbt;
+import red.felnull.kimnarutree.lib.ADVANCEMENT;
 import red.felnull.otyacraftengine.util.PlayerHelper;
+
+import static red.felnull.kimnarutree.lib.ResourceUtil.kntResource;
 
 public class KNTPlayerData extends AbstractNBTBased {
 
-    public static String USER_NAME = "UserName";
-    public static String MONEY  = "Money";
-    public static String CREDITWORTHINESS = "Creditworthiness";
-    public static String COUNTRY_UUID = "CountryUUID";
+    public ServerPlayerEntity player;
+
+    public static final String USER_NAME = "UserName";
+    public static final String MONEY  = "Money";
+    public static final String CREDITWORTHINESS = "Creditworthiness";
+    public static final String COUNTRY_UUID = "CountryUUID";
 
     public KNTPlayerData(String uuid){
         super(uuid);
+    }
+
+    public KNTPlayerData(ServerPlayerEntity player){
+        super(PlayerHelper.getUUID(player));
+        this.player = player;
     }
 
     @Override
@@ -48,6 +60,66 @@ public class KNTPlayerData extends AbstractNBTBased {
         return !getCountryUUID().isEmpty();
     }
 
+    public void checkWallet() {
+        if(player == null)
+            return;
+
+        long money = getMoney();
+        if (money >= 1000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.WALLET_0), player);
+        }
+        if (money >= 10000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.WALLET_MAN), player);
+        }
+        if (money >= 1000000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.WALLET_100MAN), player);
+        }
+        if (money >= 10000000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.WALLET_1000MAN), player);
+        }
+        if (money >= 50000000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.WALLET_5000MAN), player);
+        }
+        if (money >= 100000000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.WALLET_OKU), player);
+        }
+        if (money >= 500000000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.WALLET_5OKU), player);
+        }
+        if (money >= 1000000000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.WALLET_10OKU), player);
+        }
+        if (money >= 10000000000L) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.WALLET_100OKU), player);
+        }
+    }
+
+    public long funeralCost() {
+        long cost = getMoney() / 2;
+
+        if(player == null || cost <= 0) {
+            return 0;
+        }
+
+        if (cost < 500) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.FUNERAL_0), player);
+        }
+        if (cost < 1000000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.FUNERAL_500), player);
+        }
+        if (cost < 30000000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.FUNERAL_100MAN), player);
+        }
+        if (cost < 1000000000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.FUNERAL_3000MAN), player);
+        }
+        if (cost >= 1000000000) {
+            PlayerHelper.grantAdvancement(kntResource(ADVANCEMENT.FUNERAL_10OKU), player);
+        }
+
+        return cost;
+    }
+
     public String getName(){
         return getNBT().getString(USER_NAME);
     }
@@ -62,6 +134,11 @@ public class KNTPlayerData extends AbstractNBTBased {
 
     public void setMoney(long money){
         getNBT().putLong(MONEY, money);
+        checkWallet();
+    }
+
+    public void addMoney(long money){
+        setMoney(getMoney() + money);
     }
 
     public int getCreditworthiness(){

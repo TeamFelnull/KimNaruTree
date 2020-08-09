@@ -1,4 +1,4 @@
-package red.felnull.kimnarutree.tileentity;
+package red.felnull.kimnarutree.entity.tile;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -6,8 +6,9 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import red.felnull.kimnarutree.container.TestNpcModokiContainer;
+import red.felnull.kimnarutree.entity.container.TestNpcModokiContainer;
+import red.felnull.kimnarutree.lib.OTHER;
+import red.felnull.kimnarutree.lib.TranslationUtil;
 import red.felnull.otyacraftengine.tileentity.IClientSyncbleTileEntity;
 import red.felnull.otyacraftengine.tileentity.IkisugiTileEntity;
 
@@ -22,7 +23,7 @@ public class TestNpcModokiTileEntity extends IkisugiTileEntity implements INamed
 
     @Override
     public ITextComponent getDisplayName() {
-        return new TranslationTextComponent("container.npc");
+        return TranslationUtil.kntTranslate(OTHER.CONTAINER_NPC);
     }
 
     @Override

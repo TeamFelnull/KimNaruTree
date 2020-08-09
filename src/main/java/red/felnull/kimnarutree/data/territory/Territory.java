@@ -47,8 +47,12 @@ public class Territory extends AbstractNBTBased {
         return new Territory(str(dim)).getNBT().getString(str(pos));
     }
 
+    public static void addTerritory(ResourceLocation dim, ChunkPos pos, Country country){
+        addTerritory(dim, pos, country != null ? country.getUUID() : TERRA_NULLIUS);
+    }
+
     public static void addTerritory(ResourceLocation dim, ChunkPos pos, String countryUUID){
-        Knbt.Territory().get(str(dim)).putString(str(pos), countryUUID != null ? countryUUID : TERRA_NULLIUS);
+        Knbt.Territory().get(str(dim)).putString(str(pos), countryUUID);
     }
 
     public static boolean isTerraNullius(ResourceLocation dim, ChunkPos pos){

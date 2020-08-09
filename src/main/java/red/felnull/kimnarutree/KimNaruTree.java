@@ -12,10 +12,10 @@ import org.apache.logging.log4j.Logger;
 import red.felnull.kimnarutree.proxy.ClientProxy;
 import red.felnull.kimnarutree.proxy.CommonProxy;
 
-@Mod(KimNaruTree.MODID)
+@Mod(KimNaruTree.MOD_ID)
 public class KimNaruTree {
 
-    public static final String MODID = "kimnarutree";
+    public static final String MOD_ID = "kimnarutree";
     public static final Logger LOGGER = LogManager.getLogger();
     public static final CommonProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new CommonProxy());
 
