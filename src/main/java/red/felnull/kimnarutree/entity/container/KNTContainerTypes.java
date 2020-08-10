@@ -4,8 +4,8 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import red.felnull.kimnarutree.KimNaruTree;
-import red.felnull.kimnarutree.lib.RESOURCE;
-import red.felnull.kimnarutree.lib.ResourceUtil;
+import red.felnull.kimnarutree.lib.resource.RESOURCE;
+import red.felnull.kimnarutree.lib.resource.ResourceUtil;
 import red.felnull.otyacraftengine.util.RegistryHelper;
 
 public class KNTContainerTypes {

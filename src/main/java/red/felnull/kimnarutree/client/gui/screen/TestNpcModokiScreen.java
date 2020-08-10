@@ -6,8 +6,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import red.felnull.kimnarutree.entity.container.TestNpcModokiContainer;
-import red.felnull.kimnarutree.lib.ResourceUtil;
-import red.felnull.kimnarutree.lib.TEXTURE;
+import red.felnull.kimnarutree.lib.resource.ResourceUtil;
+import red.felnull.kimnarutree.lib.resource.TEXTURE;
 import red.felnull.otyacraftengine.client.gui.screen.AbstractIkisugiContainerScreen;
 
 public class TestNpcModokiScreen extends AbstractIkisugiContainerScreen<TestNpcModokiContainer> {

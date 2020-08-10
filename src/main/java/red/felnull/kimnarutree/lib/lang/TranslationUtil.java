@@ -1,4 +1,4 @@
-package red.felnull.kimnarutree.lib;
+package red.felnull.kimnarutree.lib.lang;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TranslationTextComponent;

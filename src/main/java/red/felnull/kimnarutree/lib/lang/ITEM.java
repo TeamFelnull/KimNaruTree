@@ -1,11 +1,11 @@
-package red.felnull.kimnarutree.lib;
+package red.felnull.kimnarutree.lib.lang;
 
 public enum ITEM implements ITranslationEnum {
     TEST_ITEM("test_item"),
     PICKY("picky"),
     PICKY_DED("picky_ded"),
     NPC_SPAWN_EGG("npc_spawn_egg"),
-    PAS_BOOK("pass_book"),
+    PASSBOOK("passbook"),
     COUNTRY_DEBUG_STICK("country_debug_stick"),
     NATIONAL_FLAG("national_flag"),
     ;

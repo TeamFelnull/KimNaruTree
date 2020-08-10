@@ -17,7 +17,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import red.felnull.kimnarutree.KimNaruTree;
-import red.felnull.kimnarutree.lib.ITranslationEnum;
+import red.felnull.kimnarutree.lib.lang.ITranslationEnum;
 import red.felnull.kimnarutree.entity.tile.TestNpcModokiTileEntity;
 
 import javax.annotation.Nullable;

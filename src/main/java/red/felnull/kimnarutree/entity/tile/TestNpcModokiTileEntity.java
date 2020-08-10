@@ -7,8 +7,8 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.text.ITextComponent;
 import red.felnull.kimnarutree.entity.container.TestNpcModokiContainer;
-import red.felnull.kimnarutree.lib.OTHER;
-import red.felnull.kimnarutree.lib.TranslationUtil;
+import red.felnull.kimnarutree.lib.lang.OTHER;
+import red.felnull.kimnarutree.lib.lang.TranslationUtil;
 import red.felnull.otyacraftengine.tileentity.IClientSyncbleTileEntity;
 import red.felnull.otyacraftengine.tileentity.IkisugiTileEntity;
 

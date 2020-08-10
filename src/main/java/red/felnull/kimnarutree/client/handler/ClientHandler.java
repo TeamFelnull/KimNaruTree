@@ -10,6 +10,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import red.felnull.kimnarutree.client.gui.screen.CountryCreateScreen;
 import red.felnull.kimnarutree.data.country.Country;
 import red.felnull.kimnarutree.data.KNTDatas;
+import red.felnull.kimnarutree.item.PassbookItem;
 import red.felnull.otyacraftengine.api.event.common.ResponseEvent;
 import red.felnull.otyacraftengine.client.keys.OEKeyBindings;
 
@@ -40,9 +41,9 @@ public class ClientHandler {
                     e.setCanceled(true);
                 }
             }
-           /* if (e.getMessage().getString().contains("DataList: ")) {
-                MessagePassbookHandler.oldChatComponent = e.getMessage();
-            }*/
+            if (e.getMessage().getString().contains("Creditworthiness: ")) {
+                PassbookItem.oldChatComponent = e.getMessage();
+            }
         }
     }
 

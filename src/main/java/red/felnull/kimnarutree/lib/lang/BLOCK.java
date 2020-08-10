@@ -1,6 +1,6 @@
-package red.felnull.kimnarutree.lib;
+package red.felnull.kimnarutree.lib.lang;
 
-public enum BLOCK implements ITranslationEnum{
+public enum BLOCK implements ITranslationEnum {
     /*KNT*/
     TEST_BLOCK("test_block"),
     DENNIS_POSED("dennis_posed"),

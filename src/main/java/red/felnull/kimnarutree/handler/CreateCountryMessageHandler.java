@@ -4,14 +4,14 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.network.NetworkEvent;
 import red.felnull.kimnarutree.data.country.Country;
-import red.felnull.kimnarutree.lib.MESSAGE;
-import red.felnull.kimnarutree.lib.StringUtil;
+import red.felnull.kimnarutree.lib.lang.MESSAGE;
+import red.felnull.kimnarutree.lib.resource.StringUtil;
 import red.felnull.kimnarutree.packet.CreateCountryMessage;
 import red.felnull.otyacraftengine.util.PlayerHelper;
 
 import java.util.function.Supplier;
 
-import static red.felnull.kimnarutree.lib.TranslationUtil.kntTranslate;
+import static red.felnull.kimnarutree.lib.lang.TranslationUtil.kntTranslate;
 
 public class CreateCountryMessageHandler {
 

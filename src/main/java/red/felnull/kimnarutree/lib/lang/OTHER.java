@@ -1,4 +1,4 @@
-package red.felnull.kimnarutree.lib;
+package red.felnull.kimnarutree.lib.lang;
 
 public enum OTHER implements ITranslationEnum {
     CURRENCY_UNIT("money.currency_unit"),

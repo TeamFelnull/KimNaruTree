@@ -2,21 +2,18 @@ package red.felnull.kimnarutree.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.LongArgumentType;
-import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TranslationTextComponent;
 import red.felnull.kimnarutree.data.player.KNTPlayerData;
-import red.felnull.kimnarutree.lib.COMMAND;
-import red.felnull.kimnarutree.lib.TranslationUtil;
+import red.felnull.kimnarutree.lib.lang.COMMAND;
 import red.felnull.kimnarutree.util.MoneyUtil;
 
 import java.util.Collection;
 
-import static red.felnull.kimnarutree.lib.TranslationUtil.kntTranslate;
+import static red.felnull.kimnarutree.lib.lang.TranslationUtil.kntTranslate;
 
 public class MoneyCommand {
 

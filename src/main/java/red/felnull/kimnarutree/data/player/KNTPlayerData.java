@@ -3,13 +3,13 @@ package red.felnull.kimnarutree.data.player;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
 import red.felnull.kimnarutree.data.AbstractNBTBased;
 import red.felnull.kimnarutree.data.Knbt;
-import red.felnull.kimnarutree.lib.ADVANCEMENT;
+import red.felnull.kimnarutree.data.country.Country;
+import red.felnull.kimnarutree.lib.lang.ADVANCEMENT;
 import red.felnull.otyacraftengine.util.PlayerHelper;
 
-import static red.felnull.kimnarutree.lib.ResourceUtil.kntResource;
+import static red.felnull.kimnarutree.lib.resource.ResourceUtil.kntResource;
 
 public class KNTPlayerData extends AbstractNBTBased {
 
@@ -155,5 +155,14 @@ public class KNTPlayerData extends AbstractNBTBased {
 
     public void setCountryUUID(String uuid){
         getNBT().putString(COUNTRY_UUID, uuid);
+    }
+
+    @Override
+    public String toString() {
+        return key + "'s info" + '\n' +
+                "Name: " + getName() + '\n' +
+                "Country: " + Country.getCountryByUUID(getCountryUUID()) + '\n' +
+                "Money: " + getMoney() + '\n' +
+                "Creditworthiness: : " + getCreditworthiness();
     }
 }

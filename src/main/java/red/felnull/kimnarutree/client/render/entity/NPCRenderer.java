@@ -10,8 +10,8 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.util.ResourceLocation;
 import red.felnull.kimnarutree.client.render.model.NPCModel;
 import red.felnull.kimnarutree.entity.NPCEntity;
-import red.felnull.kimnarutree.lib.ResourceUtil;
-import red.felnull.kimnarutree.lib.TEXTURE;
+import red.felnull.kimnarutree.lib.resource.ResourceUtil;
+import red.felnull.kimnarutree.lib.resource.TEXTURE;
 import red.felnull.otyacraftengine.client.util.IKSGTextureUtil;
 
 public class NPCRenderer extends BipedRenderer<NPCEntity, NPCModel<NPCEntity>> {

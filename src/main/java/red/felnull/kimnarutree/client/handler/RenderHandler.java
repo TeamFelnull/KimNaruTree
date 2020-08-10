@@ -2,7 +2,6 @@ package red.felnull.kimnarutree.client.handler;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -11,8 +10,7 @@ import red.felnull.kimnarutree.data.country.Country;
 import red.felnull.kimnarutree.data.KNTDatas;
 import red.felnull.kimnarutree.item.CountryDebugStickItem;
 import red.felnull.kimnarutree.item.KNTItems;
-import red.felnull.kimnarutree.lib.MESSAGE;
-import red.felnull.kimnarutree.lib.TranslationUtil;
+import red.felnull.kimnarutree.lib.lang.MESSAGE;
 import red.felnull.otyacraftengine.api.event.client.RenderItemOverlayIntoGUIEvent;
 import red.felnull.otyacraftengine.client.util.IKSGRenderUtil;
 import red.felnull.otyacraftengine.client.util.IKSGTextureUtil;
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static red.felnull.kimnarutree.lib.TranslationUtil.i18n;
+import static red.felnull.kimnarutree.lib.lang.TranslationUtil.i18n;
 
 public class RenderHandler {
     private static Minecraft mc = Minecraft.getInstance();

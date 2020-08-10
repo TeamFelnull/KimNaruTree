@@ -2,8 +2,8 @@ package red.felnull.kimnarutree.data;
 
 import net.minecraft.util.ResourceLocation;
 import red.felnull.kimnarutree.KimNaruTree;
-import red.felnull.kimnarutree.lib.RESOURCE;
-import red.felnull.kimnarutree.lib.ResourceUtil;
+import red.felnull.kimnarutree.lib.resource.RESOURCE;
+import red.felnull.kimnarutree.lib.resource.ResourceUtil;
 import red.felnull.otyacraftengine.api.registries.OERegistries;
 
 public class KNTDatas {

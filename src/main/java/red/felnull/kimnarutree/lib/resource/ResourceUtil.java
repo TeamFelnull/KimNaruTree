@@ -1,4 +1,4 @@
-package red.felnull.kimnarutree.lib;
+package red.felnull.kimnarutree.lib.resource;
 
 import net.minecraft.util.ResourceLocation;
 import red.felnull.kimnarutree.KimNaruTree;

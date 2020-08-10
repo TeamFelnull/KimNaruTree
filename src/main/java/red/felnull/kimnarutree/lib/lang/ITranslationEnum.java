@@ -1,4 +1,4 @@
-package red.felnull.kimnarutree.lib;
+package red.felnull.kimnarutree.lib.lang;
 
 public interface ITranslationEnum {
 

@@ -8,7 +8,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 import red.felnull.kimnarutree.KimNaruTree;
 import red.felnull.kimnarutree.data.country.Country;
-import red.felnull.kimnarutree.lib.GUI;
+import red.felnull.kimnarutree.lib.lang.GUI;
 import red.felnull.otyacraftengine.client.gui.IkisugiDialogTexts;
 import red.felnull.otyacraftengine.client.gui.screen.IkisugiScreen;
 import red.felnull.otyacraftengine.client.util.IKSGRenderUtil;
@@ -21,7 +21,7 @@ import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.List;
 
-import static red.felnull.kimnarutree.lib.TranslationUtil.*;
+import static red.felnull.kimnarutree.lib.lang.TranslationUtil.*;
 
 public class CountryCreateScreen extends IkisugiScreen {
 

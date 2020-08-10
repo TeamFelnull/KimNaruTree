@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import red.felnull.kimnarutree.KimNaruTree;
-import red.felnull.kimnarutree.lib.ITranslationEnum;
+import red.felnull.kimnarutree.lib.lang.ITranslationEnum;
 
 public class KNTBlock extends Block {
     public KNTBlock(Properties properties) {

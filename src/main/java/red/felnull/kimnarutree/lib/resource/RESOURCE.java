@@ -1,4 +1,4 @@
-package red.felnull.kimnarutree.lib;
+package red.felnull.kimnarutree.lib.resource;
 
 public enum RESOURCE implements IResourceEnum {
     TEST_NPC_MODOKI("test_npc_modoki"),

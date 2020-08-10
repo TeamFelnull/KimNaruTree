@@ -9,9 +9,9 @@ import net.minecraft.item.Item;
 import net.minecraftforge.registries.IForgeRegistry;
 import red.felnull.kimnarutree.KimNaruTree;
 import red.felnull.kimnarutree.item.KNTItemGroup;
-import red.felnull.kimnarutree.lib.BLOCK;
+import red.felnull.kimnarutree.lib.lang.BLOCK;
 
-import static red.felnull.kimnarutree.lib.TranslationUtil.kntTranslate;
+import static red.felnull.kimnarutree.lib.lang.TranslationUtil.kntTranslate;
 
 public class KNTBlocks {
 

@@ -2,7 +2,7 @@ package red.felnull.kimnarutree.item;
 
 import net.minecraft.item.Item;
 import red.felnull.kimnarutree.KimNaruTree;
-import red.felnull.kimnarutree.lib.ITranslationEnum;
+import red.felnull.kimnarutree.lib.lang.ITranslationEnum;
 
 public class NationalFlagItem extends KNTItem {
     public NationalFlagItem(Properties properties) {

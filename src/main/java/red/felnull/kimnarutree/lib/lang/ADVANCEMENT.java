@@ -1,4 +1,6 @@
-package red.felnull.kimnarutree.lib;
+package red.felnull.kimnarutree.lib.lang;
+
+import red.felnull.kimnarutree.lib.resource.IResourceEnum;
 
 public enum ADVANCEMENT implements IResourceEnum {
     WALLET_0("root"),

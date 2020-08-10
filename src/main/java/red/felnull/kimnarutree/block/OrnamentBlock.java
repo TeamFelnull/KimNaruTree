@@ -15,7 +15,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import red.felnull.kimnarutree.KimNaruTree;
-import red.felnull.kimnarutree.lib.ITranslationEnum;
+import red.felnull.kimnarutree.lib.lang.ITranslationEnum;
 
 public class OrnamentBlock extends KNTBlock {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;

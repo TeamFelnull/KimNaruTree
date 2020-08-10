@@ -15,13 +15,13 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import red.felnull.kimnarutree.KimNaruTree;
 import red.felnull.kimnarutree.data.country.Country;
-import red.felnull.kimnarutree.lib.ITranslationEnum;
-import red.felnull.kimnarutree.lib.MESSAGE;
+import red.felnull.kimnarutree.lib.lang.ITranslationEnum;
+import red.felnull.kimnarutree.lib.lang.MESSAGE;
 import red.felnull.otyacraftengine.item.IDetailedInfomationItem;
 
 import java.util.List;
 
-import static red.felnull.kimnarutree.lib.TranslationUtil.*;
+import static red.felnull.kimnarutree.lib.lang.TranslationUtil.*;
 
 public class CountryDebugStickItem extends KNTItem implements IDetailedInfomationItem {
 

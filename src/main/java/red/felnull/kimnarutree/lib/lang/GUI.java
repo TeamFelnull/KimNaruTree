@@ -1,6 +1,6 @@
-package red.felnull.kimnarutree.lib;
+package red.felnull.kimnarutree.lib.lang;
 
-public enum GUI implements ITranslationEnum{
+public enum GUI implements ITranslationEnum {
     /*KNT*/
     COUNTRY_CREATE_TITLE("gui.country.create.title"),
     SELECT_WORLD_ENTER_NAME("gui.select.world.enter_name"),

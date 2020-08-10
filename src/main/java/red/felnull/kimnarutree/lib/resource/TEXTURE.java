@@ -1,4 +1,4 @@
-package red.felnull.kimnarutree.lib;
+package red.felnull.kimnarutree.lib.resource;
 
 public enum TEXTURE implements IResourceEnum {
     /*NOT KNT*/

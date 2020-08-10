@@ -1,9 +1,7 @@
 package red.felnull.kimnarutree.handler;
 
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -18,8 +16,8 @@ import red.felnull.kimnarutree.data.country.Country;
 import red.felnull.kimnarutree.data.KNTDatas;
 import red.felnull.kimnarutree.data.player.KNTPlayerData;
 import red.felnull.kimnarutree.data.territory.Territory;
-import red.felnull.kimnarutree.lib.MESSAGE;
-import red.felnull.kimnarutree.lib.TranslationUtil;
+import red.felnull.kimnarutree.lib.lang.MESSAGE;
+import red.felnull.kimnarutree.lib.lang.TranslationUtil;
 import red.felnull.kimnarutree.util.MoneyUtil;
 import red.felnull.otyacraftengine.api.ResponseSender;
 import red.felnull.otyacraftengine.util.PlayerHelper;

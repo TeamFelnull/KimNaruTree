@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import red.felnull.kimnarutree.KimNaruTree;
-import red.felnull.kimnarutree.lib.ITranslationEnum;
+import red.felnull.kimnarutree.lib.lang.ITranslationEnum;
 
 public class KNTItem extends Item {
     public KNTItem(Properties properties) {
